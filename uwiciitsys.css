@@ -24,6 +24,11 @@ body{
     font-family: Verdana, Geneva, sans-serif;
 }
 
+/* .pinfo_content{
+      max-width: 500px;
+      margin: auto;
+} */
+
 .loginpgbutton{
     background-color: #E5E7E9;
     color:#4CAF50 ;
@@ -87,10 +92,13 @@ body{
     color: white;
 }
 
-.querytable{
+.pinfotable{
     display: block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.pinfo_query{
+.pinfo{
     display: inherit;
 }

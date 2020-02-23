@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Personal Information</title>
+        <meta  charset="utf-8">
+        <meta name="viewport" content="width=device-with, initial-scle=1">
+        <link rel="stylesheet" type="text/css" href="uwiciitsys.css">
+    </head>
+
+    <body>
+        <header>
+            <img src="UWICIITLogo.PNG" alt"UWICIITLogo"  height="100">
+        </header>
+        <hr class="headerdiv">
+
+        <div class="menunav">
+            <a class="active" href="personalinfomenu.html">Personal Information</a>
+            <a href="#">Academic Information</a>
+            <a href="#">Event Information</a>
+        </div>
+
+        <form action="insert php here">
+            <div class="menutitle">
+                <h2>Personal Information</h2>
+            </div>
+            <!-- <div id="personaname">
+                <h3>Name</h3>
+            </div>
+     -->
+            <table class="pinfotable">
+
+                <tr class="sectionheader">
+                    <td>
+                        <h4>Personal Details</h4>
+                    </td>
+                </tr>
+                    <td class="pinfo">
+                        <label for="mstatus">Marital Status:</label>
+                        <input type="text" id="mstatus" name="mstatus" required><br><br>
+                    </td>
+
+                    <td class="pinfo">
+                        <label for="addr">Address:</label>
+                        <input type="text" id="addr" name="addr" required><br><br>
+                    </td>
+                </tr>
+                <tr class="sectionheader">
+                    <td>
+                        <h4>Contact Information</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pinfo">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email"required><br><br>
+                    </td>
+                    <td class="pinfo">
+                        <label for="addr">Address:</label>
+                        <input type="text" id="addr" name="addr" required><br><br>
+                    </td>
+                    <td class="pinfo">
+                        <label for="phonenum">Telephone Number:</label>
+                        <input type="tel" id="phonenum" name="phonenum" required><br><br>
+                    </td>
+                    <td class="pinfo">
+                        <label for="mobilenum">Mobile Number:</label>
+                        <input type="tel" id="mobilenum" name="mobilenum" required><br><br>
+                    </td>
+                </tr>
+                <tr class="sectionheader">
+                    <td>
+                        <h4>Emergency Contact</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pinfo">
+                        <label for="cname">Name:</label>
+                        <input type="text" id="cname" name="cname"><br><br>
+                    </td>
+                    <td class="pinfo">
+                        <label for="relationship">Relationship:</label>
+                        <select id="relationship">
+                            <option value="parent"> Relative </option>
+                            <option value="spouse"> Spouse </option>
+                            <option value="child"> Friend </output>
+                        </select><br><br>
+                    </td>
+                    <td class="pinfo">
+                        <label for="caddr">Address:</label>
+                        <input type="text" id="caddr" name="caddr" required><br><br>
+                    </td>
+                    <td class="pinfo">
+                        <label for="cphonenum">Phone Number:</label>
+                        <input type="tel" id="cphonenum" name="cphonenum"><br><br>
+                    </td>
+                </tr>
+            </table>          
+        </form>
+    </body>
+</html>
