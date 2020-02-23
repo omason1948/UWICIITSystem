@@ -1,0 +1,96 @@
+.headerdiv{
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+    /*color: #2ECC71; */  
+}
+
+#maindiv{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 3px;
+    border-color: #196F3D;
+}
+header{background-color: white;}
+
+body{
+    background-color:#F2F2F2;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.loginpgbutton{
+    background-color: #E5E7E9;
+    color:#4CAF50 ;
+}
+
+.menutitle{
+    text-align: left;
+    font-size: 20px;
+    color: #3d9041;
+}
+
+.menulinksinfo{
+    background-color: white;
+}
+
+.menulinks{
+    color: #196F3D;
+    font-weight: bold;
+}
+
+.menuinfo{
+    color: #05170c;
+}
+
+.linkdesc{
+    font-size: 60%;
+}
+
+.mainmenutable{
+    border-collapse: separate;
+    border-spacing: 10px;
+    position: fixed;
+    width: 80%
+}
+
+.menunav{
+    background-color: #4CAF50;
+    overflow: hidden;
+}
+
+.menunav a{ 
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 12px;
+}
+
+.menunav a:hover{
+    background-color: #E5E7E9;
+    color: black;
+}
+
+.menunav a.active{
+    background-color: white;
+    color:#4CAF50;
+}
+
+.sectionheader{
+    background-color: #4CAF50;
+    color: white;
+}
+
+.querytable{
+    display: block;
+}
+
+.pinfo_query{
+    display: inherit;
+}

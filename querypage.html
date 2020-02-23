@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Queries</title>
+        <meta  charset="utf-8">
+        <meta name="viewport" content="width=device-with, initial-scle=1">
+        <link rel="stylesheet" type="text/css" href="uwiciitsys.css">
+    </head>
+
+    <body>
+        <header>
+            <img src="UWICIITLogo.PNG" alt"UWICIITLogo"  height="100">
+        </header>
+        <hr class="headerdiv">
+
+        <div class="menunav">
+            <a class="active" href="personalinfopage.html">Personal Information</a>
+            <a href="#">Academic Information</a>
+            <a href="#">Event Information</a>
+        </div>
+
+        <form action="insert php here">
+            <div class="menutitle">
+                <h2>Student Query</h2>
+            </div>
+            <table class="querytable">
+                <!-- <tr class="menuinfo">
+                    <th class="menutitle">
+                        <h2>Student Query</h2> 
+                    </th>
+                </tr> -->
+                <tr class="sectionheader">
+                    <td>
+                        <h4>Identification and Personal Details</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pinfo_query">
+                        <label for="studentId">Student Identification: </label>
+                        <input type="number" placeholder="Please Enter Student ID" name="studentId" required> 
+                    </td>
+                    <td class="pinfo_query">
+                        <label for="name">Name: </label>
+                        <input type="text" placeholder="Please Enter Full Name" name="name" required>
+                    </td>
+                    <td class="pinfo_query"> 
+                        <label for="email">Email: </label>
+                        <input type="email" placeholder="Please enter Email Address" name="email" required> 
+                    </td>
+                </tr>
+
+                <tr class="sectionheader">
+                    <td>
+                        <h4>Query Details</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="yearofstudy">Year of Study</label><br>
+                        <input type="radio" name="yearofstudy" value="year1" checked> Year 1 <br>
+                        <input type="radio" name="yearofstudy" value="year2"> Year 2 <br>
+                        <input type="radio" name="yearofstudy" value="year3"> Year 3 <br>
+                        <input type="radio" name="yearofstudy" value="year4"> Year 4 <br>
+                    </td>
+                    <td>
+                        <label for="semester">Semester</label><br>
+                        <input type="radio" name="semester" value="semester1" checked> Semester 1 <br>
+                        <input type="radio" name="semester" value="semester2"> Semester 2 <br>
+                        <input type="radio" name="semester" value="Summer"> Summer<br>
+                    </td>
+                </tr>
+                <tr class="sectionheader">
+                    <td>
+                        <h4>Please select the option that applies to your query.</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="Checkbox" name="grade" value="yes">Grade
+                        <input type="Checkbox" name="finance" value="yes">Finance
+                        <input type="Checkbox" name="transcript" value="yes">Transcript
+                        <input type="Checkbox" name="course" value="yes">Course
+                        <input type="Checkbox" name="other" value="yes">Other
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea rows="6" cols="100">Please state your query.
+                        </textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
