@@ -1,0 +1,114 @@
+  body{
+    background:#F2F2F2;
+  }
+
+  h1{
+    color:rgb(59,130,1);
+  }
+
+  .boldme{
+    font-weight:bold;
+  }
+
+  .breadcrumb a, .breadcrumb li{
+    font-size:10px;
+  }
+
+  .userdetails p{
+    font-size: 11px;
+    margin:0px;
+  }
+
+  .system-main-menu-nav{
+    background:rgb(35,80,3);
+    color:#fff;
+  }
+
+  .system-main-menu-nav a{
+    color:rgba(255,255,255,0.8);
+    font-size:11px;
+    padding-right:80px;
+    padding-left:15px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .system-main-menu-nav a:hover{
+    color:#fff;
+  }
+
+  .system-main-menu-nav .active{
+    background: rgb(48,114,3);
+    color:#fff;
+  }
+
+  .system-main-menu-nav .active:after{
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 42px;
+    right: -23px;
+    background: rgb(35,80,3);
+    top: -8px;
+    transform: rotate(-22deg);
+  }
+
+  .card-slim-icon .card-body{
+    padding:10px 10px;
+    margin:0px 0px;
+    font-size:12px;
+  }
+
+  .card-slim-icon .card-body p{
+    margin-bottom: 0px;
+  }
+
+  .card-slim-icon .card-body:after{
+        content: '';
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        width: 16px;
+        height: 16px;
+        background-image: url(/static/images/tick.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+  .card-slim-icon{
+    margin:0px 0px 15px;
+    padding-left:0px;
+  }
+
+  .loginpgbutton{
+    background-color: #E5E7E9;
+    color:#4CAF50 ;
+  }
+
+  .main-card-wrap{
+    margin-bottom:20px;
+  }
+
+  .main-card-wrap img{
+    float:left;
+    margin-right:10px;
+  }
+
+  .main-card-wrap .card-body{
+    padding-left:0px;
+    padding-bottom: 0px;
+  }
+
+
+  .main-card-wrap a{
+    color:#000;
+  }
+
+  #footer{
+      width:100%;
+      background:rgb(48,114,3);
+      font-size:11px;
+      color:#fff;
+      margin:50px 0px 0px 0px;
+      padding:5px 10px;
+  }

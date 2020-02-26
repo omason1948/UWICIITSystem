@@ -1,0 +1,13 @@
+<h4> Upcoming Course Today </h4>
+
+<p> Advanced Database <br/>
+    9:00 AM - 11:30 AM <br/>
+    Dr. Mugisa </p>
+
+<h4> Quick Links </h4>
+
+<ul>
+    {% for links in QuickLinks %}
+        <li><a>{{links.title}}</a></li>
+    {% endfor %}
+</ul>
