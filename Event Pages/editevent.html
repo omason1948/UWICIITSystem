@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Event Page</title>
+        <meta  charset="utf-8">
+        <meta name="viewport" content="width=device-with, initial-scle=1">
+        <link rel="stylesheet" type="text/css" href="uwiciitsys.css">
+    </head>
+    <body>
+        <header>
+            <img src="UWICIITLogo.PNG" alt"UWICIITLogo"  height="100">
+        </header>
+
+        <div class="menunav">
+            <a href="personalinfopage.html">Personal Information</a>
+            <a href="#">Academic Information</a>
+            <a class= "active" href = "event.html">Event Information</a>
+        </div>
+
+        <form action = "" method = "post">
+            <div class="menutitle">
+                <h2>Edit an Event</h2>
+            </div>
+            Name: <input type ="text" name = "event_name" placeholder="Event Name" required> <br>
+            Date: <input type ="date" min="2019-01-01" max="2019-12-31" name = "event_date" required> <br>
+            Time: <input type ="time" name = "event_time" required > <br>
+            Location: <input type = "text" name = "event_location"placeholder="Event Location" required> <br>
+            <input type = "submit" value = "Submit">
+            <input type = "button" name = "cancel" value = "Cancel "onclick= "window.location.href= 'event.html';"/>
+        </form>
+
+        <div class="boxed">
+            This text is enclosed in a box.
+            </div>
+    </body>
+</html>
