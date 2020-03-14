@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+   
+
+<div class="col-sm-12 main-card-wrap">
+    <div class="card container">
+        <div class="row main-card">
+            
+            <div class = "col-sm-8">
+                <div class="card-body">
+                <img src="{{ url_for('static', filename='images/personal.png') }}" width="30" alt="">
+                <h5 class="card-title">
+                    <a class="nav-link active" href="/personalinfopage">Personal Information </a>
+                </h5>
+                </div>
+            </div>
+
+            <div class = "col-sm-12">
+                <p class="card-text">View or Update Personal Information. View or Update Emergency Contact Information.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 main-card-wrap">
+    <div class="card container">
+        <div class="row main-card">
+           
+            <div class = "col-sm-8">
+                <div class="card-body">
+                <img src="{{ url_for('static', filename='images/acainfoicon.png') }}" width="30" alt="">
+                <h5 class="card-title">
+                <a class="nav-link active" href="/querypage">Student Queries</a>
+                </h5>
+                </div>
+            </div>
+
+            <div class = "col-sm-12">
+                <p class="card-text"> View and Add Queries. </p>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+  
+{% endblock %}
