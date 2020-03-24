@@ -6,6 +6,44 @@
     color:rgb(59,130,1);
   }
 
+  .programs-card{
+    margin-bottom:10px;
+  }
+
+  .programs-card:hover .card{
+    background-color: #E5E7E9;
+    transition:all 0.5s ease-in-out;
+  }
+
+  .programs-card .card{
+    min-height:150px;
+  }
+
+  .programs-card .card .btn{
+    border-radius: 0px !important;
+    font-size:11px;
+    width: 100%;
+  }
+
+  .programs-card .programs-card-options {
+    margin: 0px;
+  }
+  
+  .programs-card .programs-card-options .col-sm-6{
+    padding:0px;
+    margin:0px;
+  }
+  
+  .programs-card .card .course-code{
+    margin:0px;
+    padding: 0px;
+    color:#999;
+  }
+
+  .min-height{
+    min-height:70vh;
+  }
+
   .boldme{
     font-weight:bold;
   }

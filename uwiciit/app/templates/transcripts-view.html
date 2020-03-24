@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style> body{background:#fff} </style>
+
+    {%if data%} 
+
+    <div class = "col-sm-8 offset-sm-2">
+        
+        <div class = "row">
+            <div class = "col-sm-8">
+                <h1>View Transcripts</h1>
+                <h6 class="font-weight-light">Here is a list of all your requested transcripts. </h6>
+            </div>
+    
+            <div class = "col-sm-4"> 
+                <br/>
+                <a class = "btn btn-primary float-right" href = "/transcripts/request"> Request a New Transcript </a>
+            </div>
+        </div>
+
+        {%for i in data%} 
+    
+            <div class="list-group">
+                
+                <a href="/transcripts/view/{{ i._id }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"> Transcript Request {{num}}</h5>
+                    <small>{{ i.DateRequested }}</small>
+                </div>
+
+                {% if officialcopy == 'Yes': %}
+                    <p class="mb-1">You requested an official transcript to be emailed to {{emailTo}}.</p>
+                {% else: %}
+                    <p class="mb-1">You requested an unofficial transcript to be emailed to {{emailTo}}.</p>
+                {% endif %}
+
+                </a>
+
+            </div><br/>
+
+        {%endfor%} 
+    </div>
+
+
+    {%else%} 
+
+   
+    <div class = "col-sm-4 offset-sm-4 text-center">
+        <img src="{{ url_for('static', filename='images/grade.jpg') }}" width="230" alt="">
+        <h1>No Transcripts Found</h1>
+        <p>Looks like we could not find any transcripts. Click the link below to create your first one!</p>
+        <p><a class = "btn btn-success" href="/transcripts/request"> + Create New Transcript </a></p>
+    </div>
+
+    {%endif%} 
+
+    {{objct}}
+
+{% endblock %}
