@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<table class="table table-bordered">
+        <thead>
+          <tr class="table-success">
+            <th scope="col">ID#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Last Login</th>
+            <th></th>
+          </tr>
+        </thead>
+        
+        <tbody>
+                {%for i in data%}         
+          <tr align="center">
+            <td>{{i.UserID}}</th>
+            <td>{{i.name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.role}}</td>
+            <td></td>
+            <td>
+                <a href="/user/{{i._id}}"> Edit </a>
+                <a href="/user/delete/{{i._id}}" onclick="return confirm('Are you sure to delete this record ?');"> Delete </a>
+                </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+        
+
+
+    
+           
+{% endblock %}

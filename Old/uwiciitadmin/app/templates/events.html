@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+   
+<div class="col-sm-12 main-card-wrap">
+    <div class="card container">
+        <div class="row main-card">
+           
+            <div class = "col-sm-8">
+                <a class="nav-link" href="/events/add">
+                <div class="card-body">
+                <img src="{{ url_for('static', filename='images/addicon.png') }}" width="30" alt="">
+                <h5 class="card-title">Add Event</h5>
+                </div></a>
+            </div>
+
+            <div class = "col-sm-12">
+                <p class="card-text">Add Event Information.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 main-card-wrap">
+    <div class="card container">
+        <div class="row main-card">
+            <div class = "col-sm-8">
+                <a class="nav-link" href="/events/edit">
+                <div class="card-body">
+                <img src="{{ url_for('static', filename='images/editicon.png') }}" width="30" alt="">
+                <h5 class="card-title">Edit Event.</h5>
+                </div></a>
+            </div>
+
+            <div class = "col-sm-12">
+                <p class="card-text">Edit Event Information</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 main-card-wrap">
+    <div class="card container">
+        <div class="row main-card">
+            
+            <div class = "col-sm-8">
+                <div class="card-body">
+                <img src="{{ url_for('static', filename='images/viewicon.png') }}" width="30" alt="">
+                <h5 class="card-title">View Event</h5>
+                </div>
+            </div>
+
+            <div class = "col-sm-12">
+                <p class="card-text">View Event Information.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 main-card-wrap">
+    <div class="card container">
+        <div class="row main-card">
+            
+            <div class = "col-sm-8">
+                <div class="card-body">
+                <img src="{{ url_for('static', filename='images/deleteicon.png') }}" width="30" alt="">
+                <h5 class="card-title">Delete Event.</h5>
+                </div>
+            </div>
+
+            <div class = "col-sm-12">
+                <p class="card-text">Delete Event Information.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

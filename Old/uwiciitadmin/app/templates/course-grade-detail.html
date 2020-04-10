@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+<div class="container">
+    <div class="row">
+
+        <div class = "col-sm-8">
+            <p> Displayed below are various items which may affect your registration. Your Time Ticket, Holds, Academic Standing, Student Status, Class, and Curriculum may prevent registration or restrict the courses you will be permitted to select. </p>
+
+            <div class="col-sm-12 card-slim-icon">
+                <div class="card">
+                    <div class="card-body">
+                    <p> You have no Holds which prevent registration. </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 card-slim-icon">
+                <div class="card">
+                    <div class="card-body">
+                    <p> Your Academic Standing is Good Standing which permits registration.  </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 card-slim-icon">
+                <div class="card">
+                    <div class="card-body">
+                    <p> Your Student Status permits registration.  </p>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <h5> Curriculum Information </h5>
+            <br/>
+            <strong>Current Program</strong>
+            <p>Bachelor of Science</p>
+            <br/>
+           
+            <table class="table table-light text-left table-hover">
+                <tbody>
+                    {% for info in UserProfile %}
+                    <tr>
+                        <th scope="row">Level</th>
+                        <td>{{info.Level}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Program</th>
+                        <td>{{info.Program}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Admit Term</th>
+                        <td>{{info.AdmitTerm}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Admit Type</th>
+                        <td>{{info.AdmitType}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Catalog Term</th>
+                        <td>{{info.CatalogTerm}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">College</th>
+                        <td>{{info.CatalogTerm}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Campus</th>
+                        <td>{{info.CatalogTerm}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Major</th>
+                        <td>{{info.Major}}</td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+
+        <div class="col-sm-4">
+
+            <h5> Upcoming Course Today </h5>
+
+            <p> Advanced Database <br/>
+                9:00 AM - 11:30 AM <br/>
+                Dr. Mugisa </p>
+
+            <h5> Quick Links </h5>
+            
+            <ul>
+                {% for links in QuickLinks %}
+                    <li><a>{{links.title}}</a></li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

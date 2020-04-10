@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+      </div>
+      <div class="col-sm-6">
+
+              
+    <div class = "row">
+        <div class = "col-sm-12">
+            <h1>Create a New Event</h1>
+            <h6 class="font-weight-light">Fill out the information below. </h6>
+        </div>
+    </div>
+    
+    <br/>
+    
+        <form action="" method="post" enctype="multipart/form-data" novalidate>
+
+            {{ form.hidden_tag() }}
+
+            <div class="form-group row col-sm-10">
+                {{ form.photo() }}
+            </div>
+            
+
+            <div class="form-group row col-sm-10">
+                {{ form.name.label }} <br>
+                {{ form.name(size=32) }}
+            </div>
+            
+            <div class="form-group row col-sm-10">
+                {{ form.eventDate.label}}<br>
+                {{ form.eventDate()}}
+            </div>
+        
+            <div class="form-group row col-sm-10">
+                {{ form.location.label }}<br>
+                {{ form.location(size=32) }}
+            </div>
+            {{ form.submit(class = "btn btn-primary") }}
+        </form>
+        
+</div>
+<div class="col-sm-3">
+</div>
+ </div>
+ </div>
+{% endblock %}

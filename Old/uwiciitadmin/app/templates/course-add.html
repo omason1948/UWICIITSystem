@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+<div class="container">
+    <div class="row">
+
+        <div class = "col-sm-8 offset-sm-2">
+            
+            <div class="col-sm-12">
+
+                <h2> Select Term </h2>
+                
+                <div class="card">
+                    <div class="card-body">
+                    
+                        <form action="" method="post" novalidate>
+
+                            {{ form.hidden_tag() }}
+                            <p>
+                                {{ form.terms.label }}<br>
+                                {{ form.terms(class="form-control")  }}<br>
+                                {% for error in form.terms.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </p>
+
+                            <p>{{ form.submit( class="btn btn-primary") }}</p>
+                            
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+    </div>
+</div>
+
+{% endblock %}

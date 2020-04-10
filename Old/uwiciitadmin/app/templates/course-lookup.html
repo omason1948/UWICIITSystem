@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+<div class="container">
+    <div class="row">
+
+        <div class = "col-sm-8">
+            <h4> Select course(s) to add </h4>
+            <div class="row">
+
+                {%if course_list%}
+                    {%for i in course_list %} 
+                            
+                        <div class="col-sm-12 col-md-6 col-lg-4 programs-card">
+                            <div class="card">
+                                <div class="card-body">
+                                
+                                    <p class="course-code"><small> {{i.Code}} </small></p>
+                                    {{i.Name}}
+        
+                                </div>
+        
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href = "/api/register/{{studentID}}/{{i.CRN}}" type="button" class="btn btn-primary">Add Course</a>
+                                    <a href = "/courses/detail/{{i.CRN}}" type="button" class="btn btn-secondary">View Details</a>
+                                </div>
+        
+                            </div>
+                        </div>
+                        
+                        
+                    {%endfor%}
+                {%endif%}
+
+            </div>
+        </div>
+    
+        <div class = "col-sm-4">
+
+            {% if registered_list: %}
+            
+                <h5> My Registered Courses </h5>
+                {% for courses in registered_list %} 
+
+                <div class = "row">
+                    <div class="col-sm-12"> {{courses.courseName}} </div>    
+                    <div class="col-sm-6 note"> Semester {{courses.Semester}} </div>      
+                    <div class="col-sm-6 note"> Term {{courses.Term}} </div>    
+                </div>
+
+                {%endfor%}
+
+            {% else: %}
+
+                <h5> You are currently not registered for any courses </h5>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
