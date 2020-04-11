@@ -183,7 +183,7 @@ def login():
                 if userType == "1":
                     return redirect('/index')
                 else:
-                    return redirect('/admin')
+                    return redirect(url_for('admin_dashboard'))
 
             else:
                 flash('Invalid User Credentials entered. Try Again')
