@@ -57,7 +57,14 @@ client = MongoClient(MONGO_URL)
 db=client.UWICIIT
 
 menu_type = 1
+userType = 0 # Null User
 username = ""
+
+# Role Options
+role_users = ""
+role_events = ""
+role_queries = ""
+roles_grades = ""
 
 # Wrapper function to prevent users from requesting unauthorized pages
 def login_required(f):
@@ -155,7 +162,15 @@ def login():
             
             # Check the password matches
             if( UserLoggedIn['password'] == form.password.data ):
-                
+
+                # Define if user is an admin or student
+                global userType
+                userType = UserLoggedIn['userType']
+                if( userType == "2"):
+                    
+                    userRoles = UserLoggedIn['roles']
+                    setUserRoles(userRoles)
+
                 # Setup Session
                 sessionState = setSessionInformation(form.username.data, UserLoggedIn['name'], UserLoggedIn['email'])
 
@@ -165,13 +180,31 @@ def login():
                 if sessionState == "OK":
                     ses = "S" 
 
-                return redirect('/index')
+                if userType == "1":
+                    return redirect('/index')
+                else:
+                    return redirect('/admin')
+
             else:
                 flash('Invalid User Credentials entered. Try Again')
         else:
             flash('Invalid User Credentials entered. Try Again')
 
     return render_template('login.html', title='Sign In', form=form)
+
+def setUserRoles(userRoles):
+
+    global role_users
+    global role_events
+    global role_queries
+    global roles_grades
+
+    role_users = userRoles["Users"]
+    role_events = userRoles["Events"]
+    role_queries = userRoles["Querie"]
+    roles_grades = userRoles["Grades"]
+    
+    return "OK"
 
 def setSessionInformation(userID, name, email):
 
@@ -272,31 +305,9 @@ def registrationstatus():
 @app.route('/schedule')
 def schedule():
 
-    CourseList = [
-        {
-            'title': "Elementary Chinese Culture and Language - SWEN 2013 - L01",
-            'term': '2019/2020 Semester I',
-            'CRN': '11753',
-            'Status': '**Registered** on 17 Oct 2019',
-            'Instructor': 'John L. Charlery , Justin Seale',
-            'GradeMode': 'Standard Letter',
-            'Credits': '3.000',
-            'Level': 'Undergraduate',
-            'Campus': 'Cave Hill',
-        },
-        {
-            'title': "Software Project Management - SWEN 3130 - L01",
-            'term': '2019/2020 Semester I',
-            'CRN': '11733',
-            'Status': '**Registered** on 17 Oct 2019',
-            'Instructor': 'John L. Charlery , Justin Seale',
-            'GradeMode': 'Standard Letter',
-            'Credits': '3.000',
-            'Level': 'Undergraduate',
-            'Campus': 'Cave Hill',
-        }
-    ]
-
+    studentid = str(session['userid'])
+    registered_list = list(db.registration.find({'studentID': studentid}))
+    
     QuickLinks = [
         {
             'title': "View Semester Grades",
@@ -314,7 +325,7 @@ def schedule():
     # Record User Activity
     loguseractvity("View", "/schedule")
     
-    return render_template('schedule.html', title='Schedule Details', QuickLinks = QuickLinks, courses = CourseList)
+    return render_template('schedule.html', title='Schedule Details', QuickLinks = QuickLinks, courses = registered_list)
 
 @app.route('/course/grade-detail')
 def courseGradeDetail():
@@ -678,3 +689,16 @@ def eventsdelete(id):
     loguseractvity("Delete", "/events/delete/" + ObjectId(id))
 
     return render_template('event-delete.html', title='Delete Events', user = username)
+
+@app.route('/admin')
+def admin_dashboard():
+
+    global menu_type
+    global username
+    menu_type = 3
+    username = session['username']
+
+    # Record User Activity
+    loguseractvity("View", "/admin")
+
+    return render_template('admin_index.html', title='Admin Dashboard', user = username)

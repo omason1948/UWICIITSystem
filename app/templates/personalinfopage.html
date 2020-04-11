@@ -10,65 +10,72 @@
             <form action="" method="POST" novalidate>
                     
                 {{ form.hidden_tag() }}
-                <h5 class="card-title"> Personal Details </h5>
+                <h4 class="card-title"> Personal Details </h4>
 
-                <div class="form-group row col-sm-10">
-                #{{ form.studentId.label }} {{ userId }}
-                </div>
+                <div class="card"><div class="card-body">
+                    
+                    <div class="form-group">
+                        <h5 class="card-title">{{user}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">ID #{{ userId }}</h6>
+                    
+                    </div>
 
-                <div class="form-group row col-sm-10">
-                {{ form.dob.label }}<br>
-                {{ form.dob(value=studentData.dob) }}
-                </div>
+                    <div class="form-group">
+                        <label>{{ form.dob.label }}</label><br/>
+                        {{ form.dob(value=studentData.dob, class = "form-control") }}
+                    </div>
 
-                <div class="form-group row col-sm-10">
-                {{ form.gender.label }}<br>
-                {{form.gender(value=studentData.gender) }}
-                </div>
+                    <div class="form-group">
+                    {{ form.gender.label }}<br>
+                    {{form.gender(value=studentData.gender) }}
+                    </div>
 
-                <div class="form-group row col-sm-10">
-                {{ form.maritalStatus.label }}<br>
-                {{ form.maritalStatus(default=studentData.maritalStatus) }}
-                </div>
-                
-                <h5 class="card-title"> Contact Information </h5>
+                    <div class="form-group">
+                    {{ form.maritalStatus.label }}<br>
+                    {{ form.maritalStatus(default=studentData.maritalStatus) }}
+                    </div>
+                    
+                    <h5 class="card-title"> Contact Information </h5>
 
-                <div class="form-group row col-sm-10">
-                {{ form.studentAddress.label }}<br><br>
-                {{ form.studentAddress(value=studentData.studentAddress) }}
-                </div>
+                    <div class="form-group">
+                        <label>{{ form.studentAddress.label }}</label> <br/>
+                        {{ form.studentAddress(value=studentData.studentAddress, class = "form-control") }}
+                    </div>
 
-                <div class="form-group row col-sm-10">
-                    {{ form.mobilenum.label }}<br><br>
-                    {{ form.mobilenum(value=studentData.mobilenum) }}
-                </div>
+                    <div class="form-group">
+                        <label>{{ form.mobilenum.label }}</label> <br/>
+                        {{ form.mobilenum(value=studentData.mobilenum, class = "form-control") }}
+                    </div>
 
-                <h5 class="card-title"> Emergency Contact Information </h5>
+                    <h5 class="card-title"> Emergency Contact Information </h5>
 
-                <div class="form-group row col-sm-10">
-                    {{ ecform.emergencyCon.label }}<br>
-                    {{ ecform.emergencyCon(value=studentData.emergency_contact.emergencyCon) }}
-                </div>
+                    <div class="form-group">
+                        <label>{{ ecform.emergencyCon.label }}</label> <br/>
+                        {{ ecform.emergencyCon(value=studentData.emergency_contact.emergencyCon, class = "form-control") }}
+                    </div>
 
-                <div class="form-group row col-sm-10">
-                    {{ ecform.relationship.label }}<br>
-                    {{ ecform.relationship(value=studentData.emergency_contact.relationship)}}
-                </div>
+                    <div class="form-group">
+                        <label>{{ ecform.relationship.label }}</label> <br/>
+                        {{ ecform.relationship(value=studentData.emergency_contact.relationship)}}
+                    </div>
 
-                <div class="form-group row col-sm-10">
-                    {{ ecform.ecNumber.label }}<br><br>
-                    {{ ecform.ecNumber(value=studentData.emergency_contact.ecNumber) }}
-                </div>
+                    <div class="form-group">
+                        <label for="ecNumber">{{ ecform.ecNumber.label }} </label> <br/>
+                        {{ ecform.ecNumber(value=studentData.emergency_contact.ecNumber, class = "form-control") }}
+                    </div>
 
-                <!-- <button type="button" class="btn btn-outline-success">{{ form.submit }}</button> -->
+                    <!-- <button type="button" class="btn btn-outline-success">{{ form.submit }}</button> -->
 
-                <p>{{ form.submit( class = "btn btn-primary btn-sm" ) }}</p>
-
+                    <p>{{ form.submit( class = "btn btn-primary btn-sm" ) }}</p>
+                </div></div>
             </form>
 
         </div>
                 
         <div class="col-sm-3">
+
+            <h5> Personal Registration Info </h5>
+            <p><a href = "/registration/status"> My Registration Status </a></p>
 
             <h5> Upcoming Course Today </h5>
 

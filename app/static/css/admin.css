@@ -1,0 +1,45 @@
+
+/* Admin Section */
+.container-fluid-container{
+    min-height:100%;
+}
+
+.sidebar{
+    height: 100vh;
+    margin-top: 36px;
+    padding-top: 65px;
+}
+
+#footer{
+    margin:0px;
+}
+
+.main-container{
+    padding-top:80px;
+}
+
+.settings-heading{
+    font-size:12px;
+}
+ 
+.sidebar{
+    background: rgb(35,80,3) !important;
+    color:#fff;
+}
+
+.sidebar a, .sidebar h6, .sidebar h6 span{
+    color:#fff;
+}
+
+.navbar-nav-top .nav-link{
+    padding:0px;
+    font-size: 14px;
+}
+
+.nav-link .small{
+    font-size: 10px;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+    color:#000;
+}
