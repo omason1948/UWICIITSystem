@@ -201,7 +201,7 @@ def setUserRoles(userRoles):
 
     role_users = userRoles["Users"]
     role_events = userRoles["Events"]
-    role_queries = userRoles["Querie"]
+    role_queries = userRoles["Queries"]
     roles_grades = userRoles["Grades"]
     
     return "OK"
