@@ -37,6 +37,9 @@ from pprint import pprint
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
 
+# flask-bootstrap styling template
+from flask_bootstrap import Bootstrap
+
 # Keys
 SECRET_KEY = os.getenv("SECRET_KEY")
 MONGO_URL = os.getenv("MONGO_URL")
@@ -55,6 +58,9 @@ SESSION_TYPE = 'redis'
 # Setup Mongo Client Information
 client = MongoClient(MONGO_URL)
 db=client.UWICIIT
+
+#ready to use bootstrap template
+bootstrap = Bootstrap(app)
 
 menu_type = 1
 userType = 0 # Null User
