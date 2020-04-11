@@ -36,26 +36,29 @@
             </form>
         </div>
         <div class="col-sm-3">
+            <a class="nav-link" href="queryhistory.html"></a>
             <h5> Query History </h5>
-            {%for i in data%} 
-                <li> {{i}}</li>
-            {%endfor%}
-            <!-- <table class="table table-hover">
-                {%for i in data%} 
+            </a>
+
+            <table class="table table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="table-success">
                         <th scope="col"> Issue</th>
                         <th scope="col"> Description</th>
                     </tr>
                 </thead>
                 <tbody>
+                {%for i in data%} 
                     <tr>
                         <th scope="row">{{ i.studentIssues }} </th>
                         <td>{{ i.queryDesc }} </td>
                     </tr>
-                </tbody>
                 {%endfor%}
-            </table> -->
+
+                </tbody>
+
+
+            </table>
 
 
 
