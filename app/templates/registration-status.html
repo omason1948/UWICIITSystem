@@ -11,7 +11,7 @@
             <div class="col-sm-12 card-slim-icon">
                 <div class="card">
                     <div class="card-body">
-                    <p> You have no Holds which prevent registration. </p>
+                    <p> {{ hold_status_message }} </p>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
             <div class="col-sm-12 card-slim-icon">
                 <div class="card">
                     <div class="card-body">
-                    <p> Your Academic Standing is Good Standing which permits registration.  </p>
+                    <p> {{ academic_standing_message }}  </p>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="col-sm-12 card-slim-icon">
                 <div class="card">
                     <div class="card-body">
-                    <p> Your Student Status permits registration.  </p>
+                    <p> {{ registration_status_message }}  </p>
                     </div>
                 </div>
             </div>
@@ -62,18 +62,13 @@
                     </tr>
 
                     <tr>
-                        <th scope="row">Catalog Term</th>
-                        <td>{{info.CatalogTerm}}</td>
-                    </tr>
-
-                    <tr>
                         <th scope="row">College</th>
-                        <td>{{info.CatalogTerm}}</td>
+                        <td>{{info.College}}</td>
                     </tr>
 
                     <tr>
                         <th scope="row">Campus</th>
-                        <td>{{info.CatalogTerm}}</td>
+                        <td>{{info.Campus}}</td>
                     </tr>
 
                     <tr>

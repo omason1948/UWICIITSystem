@@ -282,24 +282,58 @@ def registration():
 # Displays the students registration status
 @app.route('/registration/status')
 def registrationstatus():
+    
+    userid = session['userid']
+    userProfile = db.user.find_one({'UserID': userid})
+    #return userProfile['userType']
 
     UserProfile = [
         {
-            'Level':"Undergraduate",
-            'Program':"Software Engineering BSC C",
-            'AdmitTerm':"2016/2017 Semester I",
-            'AdmitType':"Normal",
-            'CatalogTerm':	"2016/2017 Semester I",
-            'College':"Science & Technology",
-            'Campus':"Cave Hill",
-            'Major':"Software Eng (Mobile App Tech), UWICIIT",
+            'Level': userProfile['program'][0]['level'],
+            'Program': userProfile['program'][0]['program'],
+            'AdmitTerm': userProfile['program'][0]['term'],
+            'AdmitType': userProfile['program'][0]['type'],
+            'College': userProfile['program'][0]['college'],
+            'Campus': userProfile['program'][0]['campus'],
+            'Major': userProfile['program'][0]['major'],
         }
     ]
+
+    hold_status = userProfile['hold_status']
+    hold_status_message = ""
+    
+    if hold_status == "1":
+        system_text = db.system_text.find_one({'title': "hold_status_no"})
+        hold_status_message = system_text['message']
+    else:
+        system_text = db.system_text.find_one({'title': "hold_status_yes"})
+        hold_status_message = system_text['message']
+
+    academic_standing = userProfile['academic_status']
+    academic_standing_message = ""
+
+    if academic_standing == "1":
+        system_text = db.system_text.find_one({'title': "academic_standing_good"})
+        academic_standing_message = system_text['message']
+    else:
+        system_text = db.system_text.find_one({'title': "academic_standing_bad"})
+        academic_standing_message = system_text['message']
+
+    registration_status = userProfile['registration_status']
+    registration_status_message = ""
+
+    if registration_status == "1":
+        system_text = db.system_text.find_one({'title': "registration_allowed"})
+        registration_status_message = system_text['message']
+    else:
+        system_text = db.system_text.find_one({'title': "registration_not_allowed"})
+        registration_status_message = system_text['message']
+
 
     # Record User Activity
     loguseractvity("View", "/registration/status")
     
-    return render_template('registration-status.html', title='Registration Status', UserProfile = UserProfile)
+    return render_template('registration-status.html', title='Registration Status', UserProfile = UserProfile, hold_status_message = hold_status_message, academic_standing_message = academic_standing_message, registration_status_message = registration_status_message)
 
 
 @app.route('/schedule')
