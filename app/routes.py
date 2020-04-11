@@ -183,7 +183,7 @@ def login():
                 if userType == "1":
                     return redirect('/index')
                 else:
-                    return redirect(url_for('admin_dashboard'))
+                    return redirect('/admin')
 
             else:
                 flash('Invalid User Credentials entered. Try Again')
@@ -691,6 +691,7 @@ def eventsdelete(id):
     return render_template('event-delete.html', title='Delete Events', user = username)
 
 @app.route('/admin')
+@login_required
 def admin_dashboard():
 
     global menu_type
@@ -702,3 +703,29 @@ def admin_dashboard():
     loguseractvity("View", "/admin")
 
     return render_template('admin_index.html', title='Admin Dashboard', user = username)
+
+
+@app.route('/admin/students')
+def admin_students():
+
+    return "students"
+
+@app.route('/admin/events')
+def admin_events():
+
+    return "events"
+
+@app.route('/admin/courses')
+def admin_courses():
+
+    return "courses"
+
+@app.route('/admin/reports')
+def admin_reports():
+
+    return "reports"
+
+@app.route('/admin/settings')
+def admin_settings():
+
+    return "settings"
