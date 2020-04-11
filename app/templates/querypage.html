@@ -8,13 +8,8 @@
           </div>
           <div class="col-sm-6">
             <h5 class="card-title"> Identification and Personal Details</h5>
-                {{ form.hidden_tag() }}
-                {{ form.studentId(value=userId) }}
-                {{ form.studentName(value=user) }}
-                {{ form.studentEmail(value=email) }}
-                {{ wtf.quick_form(form) }}
               
-<!--             <form action="" method="post" novalidate>
+            <form action="" method="post" novalidate>
                 {{ form.hidden_tag() }}
                 {{ form.studentId(value=userId) }}
                 {{ form.studentName(value=user) }}
@@ -41,7 +36,7 @@
                     {{ form.queryDesc(size=300) }}
                 </div>
                 <p>{{ form.submit( class = "btn btn-primary btn-sm"  ) }}</p>
-            </form> -->
+            </form>
         </div>
         <div class="col-sm-3">
             <a class="nav-link" href="queryhistory.html"></a>
