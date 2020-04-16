@@ -13,23 +13,23 @@
                 {{ form.studentEmail(value=email) }}
             
                 <h5 class="card-title"> Query Details</h5>
-                <div class="form-group row col-sm-10">
+                <div class="form-group col-sm-5">
                     <h6 class="card-title">{{ form.yearOfStudy.label }}</h6><br>
                     {{form.yearOfStudy}}
                 </div>
 
-                <div class="form-group row col-sm-10">
-                    {{ form.semester.label }}<br>
+                <div class="form-group col-sm-5">
+                    <h6 class="card-title">{{ form.semester.label }}</h6><br>
                     {{form.semester}}
                 </div>
                 <h6 class="card-title"> Please select the option that applies to your query.</h6>
                 <div class="form-group row col-sm-10">
-                    {{ form.studentIssues.label }}<br>
+                    <h6 class="card-title">{{ form.studentIssues.label }}</h6><br>
                     {{form.studentIssues}}
                 </div>
 
                 <div class="form-group row col-sm-10">
-                    {{ form.queryDesc.label }}<br><br>
+                    <h6 class="card-title">{{ form.queryDesc.label }}</h6><br><br>
                     {{ form.queryDesc(size=300) }}
                 </div>
                 <p>{{ form.submit( class = "btn btn-primary btn-sm"  ) }}</p>
