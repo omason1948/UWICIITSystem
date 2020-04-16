@@ -1,4 +1,101 @@
 {% extends "baseadmin.html" %}
     {% block content %}
+
+    <div class="container">
+        <div class="row">
+            
+
+            <div class="col-sm-4">
+
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+
+            </div>
+
+              <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+             </div>
+
+             
+             <div class="col-sm-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="card-link">Card link</a>
+                  <a href="#" class="card-link">Another link</a>
+                </div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+
+    <br/><br/>
+
+    <div class="container">
+        <div class="row">
+            
+
+            <div class="col-sm-6">
+        
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#new">New</a></li>
+                    <li><a data-toggle="tab" href="#progress">In Progress</a></li>
+                    <li><a data-toggle="tab" href="#overdue">Over Due</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="new" class="tab-pane fade in active">
+                        
+                        {% for query in queries %}
+                            
+                            <li class="list-group-item"> {{query.studentIssues}} <br/> {{query.studentName}} - {{query.queryDesc}} </li>
+                        {% endfor %}
+
+                    </div>
+                    <div id="progress" class="tab-pane fade">
+                        <h3>In Progress</h3>
+                        <p>Some content in menu 1.</p>
+                    </div>
+                    <div id="overdue" class="tab-pane fade">
+                        <h3>Over Due</h3>
+                        <p>Some content in menu 2.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+ 
+                <div class="card border-light mb-3">
+                    <div class="card-header">Activity Timeline</div>
+                    <ul class="list-group list-group-flush">
+                        {% for log in userLogs %}
+                            <li class="list-group-item"> User {{log.user}} accessed {{log.location}} at {{log.timestamp}} </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
     
 {% endblock %}

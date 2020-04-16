@@ -1,0 +1,26 @@
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+        <h5> Students </h5>
+        <p> List of Students </p>
+
+        <table class="table table-light text-left table-hover">
+            <thead>
+                <th> Name </th>
+                <th> Email </th>
+                <th> Phone Number </th>
+            </thead>
+            <tbody>
+                {% for user in collection %}
+                <tr>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone_number}} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+            
+{% endblock %}

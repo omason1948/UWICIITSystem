@@ -1,0 +1,26 @@
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+<h5> Courses </h5>
+<p> List of Courses </p>
+
+<table class="table table-light text-left table-hover">
+    <thead>
+        <th> Name </th>
+        <th> Term </th>
+        <th> CRN </th>
+    </thead>
+    <tbody>
+        {% for course in collection %}
+        <tr>
+            <td>{{course.Name}}</td>
+            <td>{{course.Term}}</td>
+            <td>{{course.CRN}}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+            
+{% endblock %}

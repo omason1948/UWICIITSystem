@@ -1,0 +1,29 @@
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+<h5> Events </h5>
+<p> List of events </p>
+
+<table class="table table-light text-left table-hover">
+    <thead>
+        <th> Name </th>
+        <th> Location </th>
+        <th> Date </th>
+        <th>  </th>
+    </thead>
+    <tbody>
+        {% for event in collection %}
+        
+        <tr>
+            <td>{{event.name}}</td>
+            <td>{{event.location}}</td>
+            <td>{{event.eventDate}}</td>
+            <td>{{event.photo}}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+            
+{% endblock %}

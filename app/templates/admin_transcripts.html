@@ -1,0 +1,29 @@
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+<h5> Transcripts </h5>
+<p> List of requested transcripts from users </p>
+
+<table class="table table-light text-left table-hover">
+    <thead>
+        <th> Name </th>
+        <th> Location </th>
+        <th> Date </th>
+        <th>  </th>
+    </thead>
+    <tbody>
+        {% for event in collection %}
+        
+        <tr>
+            <td>{{event.fullname}}</td>
+            <td>{{event.address}}</td>
+            <td>{{event.faculty}}</td>
+            <td>{{event.DateRequested}}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+            
+{% endblock %}

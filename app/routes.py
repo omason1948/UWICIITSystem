@@ -724,6 +724,8 @@ def eventsdelete(id):
 
     return render_template('event-delete.html', title='Delete Events', user = username)
 
+# Admin Section
+
 @app.route('/admin')
 @login_required
 def admin_dashboard():
@@ -736,23 +738,50 @@ def admin_dashboard():
     # Record User Activity
     loguseractvity("View", "/admin")
 
-    return render_template('admin_index.html', title='Admin Dashboard', user = username)
+    collection = list(db.systemlog.find( sort=[( 'timestamp', -1 )] ).limit(6))
+    queries = list(db.query.find().limit(6))
+
+    return render_template('admin_index.html', title = 'Admin Dashboard', user = username, queries = queries, userLogs = collection)
 
 
 @app.route('/admin/students')
 def admin_students():
 
-    return "students"
+    global username
+    username = session['username']
+
+    # Record User Activity
+    loguseractvity("View", "/admin/students")
+
+    collection = list(db.user.find({'userType': "1"}))
+
+    return render_template('admin_students.html', title = 'Admin Student', user = username, collection = collection)
 
 @app.route('/admin/events')
 def admin_events():
 
-    return "events"
+    global username
+    username = session['username']
+
+    # Record User Activity
+    loguseractvity("View", "/admin/events")
+
+    collection = list(db.events.find())
+
+    return render_template('admin_events.html', title = 'Events', user = username, collection = collection)
 
 @app.route('/admin/courses')
 def admin_courses():
 
-    return "courses"
+    global username
+    username = session['username']
+
+    # Record User Activity
+    loguseractvity("View", "/admin/course")
+
+    collection = list(db.course.find())
+
+    return render_template('admin_course.html', title = 'Courses', user = username, collection = collection)
 
 @app.route('/admin/reports')
 def admin_reports():
@@ -763,3 +792,16 @@ def admin_reports():
 def admin_settings():
 
     return "settings"
+
+@app.route('/admin/transcripts')
+def admin_transcripts():
+
+    global username
+    username = session['username']
+
+    # Record User Activity
+    loguseractvity("View", "/admin/transcripts")
+
+    collection = list(db.student_transcript.find())
+
+    return render_template('admin_transcripts.html', title = 'Courses', user = username, collection = collection)
