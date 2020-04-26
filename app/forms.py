@@ -104,6 +104,7 @@ class PersonalInfoForm(FlaskForm):
     studentAddress = TextAreaField('Address: ', validators=[DataRequired()], default='')
     # phonenum = IntegerField('Telephone Number: ', validators=[DataRequired()])
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
+    passport = FileField('Passport Copy', validators=[FileRequired()])
 
     submit = SubmitField('Submit')
 
