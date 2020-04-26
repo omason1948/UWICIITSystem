@@ -70,10 +70,10 @@ class QueryForm(FlaskForm):
     studentId = HiddenField('Student ID: ', validators=[DataRequired()])
     studentName = HiddenField('Name: ', validators=[DataRequired()])
     studentEmail = HiddenField('Email: ', validators=[DataRequired()])
-    yearOfStudy = RadioField('Year of Study: ', 
+    yearOfStudy = SelectField('Year of Study: ', 
     choices=[('year1','Year 1'), ('year2', 'Year 2'), 
     ('year3', 'Year 3'), ('year4', 'Year 4')])
-    semester = RadioField('Semester: ', 
+    semester = SelectField('Semester: ', 
     choices=[('semester1','Semester 1'), ('semester2', 'Semester 2'), 
     ('summer', 'Summer')])
     studentIssues = RadioField('Issue: ', 
