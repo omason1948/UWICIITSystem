@@ -147,7 +147,7 @@ class SearchFormEvents(FlaskForm):
 ############################################################
 
 class EventForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired()]) 
 
     #DateTimeField does not show up calendar
     
