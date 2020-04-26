@@ -103,6 +103,7 @@ class PersonalInfoForm(FlaskForm):
     studentAddress = TextAreaField('Address: ', validators=[DataRequired()], default='')
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy: ', validators=[FileRequired()])
+    insuranceStatus = RadioField('Insurance Status: ', choices=[('Insured', 'Insured'), ('Uninsured', 'Uninsured')])
 
     submit = SubmitField('Submit')
 
