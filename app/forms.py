@@ -90,7 +90,7 @@ class PersonalInfoForm(FlaskForm):
 
     #dob = DateField('Date of Birth: ', validators=[DataRequired()], format='%Y-%m-%d')
     dob = DateTimeLocalField(
-        label='End Date',
+        label='Date of Birth: ',
         format='%Y-%m-%dT%H:%M',
         validators = [Required('please select a valid date of birth')]
     )
@@ -100,9 +100,7 @@ class PersonalInfoForm(FlaskForm):
     ('separated', 'Separated'), ('divorced', 'Divorced')],
         default='single', validators=[DataRequired()])
     
-    # contactEmail = EmailField('Email: ', validators=[DataRequired()])
     studentAddress = TextAreaField('Address: ', validators=[DataRequired()], default='')
-    # phonenum = IntegerField('Telephone Number: ', validators=[DataRequired()])
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy', validators=[FileRequired()])
 
