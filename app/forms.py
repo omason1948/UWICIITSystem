@@ -102,7 +102,7 @@ class PersonalInfoForm(FlaskForm):
     
     studentAddress = TextAreaField('Address: ', validators=[DataRequired()], default='')
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
-    passport = FileField('Passport Copy', validators=[FileRequired()])
+    passport = FileField('Passport Copy: ', validators=[FileRequired()])
 
     submit = SubmitField('Submit')
 
@@ -115,32 +115,6 @@ class EmergencyContactForm(FlaskForm):
     ecNumber = IntegerField('Telephone Number: ', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-
-############################################################
-#################### ADMIN SEARCH Forms Classes ##################
-############################################################
-
-class SearchForm(FlaskForm):
-    course_name = StringField('Course Name or Number', validators=[DataRequired()])
-    semester = SelectField(u'Semester', choices=[('1', 'I'), ('2', 'II')])
-    submit = SubmitField('Search')
-
-class SearchFormStudents(FlaskForm):
-    name = StringField('Student Name or Number', validators=[DataRequired()])
-    submit = SubmitField('Search')
-
-class SearchFormQueries(FlaskForm):
-    name = StringField('Query Name', validators=[DataRequired()])
-   # progress = SelectField(u'Progress', choices=[('1', 'Outstanding'), ('2', 'Complete')])
-    submit = SubmitField('Search')
-
-class SearchFormTranscripts(FlaskForm):
-    name = StringField('Transcript User', validators=[DataRequired()])
-    submit = SubmitField('Search')
-
-class SearchFormEvents(FlaskForm):
-    name = StringField('Event Name', validators=[DataRequired()])
-    submit = SubmitField('Search')
 
 ############################################################
 #################### Events Forms Classes ##################
