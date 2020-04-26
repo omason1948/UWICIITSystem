@@ -2,8 +2,43 @@
 
 {% block content %}
 
-<h5> Courses </h5>
-<p> List of Courses </p>
+<div class = "front_half">
+    <h5> Courses </h5>
+    <p> List of Courses </p>
+
+    <form action = "/admin/courses" method = "POST">
+        <div class="form-row">
+
+            {{ form.hidden_tag() }}
+
+            <div class="col-sm-7">
+
+                <label>{{ form.course_name.label }} </label>
+                {{ form.course_name(size=32, class = "form-control") }}
+
+            </div>
+
+            <div class="col-sm-3">
+
+                <label> {{ form.semester.label }} </label>
+                {{ form.semester(class = "form-control") }}
+                
+            </div>
+        
+            <div class="col">
+                <label> &nbsp;</label><br/>
+                {{ form.submit( class="btn btn-primary btn-search-correction") }}
+            </div>
+
+        </div>
+    </form>
+
+    {% if searchName != "" %}
+    <br/>
+    <p> You searched for <b>{{searchName}}</b>. Showing {{search_count}} courses. <a href = "/admin/courses"> View all Courses </a> </p>
+    {% endif %}
+
+</div>
 
 <table class="table table-light text-left table-hover">
     <thead>
@@ -14,8 +49,8 @@
     <tbody>
         {% for course in collection %}
         <tr>
-            <td>{{course.Name}}</td>
-            <td>{{course.Term}}</td>
+            <td><a href = "/admin/course/{{course.CRN}}">{{course.Name}}</a></td>
+            <td>Semester {{course.Term}}</td>
             <td>{{course.CRN}}</td>
         </tr>
 

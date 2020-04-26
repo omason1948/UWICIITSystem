@@ -21,7 +21,7 @@ from flask_pymongo import PyMongo, MongoClient, BSONObjectIdConverter
 from wtforms import Form, validators
 
 # Form Classes
-from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm
+from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts
 from app.forms import QueryForm, PersonalInfoForm, EmergencyContactForm
 from app.forms import EventForm, LoginForm
 
@@ -266,6 +266,12 @@ def registration():
             'image': 'Beautiful day in Portland!',
             'description': 'Ready to apply for another University Course or Job. Get your transcripts.',
             'link': '/transcripts/view'
+        },
+        {
+            'title': "Grades",
+            'image': 'Beautiful day in Portland!',
+            'description': 'View a list of your grades for the entire year broken down into exams and course work',
+            'link': '/grades/view'
         }
     ]
 
@@ -500,7 +506,7 @@ def transcriptsView(id):
     username = session['username']
 
     # Record User Activity
-    loguseractvity("View", "/transcripts/view/" + ObjectId(id))
+    loguseractvity("View", "/transcripts/view/" + str(id))
     
     data = db.student_transcript.find({"_id" : ObjectId(id)})
     
@@ -702,10 +708,10 @@ def eventsedit(id):
     data = db.events.find({"_id" : ObjectId(id)})
 
     if request.method =='POST':
-        db.events.update_one({"_id": ObjectId(id)},{"$set":{"name": form.data["name"],"dt":form.data["dt"], "location":form.data["location"]}})
+        db.events.update_one({"_id": ObjectId(id)},{"$set":{"name": form.data["name"],"eventDate":form.data["eventDate"], "location":form.data["location"]}})
     
     # Record User Activity
-    loguseractvity("Edit", "/events/edit/" + ObjectId(id))
+    loguseractvity("Edit", "/events/edit/" + str(id))
 
     return render_template('event-edit.html', title='Edit Events', data = data, form = form, user = username)
 
@@ -739,69 +745,178 @@ def admin_dashboard():
     loguseractvity("View", "/admin")
 
     collection = list(db.systemlog.find( sort=[( 'timestamp', -1 )] ).limit(6))
-    queries = list(db.query.find().limit(6))
+    queries = list(db.query.find().limit(4))
 
     return render_template('admin_index.html', title = 'Admin Dashboard', user = username, queries = queries, userLogs = collection)
 
 
-@app.route('/admin/students')
+@app.route('/admin/students', methods = ['GET', 'POST'])
 def admin_students():
 
     global username
     username = session['username']
 
+    form = SearchFormStudents()
+    searched_name = ""
+    search_count = ""
+
     # Record User Activity
     loguseractvity("View", "/admin/students")
 
-    collection = list(db.user.find({'userType': "1"}))
+    if form.validate_on_submit():
 
-    return render_template('admin_students.html', title = 'Admin Student', user = username, collection = collection)
+        searched_name = form.data["name"]
+        collection = db.user.find({"name":{"$regex": searched_name},'userType': "1"})
+        search_count = collection.count()
 
-@app.route('/admin/events')
+    else:
+
+        collection = db.user.find({'userType': "1"})
+        search_count = collection.count()
+
+    return render_template('admin_students.html', title = 'Admin Student', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
+
+@app.route('/admin/events', methods = ['GET', 'POST'])
 def admin_events():
 
     global username
     username = session['username']
 
+    form = SearchFormEvents()
+    searched_name = ""
+    search_count = ""
+
     # Record User Activity
     loguseractvity("View", "/admin/events")
 
-    collection = list(db.events.find())
+    if form.validate_on_submit():
 
-    return render_template('admin_events.html', title = 'Events', user = username, collection = collection)
+        searched_name = form.data["name"]
+        collection = db.events.find({"name":{"$regex": searched_name}})
+        search_count = collection.count()
 
-@app.route('/admin/courses')
+    else:
+
+        collection = db.events.find()
+        search_count = collection.count()
+
+    return render_template('admin_events.html', search_count = search_count, searchName = searched_name, title = 'Events', form = form, user = username, collection = collection)
+
+@app.route('/admin/courses', methods = ['GET', 'POST'])
 def admin_courses():
 
     global username
     username = session['username']
+    form = SearchForm()
+    searched_name_course_name = ""
+    search_count = ""
 
     # Record User Activity
-    loguseractvity("View", "/admin/course")
+    loguseractvity("View", "/admin/courses")
 
-    collection = list(db.course.find())
+    if form.validate_on_submit():
+        searched_name_course_name = form.data["course_name"]
+        semester = form.data["semester"]
 
-    return render_template('admin_course.html', title = 'Courses', user = username, collection = collection)
+        if semester == "":
+            collection = list(db.course.find({"Name":{"$regex": searched_name_course_name}}))
 
-@app.route('/admin/reports')
+        else:
+            collection = list(db.course.find({"Name":{"$regex": searched_name_course_name},"Term": semester}))
+
+    else:
+        collection = db.course.find()
+        search_count = collection.count()
+
+    return render_template('admin_course.html', title = 'Courses', form = form, search_count = search_count, searchName = searched_name_course_name, user = username, collection = collection)
+
+@app.route('/admin/course/<crn>', methods = ['GET', 'POST'])
+def admin_course_detail(crn):
+    
+    global username
+    username = session['username']
+    
+    form = SearchForm()
+    searched_name_course_name = ""
+    search_count = ""
+
+    # Record User Activity
+    loguseractvity("View", "/admin/course/" + str(crn))
+
+    courseInformation = db.course.find_one({'CRN': crn})
+    return render_template('admin_course_view.html', title = 'Course Details', courseInformation = courseInformation, user = username)
+
+@app.route('/admin/reports', methods = ['GET', 'POST'])
 def admin_reports():
+
+    # Record User Activity
+    loguseractvity("View", "/admin/reports/")
 
     return "reports"
 
 @app.route('/admin/settings')
 def admin_settings():
 
+    # Record User Activity
+    loguseractvity("View", "/admin/settings/")
+
+
     return "settings"
 
-@app.route('/admin/transcripts')
+@app.route('/admin/grades', methods = ['GET', 'POST'])
+def admin_grades():
+
+    # Record User Activity
+    loguseractvity("View", "/admin/grades/")
+
+    return "grades"
+
+
+@app.route('/admin/queries', methods = ['GET', 'POST'])
+def admin_queries():
+
+    form = SearchFormQueries()
+    searched_name = ""
+    search_count = ""
+
+    # Record User Activity
+    loguseractvity("View", "/admin/queries/")
+
+    if form.validate_on_submit():
+
+        searched_name = form.data["name"]
+        collection = db.query.find({"studentName":{"$regex": searched_name}})
+        search_count = collection.count()
+
+    else:
+
+        collection = db.query.find()
+        search_count = collection.count()
+
+    return render_template('admin_queries.html', title = 'Student Queries', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
+
+
+@app.route('/admin/transcripts', methods = ['GET', 'POST'])
 def admin_transcripts():
 
     global username
     username = session['username']
+    form = SearchFormTranscripts()
+    searched_name = ""
+    search_count = ""
 
     # Record User Activity
     loguseractvity("View", "/admin/transcripts")
 
-    collection = list(db.student_transcript.find())
+    if form.validate_on_submit():
 
-    return render_template('admin_transcripts.html', title = 'Courses', user = username, collection = collection)
+        searched_name = form.data["name"]
+        collection = db.student_transcript.find({"studentName":{"$regex": searched_name}})
+        search_count = collection.count()
+
+    else:
+
+        collection = db.student_transcript.find()
+        search_count = collection.count()
+
+    return render_template('admin_transcripts.html', title = 'Courses', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)

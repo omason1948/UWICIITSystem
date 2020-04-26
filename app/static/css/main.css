@@ -2,6 +2,15 @@
     background:#F2F2F2;
   }
 
+  .main_container{
+	min-height: 68%;
+  }
+
+  .menu_link_top{
+	  font-size:10px;
+	  color:#999;
+  }
+
   h1{
     color:rgb(59,130,1);
   }

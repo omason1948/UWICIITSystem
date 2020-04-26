@@ -2,8 +2,39 @@
 
 {% block content %}
 
-<h5> Events </h5>
-<p> List of events </p>
+<div class = "front_half">
+    <h5> Events </h5>
+    <p> List of events </p>
+
+    <form action = "/admin/events" method = "POST">
+        <div class="form-row">
+
+            {{ form.hidden_tag() }}
+
+            <div class="col-sm-10">
+
+                <label>{{ form.name.label }} </label>
+                {{ form.name(size=32, class = "form-control") }}
+
+            </div>
+
+            <div class="col">
+                <label> &nbsp;</label><br/>
+                {{ form.submit( class="btn btn-primary btn-search-correction") }}
+            </div>
+
+        </div>
+    </form>
+
+    {% if searchName != "" %}
+    <br/>
+    <p> You searched for <b>{{searchName}}</b>. Showing {{search_count}} events. <a href = "/admin/events"> View all Events </a> </p>
+    {% else %}
+    <br/>
+    <p> Showing {{search_count}} events.  </p>
+    {% endif %}
+
+</div>
 
 <table class="table table-light text-left table-hover">
     <thead>
@@ -16,10 +47,10 @@
         {% for event in collection %}
         
         <tr>
-            <td>{{event.name}}</td>
+            <td><a href = "/admin/event/{{event._id}}">{{event.name}}</a></td>
             <td>{{event.location}}</td>
             <td>{{event.eventDate}}</td>
-            <td>{{event.photo}}</td>
+            <td><img src = "/static/userphotos/{{event.photo}}" width = "100"></td>
         </tr>
 
         {% endfor %}

@@ -33,13 +33,13 @@
       <div class="float-right userdetails col-sm-4">
         <div class="row">
         <div class="col-sm-8">
-          <p class="boldme"> Good Morning {{user}} </p>
+          <p class="boldme"> <a href = "/personalInfo">Good Morning {{user}} </a></p>
           <p> It's 49 0 Outside today, you should wear more clothes </p>
-          <a href = "/logout"> Sign Out </a>
+          <a class = "menu_link_top" href = "/personalInfo"> My Account </a> | <a class = "menu_link_top" href = "/logout"> Sign Out </a>
         </div>
 
         <div class="col-sm-2">
-          <img src = "{{ url_for('static', filename='images/user-avatar.png') }}" width="42" alt="">
+          <a href = "/personalInfo"><img src = "{{ url_for('static', filename='images/user-avatar.png') }}" width="42" alt=""></a>
         </div>
       </div>
       </div>
@@ -75,9 +75,11 @@
       </ol>
     </nav>    
    
+    <div class="main_container" style = "min-height: 68%;">
     
       {% block content %}{% endblock %}
-   
+    
+    </div>
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

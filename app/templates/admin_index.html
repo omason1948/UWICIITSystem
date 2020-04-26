@@ -1,6 +1,14 @@
 {% extends "baseadmin.html" %}
     {% block content %}
 
+
+    <div class="container">
+        <br/>
+        <div class="row">
+            <h2 class="col-sm-12"> Dashboard <h2>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             
@@ -9,39 +17,58 @@
 
                 <div class="card">
                     <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h5 class="card-title">Queries</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Outstanding Queries</h6>
+                                <a href="/admin/queries" class="card-link">View List</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <h1>10</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-              <div class="col-sm-4">
+            <div class="col-sm-4">
+
                 <div class="card">
                     <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h5 class="card-title">Events</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Upcoming Events</h6>
+                                <a href="/admin/events" class="card-link">View List</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <h1>10</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
-             </div>
+
+            </div>
 
              
-             <div class="col-sm-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
+            <div class="col-sm-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h5 class="card-title">Transcript Request</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Outstanding Request</h6>
+                                <a href="/admin/transcripts" class="card-link">View List</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <h1>10</h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
             </div>
 
         </div>
@@ -62,10 +89,9 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div id="new" class="tab-pane fade in active">
+                    <div id="new" class="tab-pane fade in active show">
                         
                         {% for query in queries %}
-                            
                             <li class="list-group-item"> {{query.studentIssues}} <br/> {{query.studentName}} - {{query.queryDesc}} </li>
                         {% endfor %}
 
@@ -88,7 +114,7 @@
                     <div class="card-header">Activity Timeline</div>
                     <ul class="list-group list-group-flush">
                         {% for log in userLogs %}
-                            <li class="list-group-item"> User {{log.user}} accessed {{log.location}} at {{log.timestamp}} </li>
+                            <li class="list-group-item"> <img src = "{{ url_for('static', filename='images/user-avatar.png') }}" width="22" alt=""> User {{log.user}} accessed {{log.location}} at {{log.timestamp}} </li>
                         {% endfor %}
                     </ul>
                 </div>

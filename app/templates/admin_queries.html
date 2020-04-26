@@ -4,10 +4,10 @@
 
 
 <div class = "front_half">
-    <h5> Transcripts </h5>
-    <p> List of requested transcripts from users </p>
+    <h5> Queries </h5>
+    <p> List of queries from students </p>
 
-    <form action = "/admin/transcripts" method = "POST">
+    <form action = "/admin/queries" method = "POST">
         <div class="form-row">
 
             {{ form.hidden_tag() }}
@@ -27,29 +27,30 @@
         </div>
     </form>
 
-    {% if searchName != "" %}
+    {% if searchName != "" %} 
     <br/>
-    <p> You searched for <b>{{searchName}}</b>. Showing {{search_count}} transcripts. <a href = "/admin/transcripts"> View all Transcripts </a> </p>
+    <p> You searched for <b>{{searchName}}</b>. Showing {{search_count}} queries. <a href = "/admin/queries"> View all Queries </a> </p>
     {% else %}
     <br/>
-    <p> Showing {{search_count}} transcripts.  </p>
+    <p> Showing {{search_count}} queries.  </p>
     {% endif %}
 
 </div>
 
 <table class="table table-light text-left table-hover">
     <thead>
-        <th> Full Name </th>
-        <th> Faculty </th>
-        <th> Date Request </th>
+        <th> Name </th>
+        <th> Issue Type </th>
+        <th> Description </th>
+        <th>  </th>
     </thead>
     <tbody>
-        {% for transcript in collection %}
+        {% for query in collection %}
         
         <tr>
-            <td><a href = "/admin/transcript/{{transcript._id}}">{{transcript.fullname}}</td>
-            <td>{{transcript.faculty}}</td>
-            <td>{{transcript.DateRequested}}</td>
+            <td><a href = "/admin/quer/{{query._id}}">{{query.studentName}}</a></td>
+            <td>{{query.studentIssues}}</td>
+            <td>{{query.queryDesc}}</td>
         </tr>
 
         {% endfor %}
