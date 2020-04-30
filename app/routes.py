@@ -599,7 +599,8 @@ def query():
 def queryhistory():
     global username
     username = session['username']
-    data = list(db.query.find({}))
+    data = db.query.find({"studentId" : userId})
+#     data = list(db.query.find({}))
     return render_template('queryhistory.html', title='Query History', data=data, user=username)
 
 @app.route('/personalInfo', methods=('GET', 'POST'))
