@@ -597,10 +597,15 @@ def query():
 
 @app.route('/queryhistory')
 def queryhistory():
+    
+    global menu_type
     global username
+    menu_type = 1
     username = session['username']
+    
+    userId = int(session['userid'])
     data = list(db.query.find({"studentId" : userId}))
-    return render_template('queryhistory.html', title='Query History', data=data, user=username)
+    return render_template('queryhistory.html', title='Query History', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo', methods=('GET', 'POST'))
 @login_required
