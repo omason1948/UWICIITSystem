@@ -1,0 +1,41 @@
+ 
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3"> </div>
+        
+        <div class="col-sm-6">
+        <h4 class="card-title"> Personal Details </h4>
+        <div class="card"><div class="card-body">
+                   <div class="form-group">
+                        <h5 class="card-title">{{user}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">ID #{{ userId }}</h6>
+                    
+                    </div>
+        
+         </div>
+                
+        <div class="col-sm-3">
+
+            <h5> Personal Registration Info </h5>
+            <p><a href = "/registration/status"> My Registration Status </a></p>
+
+            <h5> Upcoming Course Today </h5>
+
+            <p> Advanced Database <br/>
+                9:00 AM - 11:30 AM <br/>
+                Dr. Mugisa </p>
+
+            <h5> Quick Links </h5>
+            
+            <ul>
+                {% for links in QuickLinks %}
+                    <li><a>{{links.title}}</a></li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
