@@ -595,7 +595,7 @@ def query():
         
     return render_template('querypage.html', title='Student Query', form=form, userId=userId, data=data,user = username, email = email)
 
-@app.route('/query-history', methods=['GET', 'POST'])
+@app.route('/queryhistory', methods=['GET', 'POST'])
 def queryhistory():
     global username
     username = session['username']
