@@ -6,12 +6,40 @@
         <div class="col-sm-3"> </div>
         
         <div class="col-sm-6">
-        <h4 class="card-title"> Personal Details </h4>
+        <h4 class="card-title"> Personal Information </h4>
         <div class="card"><div class="card-body">
                    <div class="form-group">
                         <h5 class="card-title">{{user}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">ID #{{ userId }}</h6>
-                    
+
+                            {%for i in data%} 
+
+                            <div>
+                             <p> {{ i.dob }} <br>
+                             {{ i.gender }} <br>
+                             {{ i.maritalStatus }}
+                             </p>
+                            </div>
+
+
+                            <div>
+                             <h5 class="card-title"> Contact Information </h5>
+                             <p> {{ i.studentAddress }} <br>
+                             {{ i.mobileNumber }}</p>
+                            </div>
+             
+                            <div>
+                             <h5 class="card-title"> Emergency Contact Information</h5>
+                             <p> {{ i.emergencyCon }} <br>
+                             {{ i.relationship }} <br>
+                             {{ i.ecNumber }}
+                             </p>
+                            </div>    
+
+                    <div class="col-sm-2">
+                        <br/>
+                        <a class = "btn btn-sm btn-primary" href = "/personalInfo/update"> View Event </a>
+                    </div>                
                     </div>
         
          </div>
