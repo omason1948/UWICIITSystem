@@ -1,14 +1,17 @@
  
 {% extends "base.html" %}
 {% block content %}
+
+
 <div class="container">
+
     <div class="row">
+
         <div class="col-sm-3"> </div>
-        
+
         <div class="col-sm-6">
         <h4 class="card-title"> Personal Information </h4>
         <div class="card"><div class="card-body">
-                   <div class="form-group">
                         <h5 class="card-title">{{user}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">ID #{{ userId }}</h6>
 
@@ -21,13 +24,12 @@
                              </p>
                             </div>
 
-
                             <div>
                              <h5 class="card-title"> Contact Information </h5>
                              <p> {{ i.studentAddress }} <br>
                              {{ i.mobileNumber }}</p>
                             </div>
-             
+
                             <div>
                              <h5 class="card-title"> Emergency Contact Information</h5>
                              <p> {{ i.emergencyCon }} <br>
@@ -36,18 +38,16 @@
                              </p>
                             </div>  
 
-                        {%endfor%}  
-
                     <div>
                         <br/>
                         <a class = "btn btn-lg btn-success" href = "/personalInfo/update"> Update Details </a>
-                    </div>                
                     </div>
 
+                        {%endfor%}  
+        </div></div>
+
        </div>
-        
-         </div>
-                
+
         <div class="col-sm-3">
 
             <h5> Personal Registration Info </h5>
@@ -68,6 +68,15 @@
             </ul>
 
         </div>
+
+
+
     </div>
+
 </div>
+
+
+             
+
+                
 {% endblock %}
