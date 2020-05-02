@@ -86,7 +86,7 @@ class QueryForm(FlaskForm):
 class PersonalInfoForm(FlaskForm):
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     gender = RadioField('Gender: ', 
-    choices=[('male','Male'), ('female', 'Female')])
+    choices=[('Male','Male'), ('Female', 'Female')])
 
     #dob = DateField('Date of Birth: ', validators=[DataRequired()], format='%Y-%m-%d')
     dob = DateTimeLocalField(
@@ -96,8 +96,8 @@ class PersonalInfoForm(FlaskForm):
     )
     
     maritalStatus = SelectField(u'Marital Status: ', 
-    choices=[('single','Single'), ('married', 'Married'), 
-    ('separated', 'Separated'), ('divorced', 'Divorced')],
+    choices=[('Single','Single'), ('Married', 'Married'), 
+    ('Separated', 'Separated'), ('Divorced', 'Divorced')],
         default='single', validators=[DataRequired()])
     
     studentAddress = TextAreaField('Address: ', validators=[DataRequired()], default='')
@@ -111,8 +111,8 @@ class EmergencyContactForm(FlaskForm):
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
     relationship = SelectField(u'Relationship: ', 
-    choices=[('relative','Relative'), ('spouse', 'Spouse'), 
-    ('friend', 'Friend')])
+    choices=[('Relative','Relative'), ('Spouse', 'Spouse'), 
+    ('Friend', 'Friend')])
     ecNumber = IntegerField('Telephone Number: ', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
