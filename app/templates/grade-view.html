@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.sidepanel{
+    padding:0px;
+}
+
+.sidepanel li{
+    list-style-type:none;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<div class="container">
+    <div class="row">
+     
+      <div class="col-sm-8">
+
+        <br/>
+        <h3> {{course_information.0.Name}} Grade Results</h3>
+        <br/>
+        <br/>
+        <table class="table table-light text-left table-hover">
+            <thead>
+                <th> Letter Grade </th>
+                <th> Score </th>
+                <th> Approval Status </th>
+                <th> Weight </th>
+                <th> Must Pass </th>
+            </thead>
+            <tbody>
+
+
+        {%for i in course_grade %} 
+
+            <td>
+
+        {% if i.CourseGrades.course >= 93: %} 
+            A
+        {% elif i.CourseGrades.course >= 90: %}
+            A-
+        {% elif i.CourseGrades.course >= 87: %}
+            B+
+        {% elif i.CourseGrades.course >= 83: %}
+            B
+        {% elif i.CourseGrades.course >= 80: %}
+            B-
+        {% elif i.CourseGrades.course >= 77: %}
+            C+
+        {% elif i.CourseGrades.course >= 73: %}
+            C
+        {% elif i.CourseGrades.course >= 70: %}
+            C-
+        {% elif i.CourseGrades.course >= 40: %}
+            F1
+        {% elif i.CourseGrades.course >= 30: %}
+            F2
+        {% endif %}
+
+        </td>
+
+        <td> {{i.CourseGrades.course}} </td>
+        <td> {% if i.ApprovalStatus == "1" %}
+            Grade Approved
+          {% else %}
+            Grade Pending
+          {% endif %}
+        </td>
+        <td> 50 </td>
+        <td> N </td>
+      
+  {%endfor%}
+          
+</tbody>
+</table>
+
+</div>
+<div class="col-sm-4">
+
+    <br/>
+    <h6>Grade Options</h6>
+    <ul class = "sidepanel">
+        <li class="card border-light"> 
+
+            <div class="card-header">Query This Grade</div>
+            <div class="card-body">
+                <p> If your grade for this course is looking weird, click below to have it reviewed by an admin</p>
+                <a href = "#" onclick = "requestGradeQuery()" class = "btn btn-danger btn-xs"> Query My Grade</a>
+            </div>
+            
+        </li>
+        <br/>
+        <li class="card border-light"> 
+
+            <div class="card-header">Request a transcript</div>
+            <div class="card-body">
+                <p> Applying for higher education? Get your transscript. </p>
+                <a href = "/transcripts/request" class = "btn btn-success btn-xs"> Request</a>
+            </div>
+
+        </li>
+
+    </ul>
+
+</div>
+ </div>
+ </div>
+
+ <script>
+     function requestGradeQuery(){
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'info',
+            confirmButtonText:'Yes, something is wrong',
+            showCancelButton: true,
+            preConfirm: () => {
+                window.location.href = "/querypage";
+        }
+        })
+     }
+ </script>
+
+{% endblock %}

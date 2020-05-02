@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+   
+<div class="col-sm-12 main-card-wrap">
+    <div class="card container">
+        <div class="row main-card">
+           
+            2017 / 2018
+            <table class="table table-light text-left table-hover">
+                <thead>
+                    <th> Course ID </th>
+                    <th> Grade Name </th>
+                    <th> Term </th>
+                    <th> Semester </th>
+                    <th></th>
+                </thead>
+                <tbody>
+    
+                {%for i in registered_courses %} 
+    
+                    <tr>
+                        <td> {{i.courseID}} </td>
+                        <td><a href = "/grade/view/{{i.courseID}}">{{i.courseName}}</a></td>
+                        <td> Term {{i.Term}} </td>
+                        <td> Semester {{i.Semester}} </td>
+                        <td> <a class = "btn btn-primary btn-sm" href = "/grade/view/{{i.courseID}}"> View Details </a> </td>
+                    </tr>
+    
+                {% endfor %}
+    
+                </tbody>
+            </table>
+
+            2018 / 2019
+            <table class="table table-light text-left table-hover">
+                <thead>
+                    <th> Course ID </th>
+                    <th> Grade Name </th>
+                    <th> Term </th>
+                    <th> Semester </th>
+                </thead>
+                <tbody>
+    
+                {%for i in registered_courses %} 
+    
+                    <tr>
+                        <td> {{i.courseID}} </td>
+                        <td><a href = "/grade/view/{{i.courseID}}">{{i.courseName}}</a></td>
+                        <td> Term {{i.Term}} </td>
+                        <td> Semester {{i.Semester}} </td>
+                    </tr>
+    
+                {% endfor %}
+    
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

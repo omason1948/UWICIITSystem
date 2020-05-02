@@ -730,6 +730,43 @@ def eventsdelete(id):
 
     return render_template('event-delete.html', title='Delete Events', user = username)
 
+
+# Displays the students grades information
+@app.route('/grades/view')
+def student_grades():
+
+    global menu_type
+    global username
+    menu_type = 2
+    username = session['username']
+    userID = session['userid']
+
+    student_registered_courses = db.registration.find({"studentID" : userID})
+
+    # Record User Activity
+    loguseractvity("View", "/grades/view/")
+
+    return render_template('grade.html', title='View Grades', user = username, registered_courses = student_registered_courses)
+
+# Displays the students grades information
+@app.route('/grade/view/<id>')
+def student_course_grade(id):
+
+    global menu_type
+    global username
+    menu_type = 2
+    username = session['username']
+    userID = session['userid']
+
+    course_information = db.course.find({"CRN" : id})
+    student_course_grade = db.student_course_grade.find({"StudentID" : userID, "CourseID": id})
+
+    # Record User Activity
+    loguseractvity("View", "/grades/view/" + str(id))
+
+    return render_template('grade-view.html', title='View Grades', course_information = course_information, user = username, course_grade = student_course_grade)
+
+
 # Admin Section
 
 @app.route('/admin')
@@ -920,3 +957,4 @@ def admin_transcripts():
         search_count = collection.count()
 
     return render_template('admin_transcripts.html', title = 'Courses', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
+

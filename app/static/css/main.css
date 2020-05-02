@@ -892,3 +892,9 @@ table.fc-header{
 	display: none !important;
 }
  
+/* Grades */
+
+
+.sidepanel li{
+    list-style-type:none;
+}
