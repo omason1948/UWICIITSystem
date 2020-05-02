@@ -85,7 +85,7 @@ class QueryForm(FlaskForm):
 
 class PersonalInfoForm(FlaskForm):
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
-    gender = RadioField('Gender: ', 
+    gender = SelectField(u'Gender: ', 
     choices=[('Male','Male'), ('Female', 'Female')])
 
     #dob = DateField('Date of Birth: ', validators=[DataRequired()], format='%Y-%m-%d')
