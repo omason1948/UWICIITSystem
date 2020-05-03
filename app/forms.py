@@ -104,17 +104,22 @@ class PersonalInfoForm(FlaskForm):
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy: ', validators=[FileRequired()])
     insuranceStatus = RadioField('Insurance Status: ', choices=[('Insured', 'Insured'), ('Uninsured', 'Uninsured')])
-
-    submit = SubmitField('Submit')
-
-class EmergencyContactForm(FlaskForm):
-    studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
     relationship = SelectField(u'Relationship: ', 
     choices=[('Relative','Relative'), ('Spouse', 'Spouse'), 
     ('Friend', 'Friend')])
     ecNumber = IntegerField('Telephone Number: ', validators=[DataRequired()])
+
     submit = SubmitField('Submit')
+
+# class EmergencyContactForm(FlaskForm):
+#     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
+#     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
+#     relationship = SelectField(u'Relationship: ', 
+#     choices=[('Relative','Relative'), ('Spouse', 'Spouse'), 
+#     ('Friend', 'Friend')])
+#     ecNumber = IntegerField('Telephone Number: ', validators=[DataRequired()])
+#     submit = SubmitField('Submit')
 
 
 ############################################################
