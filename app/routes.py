@@ -647,7 +647,7 @@ def personalinfopage():
         db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"],"dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergency_contact": {"emergencyCon": ecform.data["emergencyCon"], "relationship": ecform.data["relationship"], "ecNumber": ecform.data["ecNumber"] }}})
         
         # Record User Activity
-        loguseractvity("Edit", "/personalInfo/update/" + ObjectId(id))
+        loguseractvity("Edit", "/personalInfo/update/" + str(userId))
 
     else:
 
