@@ -638,14 +638,14 @@ def personalinfopage():
     username = session['username']
 
     form = PersonalInfoForm()
-    ecform = EmergencyContactForm()
+#     ecform = EmergencyContactForm()
     userId = int(session['userid'])
     studentData = db.student.find_one({"studentId" : userId})
     
     if request.method=='POST':
 
         # Update the student based on their logged in ID
-        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"],"dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergency_contact": {"emergencyCon": ecform.data["emergencyCon"], "relationship": ecform.data["relationship"], "ecNumber": ecform.data["ecNumber"] }}})
+        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"],"dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"] }})
         
         # Record User Activity
         loguseractvity("Edit", "/personalInfo/update/" + str(userId))
@@ -657,7 +657,7 @@ def personalinfopage():
         studentData = db.student.find_one({"studentId" : userId})
         # return redirect('/personalInfo/view')
 
-    return render_template('personalinfopage.html', title='Update Info', form=form, ecform=ecform, userId=userId, user = username, studentData = studentData)
+    return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user = username, studentData = studentData)
 
 ############################################################
 ##################### Events ROUTING  ######################
