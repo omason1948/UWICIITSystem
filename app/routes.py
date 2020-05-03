@@ -654,6 +654,7 @@ def personalinfopage():
 
         # Pull the users current information from the database
         studentData = db.student.find_one({"studentId" : userId})
+        return redirect('/personalInfo/view')
 
     return render_template('personalinfopage.html', title='Update Info', form=form, ecform=ecform, userId=userId, user = username, studentData = studentData)
 
