@@ -640,6 +640,7 @@ def personalinfopage():
     form = PersonalInfoForm()
     ecform = EmergencyContactForm()
     userId = int(session['userid'])
+    studentData = db.student.find_one({"studentId" : userId})
     
     if request.method=='POST':
 
