@@ -22,7 +22,7 @@ from wtforms import Form, validators
 
 # Form Classes
 from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts
-from app.forms import QueryForm, PersonalInfoForm, EmergencyContactForm
+from app.forms import QueryForm, PersonalInfoForm
 from app.forms import EventForm, LoginForm
 
 from bson import Binary, Code, ObjectId
