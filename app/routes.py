@@ -649,6 +649,7 @@ def personalinfopage():
         
         # Record User Activity
         loguseractvity("Edit", "/personalInfo/update/" + str(userId))
+        return redirect('/personalInfo/view')
 
     else:
 
