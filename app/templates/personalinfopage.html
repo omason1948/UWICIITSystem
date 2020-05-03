@@ -58,17 +58,17 @@
 
                     <div class="form-group">
                         <label>{{ form.emergencyCon.label }}</label> <br/>
-                        {{ form.emergencyCon(value=studentData.emergency_contact.emergencyCon, class = "form-control") }}
+                        {{ form.emergencyCon(value=studentData.emergencyCon, class = "form-control") }}
                     </div>
 
                     <div class="form-group">
                         <label>{{ form.relationship.label }}</label> <br/>
-                        {{ form.relationship(value=studentData.emergency_contact.relationship)}}
+                        {{ form.relationship(value=studentData.relationship)}}
                     </div>
 
                     <div class="form-group">
                         <label for="ecNumber">{{ form.ecNumber.label }} </label> <br/>
-                        {{ form.ecNumber(value=studentData.emergency_contact.ecNumber, class = "form-control") }}
+                        {{ form.ecNumber(value=studentData.ecNumber, class = "form-control") }}
                     </div>
 
                     <!-- <button type="button" class="btn btn-outline-success">{{ form.submit }}</button> -->
