@@ -659,6 +659,30 @@ def personalinfopage():
 
     return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user = username, studentData = studentData)
 
+@app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
+@login_required
+
+def insurance():
+
+    global menu_type
+    global username
+    menu_type = 1
+    username = session['username']
+    data = db.insurance.find({"studentId" : userId})
+
+    form = InsuranceForm()
+    userId = int(session['userid'])
+    email = session['email']
+    
+    # Record User Activity
+    loguseractvity("View", "/querypage/")
+    
+    if request.method=='POST':
+        db.insurance.insert_one(form.data)
+    
+    return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data,user = username, email = email)
+
+
 ############################################################
 ##################### Events ROUTING  ######################
 ############################################################
