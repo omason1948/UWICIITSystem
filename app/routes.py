@@ -638,7 +638,6 @@ def personalinfopage():
     username = session['username']
 
     form = PersonalInfoForm()
-#     ecform = EmergencyContactForm()
     userId = int(session['userid'])
     studentData = db.student.find_one({"studentId" : userId})
     
@@ -661,7 +660,6 @@ def personalinfopage():
 
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
 @login_required
-
 def insurance():
 
     global menu_type
@@ -675,12 +673,12 @@ def insurance():
     email = session['email']
     
     # Record User Activity
-    loguseractvity("View", "/querypage/")
+    loguseractvity("View", "/personalInfo/insurance")
     
     if request.method=='POST':
         db.insurance.insert_one(form.data)
     
-    return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data,user = username, email = email)
+    return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
 
 
 ############################################################
