@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3"> </div>
+        
+        <div class="col-sm-6"> 
+             <form action="" method="POST" novalidate>
+                    
+                {{ form.hidden_tag() }}
+                    <div class="card"><div class="card-body">
+
+                    <h5 class="card-title"> Insurance Details </h5>
+                    
+                    <div class="form-group">
+                        <h5 class="card-title">{{user}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">ID #{{ userId }}</h6>
+                    
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.insurancePeriod .label }}<br>
+                        {{form.insurancePeriod(value=studentData.insurancePeriod)}}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.payment.label }} <br>
+                        {{ form.payment() }}<br>
+                    </div>
+                    
+                    <p>{{ form.submit( class = "btn btn-success" ) }}</p>
+             </form>
+        </div>
+        
+        <div class="col-sm-3"> </div>   
+
+{% endblock %}
