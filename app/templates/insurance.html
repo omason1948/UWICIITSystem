@@ -13,9 +13,10 @@
                             <div class="form-group">
                                 <h5 class="card-title">{{user}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">ID #{{ userId }}</h6>
+                                {{ form.studentEmail(value=email) }}
                             </div>
                             <div class="form-group">
-                                {{ form.insurancePeriod .label }}<br>
+                                {{ form.insurancePeriod.label }}<br>
                                 {{form.insurancePeriod(value=studentData.insurancePeriod)}}
                             </div>
                             <div class="form-group">
