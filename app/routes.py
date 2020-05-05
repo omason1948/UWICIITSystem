@@ -593,7 +593,7 @@ def query():
     if request.method=='POST':
         db.query.insert_one(form.data)
         
-    return render_template('querypage.html', title='Student Query', form=form, userId=userId, data=data,user = username, email = email)
+    return render_template('querypage.html', title='Student Query', form=form, userId=userId, data=data, user=username, email=email)
 
 @app.route('/queryhistory')
 def queryhistory():
@@ -631,7 +631,6 @@ def viewpersonalInfo():
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
 @login_required
 def personalinfopage():
-
     global menu_type
     global username
     menu_type = 1
@@ -660,24 +659,21 @@ def personalinfopage():
 
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
 @login_required
-def insurance():
-
+define insurance():
     global menu_type
     global username
     menu_type = 1
     username = session['username']
-    data = db.insurance.find({"studentId" : userId})
-
+    
     form = InsuranceForm()
     userId = int(session['userid'])
-    email = session['email']
+    data = db.insurance.find_one({'studentId' : userId})
     
     # Record User Activity
-    loguseractvity("View", "/personalInfo/insurance")
+    loguseractvity('Update', '/personalInfo/insurance')
     
     if request.method=='POST':
         db.insurance.insert_one(form.data)
-    
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
 
 
