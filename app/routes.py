@@ -659,7 +659,7 @@ def personalinfopage():
 
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
 @login_required
-define insurance():
+def insurance():
     global menu_type
     global username
     menu_type = 1
