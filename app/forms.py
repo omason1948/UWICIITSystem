@@ -103,17 +103,21 @@ class PersonalInfoForm(FlaskForm):
     studentAddress = TextAreaField('Address: ', validators=[DataRequired()], default='')
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy: ', validators=[FileRequired()])
-    insuranceStatus = RadioField('Insurance Status: ', choices=[('Insured', 'Insured'), ('Uninsured', 'Uninsured')])
-
-    submit = SubmitField('Submit')
-
-class EmergencyContactForm(FlaskForm):
-    studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
     relationship = SelectField(u'Relationship: ', 
     choices=[('Relative','Relative'), ('Spouse', 'Spouse'), 
     ('Friend', 'Friend')])
     ecNumber = IntegerField('Telephone Number: ', validators=[DataRequired()])
+
+    submit = SubmitField('Submit')
+
+class InsuranceForm(FlaskForm):
+    studentId = IntegerField('Student ID: ', validators=[DataRequired()])
+    studentName = HiddenField('Name: ', validators=[DataRequired()])
+    studentEmail = HiddenField('Email: ', validators=[DataRequired()])
+    insurancePeriod = SelectField(u'Insurance Period: ', 
+                                  choices=[('6 months','6 month'), ('1 Year', '1 Year')])
+    payment = FileField('Payement Reciept: ', validators=[FileRequired()])
     submit = SubmitField('Submit')
 
 

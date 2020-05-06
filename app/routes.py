@@ -22,7 +22,7 @@ from wtforms import Form, validators
 
 # Form Classes
 from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts
-from app.forms import QueryForm, PersonalInfoForm, EmergencyContactForm
+from app.forms import QueryForm, PersonalInfoForm
 from app.forms import EventForm, LoginForm
 
 from bson import Binary, Code, ObjectId
@@ -593,7 +593,7 @@ def query():
     if request.method=='POST':
         db.query.insert_one(form.data)
         
-    return render_template('querypage.html', title='Student Query', form=form, userId=userId, data=data,user = username, email = email)
+    return render_template('querypage.html', title='Student Query', form=form, userId=userId, data=data, user=username, email=email)
 
 @app.route('/queryhistory')
 def queryhistory():
@@ -631,30 +631,51 @@ def viewpersonalInfo():
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
 @login_required
 def personalinfopage():
-
     global menu_type
     global username
     menu_type = 1
     username = session['username']
 
     form = PersonalInfoForm()
-    ecform = EmergencyContactForm()
     userId = int(session['userid'])
+    studentData = db.student.find_one({"studentId" : userId})
     
     if request.method=='POST':
 
         # Update the student based on their logged in ID
-        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"],"dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergency_contact": {"emergencyCon": ecform.data["emergencyCon"], "relationship": ecform.data["relationship"], "ecNumber": ecform.data["ecNumber"] }}})
+        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"],"dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"] }})
         
         # Record User Activity
-        loguseractvity("Edit", "/personalInfo/update/" + ObjectId(id))
+        loguseractvity("Edit", "/personalInfo/update/" + str(userId))
+        return redirect('/personalInfo/view')
 
     else:
 
         # Pull the users current information from the database
         studentData = db.student.find_one({"studentId" : userId})
+        # return redirect('/personalInfo/view')
 
-    return render_template('personalinfopage.html', title='Update Info', form=form, ecform=ecform, userId=userId, user = username, studentData = studentData)
+    return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user = username, studentData = studentData)
+
+@app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
+@login_required
+def insurance():
+    global menu_type
+    global username
+    menu_type = 1
+    username = session['username']
+    
+    form = InsuranceForm()
+    userId = int(session['userid'])
+    data = db.insurance.find_one({'studentId' : userId})
+    
+    # Record User Activity
+    loguseractvity('Update', '/personalInfo/insurance')
+    
+    if request.method=='POST':
+        db.insurance.insert_one(form.data)
+    return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
+
 
 ############################################################
 ##################### Events ROUTING  ######################

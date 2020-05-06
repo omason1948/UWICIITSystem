@@ -57,23 +57,24 @@
                     <h5 class="card-title"> Emergency Contact Information </h5>
 
                     <div class="form-group">
-                        <label>{{ ecform.emergencyCon.label }}</label> <br/>
-                        {{ ecform.emergencyCon(value=studentData.emergency_contact.emergencyCon, class = "form-control") }}
+                        <label>{{ form.emergencyCon.label }}</label> <br/>
+                        {{ form.emergencyCon(value=studentData.emergencyCon, class = "form-control") }}
                     </div>
 
                     <div class="form-group">
-                        <label>{{ ecform.relationship.label }}</label> <br/>
-                        {{ ecform.relationship(value=studentData.emergency_contact.relationship)}}
+                        <label>{{ form.relationship.label }}</label> <br/>
+                        {{ form.relationship(value=studentData.relationship)}}
                     </div>
 
                     <div class="form-group">
-                        <label for="ecNumber">{{ ecform.ecNumber.label }} </label> <br/>
-                        {{ ecform.ecNumber(value=studentData.emergency_contact.ecNumber, class = "form-control") }}
+                        <label for="ecNumber">{{ form.ecNumber.label }} </label> <br/>
+                        {{ form.ecNumber(value=studentData.ecNumber, class = "form-control") }}
                     </div>
 
                     <!-- <button type="button" class="btn btn-outline-success">{{ form.submit }}</button> -->
 
-                    <p>{{ form.submit( class = "btn btn-primary btn-sm" ) }}</p>
+                    <p>{{ form.submit( class="btn btn-success" ) }}</p>
+                    <p><a type="button" class="btn btn-dark" href="/personalInfo/view" >Cancel</a></p>
                 </div></div>
             </form>
 
@@ -97,7 +98,7 @@
                     <li><a>{{links.title}}</a></li>
                 {% endfor %}
             </ul>
-
+         
         </div>
     </div>
 </div>
