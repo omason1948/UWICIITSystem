@@ -21,8 +21,8 @@ from flask_pymongo import PyMongo, MongoClient, BSONObjectIdConverter
 from wtforms import Form, validators
 
 # Form Classes
-from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts,InsuranceForm
-from app.forms import QueryForm, PersonalInfoForm
+from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts
+from app.forms import QueryForm, PersonalInfoForm, InsuranceForm
 from app.forms import EventForm, LoginForm
 
 from bson import Binary, Code, ObjectId
