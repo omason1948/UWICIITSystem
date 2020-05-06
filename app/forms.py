@@ -116,7 +116,7 @@ class InsuranceForm(FlaskForm):
     studentName = HiddenField('Name: ', validators=[DataRequired()])
     studentEmail = HiddenField('Email: ', validators=[DataRequired()])
     insurancePeriod = SelectField(u'Insurance Period: ', 
-                                  choices=[('6 months','6 month'), ('1 Year', '1 Year')])
+                                  choices=[('6 months','6 Months'), ('1 Year', '1 Year')])
     payment = FileField('Payement Reciept: ', validators=[FileRequired()])
     submit = SubmitField('Submit')
 
