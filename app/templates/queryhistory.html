@@ -1,24 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3 class="card-title"> Query History</h3>
-<table class="table table-bordered">
-    <thead>
-        <tr class="table-success">
-            <th scope="col"> Issue</th>
-            <th scope="col">Description</th>
-            <th scope="col">Year</th>
-            <th scope="col">Semester</th>
-        </tr>
-    </thead>
-    <tbody>
-        {%for i in data%}
-        <tr align="center">
-            <td>{{i.studentIssues}}</td>
-            <td>{{i.queryDesc}}</td>
-            <td>{{i.yearOfStudy}}</td>
-            <td>{{i.semester}}</td>
-        </tr>
-    </tbody>
-
-{% endblock %}
+<div class="container">
+            <h3 class="card-title"> Query History</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-success">
+                        <th scope="col"> Issue</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Semester</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for i in data%}
+                    <tr align="center">
+                        <td>{{i.studentIssues}}</td>
+                        <td>{{i.queryDesc}}</td>
+                        <td>{{i.yearOfStudy}}</td>
+                        <td>{{i.semester}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+    </div>
+              
+             
+        {% endblock %}

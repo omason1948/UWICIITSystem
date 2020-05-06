@@ -70,13 +70,13 @@ class QueryForm(FlaskForm):
     studentId = HiddenField('Student ID: ', validators=[DataRequired()])
     studentName = HiddenField('Name: ', validators=[DataRequired()])
     studentEmail = HiddenField('Email: ', validators=[DataRequired()])
-    yearOfStudy = RadioField('Year of Study: ', 
+    yearOfStudy = SelectField(u'Year of Study: ', 
     choices=[('year1','Year 1'), ('year2', 'Year 2'), 
     ('year3', 'Year 3'), ('year4', 'Year 4')])
-    semester = RadioField('Semester: ', 
+    semester = SelectField(u'Semester: ', 
     choices=[('semester1','Semester 1'), ('semester2', 'Semester 2'), 
     ('summer', 'Summer')])
-    studentIssues = RadioField('Issue: ', 
+    studentIssues = SelectField(u'Issue: ', 
     choices=[('Grades','Grades'), ('Finance', 'Finance'), 
     ('Transcript', 'Transcript'), ('Course', 'Course'), ('Other', 'Other')])
     queryDesc = TextAreaField('Please state your query: ', validators=[DataRequired()])
@@ -85,8 +85,8 @@ class QueryForm(FlaskForm):
 
 class PersonalInfoForm(FlaskForm):
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
-    gender = RadioField('Gender: ', 
-    choices=[('male','Male'), ('female', 'Female')])
+    gender = SelectField(u'Gender: ', 
+    choices=[('Male','Male'), ('Female', 'Female')])
 
     #dob = DateField('Date of Birth: ', validators=[DataRequired()], format='%Y-%m-%d')
     dob = DateTimeLocalField(
@@ -95,23 +95,24 @@ class PersonalInfoForm(FlaskForm):
         validators = [Required('please select a valid date of birth')]
     )
     
-    maritalStatus = RadioField('Marital Status: ', 
-    choices=[('single','Single'), ('married', 'Married'), 
-    ('separated', 'Separated'), ('divorced', 'Divorced')],
+    maritalStatus = SelectField(u'Marital Status: ', 
+    choices=[('Single','Single'), ('Married', 'Married'), 
+    ('Separated', 'Separated'), ('Divorced', 'Divorced')],
         default='single', validators=[DataRequired()])
     
     studentAddress = TextAreaField('Address: ', validators=[DataRequired()], default='')
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy: ', validators=[FileRequired()])
+    insuranceStatus = RadioField('Insurance Status: ', choices=[('Insured', 'Insured'), ('Uninsured', 'Uninsured')])
 
     submit = SubmitField('Submit')
 
 class EmergencyContactForm(FlaskForm):
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
-    relationship = RadioField('Relationship: ', 
-    choices=[('relative','Relative'), ('spouse', 'Spouse'), 
-    ('friend', 'Friend')])
+    relationship = SelectField(u'Relationship: ', 
+    choices=[('Relative','Relative'), ('Spouse', 'Spouse'), 
+    ('Friend', 'Friend')])
     ecNumber = IntegerField('Telephone Number: ', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
@@ -140,7 +141,7 @@ class EventForm(FlaskForm):
 
     location = StringField('Event Location', validators=[DataRequired()])
     submit = SubmitField('Add Event')
-
+    
 ############################################################
 #################### ADMIN SEARCH Forms Classes ##################
 ############################################################

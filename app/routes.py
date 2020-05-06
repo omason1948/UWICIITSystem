@@ -595,6 +595,18 @@ def query():
         
     return render_template('querypage.html', title='Student Query', form=form, userId=userId, data=data,user = username, email = email)
 
+@app.route('/queryhistory')
+def queryhistory():
+    
+    global menu_type
+    global username
+    menu_type = 1
+    username = session['username']
+    
+    userId = int(session['userid'])
+    data = list(db.query.find({"studentId" : userId}))
+    return render_template('queryhistory.html', title='Query History', data=data, user=username, userId=userId)
+
 @app.route('/personalInfo', methods=('GET', 'POST'))
 @login_required
 def personalinfoOptions():
@@ -603,6 +615,18 @@ def personalinfoOptions():
     loguseractvity("View", "/personalInfo/")
     
     return render_template('personalinfo.html', title='Personal Info')
+
+@app.route('/personalInfo/view')
+@login_required
+def viewpersonalInfo():
+    global menu_type
+    global username
+    menu_type = 1
+    username = session['username']
+    
+    userId = int(session['userid'])
+    data = list(db.student.find({"studentId" : userId}))
+    return render_template('view-personalinfo.html', title='View Personal Info', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
 @login_required
@@ -630,7 +654,7 @@ def personalinfopage():
         # Pull the users current information from the database
         studentData = db.student.find_one({"studentId" : userId})
 
-    return render_template('personalinfopage.html', title='Personal Info', form=form, ecform=ecform, userId=userId, user = username, studentData = studentData)
+    return render_template('personalinfopage.html', title='Update Info', form=form, ecform=ecform, userId=userId, user = username, studentData = studentData)
 
 ############################################################
 ##################### Events ROUTING  ######################
