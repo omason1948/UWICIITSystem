@@ -664,6 +664,7 @@ def insurance():
     global username
     menu_type = 1
     username = session['username']
+    email = session['email']
     
     form = InsuranceForm()
     userId = int(session['userid'])
