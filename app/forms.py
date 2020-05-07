@@ -17,6 +17,12 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
+class ForgotForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired()])
+    userid = StringField('Userid', validators=[DataRequired()])
+    submit = SubmitField('Sign In')
+
+
 ############################################################
 ##################### COURSES Form Classes #################
 ############################################################

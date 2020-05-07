@@ -22,7 +22,7 @@ from wtforms import Form, validators
 
 # Form Classes
 from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts
-from app.forms import QueryForm, PersonalInfoForm
+from app.forms import QueryForm, PersonalInfoForm, ForgotForm
 from app.forms import EventForm, LoginForm
 
 from bson import Binary, Code, ObjectId
@@ -192,6 +192,24 @@ def login():
 
     return render_template('login.html', title='Sign In', form=form)
 
+@app.route("/forgot", methods=['GET', 'POST'])
+def forgotPassword():
+
+    # Record User Activity
+    #loguseractvity("View", "/forgotPassword")
+    
+    form = ForgotForm()
+    if form.validate_on_submit():
+        useremail = form.email.data
+        userid = form.userid.data
+        return render_template('forgot_success.html', title='UWICIIT Forgot Password', form=form)
+    else:
+        flash('An error occured trying to reset your password. Try again later.')
+
+    # Send user an email regarding the forgotten email
+
+    return render_template('forgot.html', title='UWICIIT Forgot Password', form=form)
+
 def setUserRoles(userRoles):
 
     global role_users
@@ -222,14 +240,6 @@ def logout():
     session.clear()
     return home()
 
-@app.route('/forgotPassword')
-@login_required
-def forgotPassword():
-
-    # Record User Activity
-    loguseractvity("View", "/forgotPassword")
-    
-    return render_template('login.html', title='UWICIIT Forgot Password') 
 
 # Registration Functions Section
 @app.route('/academic-information')
@@ -346,7 +356,7 @@ def registrationstatus():
 def schedule():
 
     studentid = str(session['userid'])
-    registered_list = list(db.registration.find({'studentID': studentid}))
+     
     
     QuickLinks = [
         {
@@ -364,8 +374,51 @@ def schedule():
 
     # Record User Activity
     loguseractvity("View", "/schedule")
+
+    registered_list = db.course.find({'Year': "1"})
     
-    return render_template('schedule.html', title='Schedule Details', QuickLinks = QuickLinks, courses = registered_list)
+    
+    Monday = ""
+    Tuesday = ""
+    Wednesday = ""
+    Thursday = ""
+    Friday = ""
+
+    for i in registered_list:
+
+        if ( i['CourseActivity']["L1"]["times"][1]!= "0" ):
+            Monday += i['Name'] + " L1 @ " + i['CourseActivity']["L1"]["times"][1]
+        
+        if ( i['CourseActivity']["P1"]["times"][1]!= "0" ):
+            Monday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][1]
+        
+        if ( i['CourseActivity']["L1"]["times"][2]!= "0" ):
+            Tuesday += i['Name'] + " L1 @ " + i['CourseActivity']["L1"]["times"][2]
+
+        if ( i['CourseActivity']["P1"]["times"][2]!= "0" ):
+            Tuesday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][2]
+        
+        if ( i['CourseActivity']["L1"]["times"][3]!= "0" ):
+            Wednesday += i['Name']+ " L1 @ " + i['CourseActivity']["L1"]["times"][3]
+        
+        if ( i['CourseActivity']["P1"]["times"][3]!= "0" ):
+            Wednesday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][3]
+        
+        if ( i['CourseActivity']["L1"]["times"][4]!= "0" ):
+            Thursday += i['Name'] + " L1 @ " + i['CourseActivity']["L1"]["times"][4]
+
+        if ( i['CourseActivity']["P1"]["times"][4]!= "0" ):
+            Thursday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][4]
+        
+        if ( i['CourseActivity']["L1"]["times"][5]!= "0" ):
+            Friday += i['Name'] + " L1 @ " + i['CourseActivity']["P1"]["times"][5]
+
+        if ( i['CourseActivity']["P1"]["times"][5]!= "0" ):
+            Friday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][5]
+
+        print("Hello World")
+
+    return render_template('schedule.html', title='Schedule Details', QuickLinks = QuickLinks, Monday = Monday, Tuesday = Tuesday, Wednesday = Wednesday, Thursday = Thursday, Friday = Friday, courses = registered_list)
 
 @app.route('/course/grade-detail')
 def courseGradeDetail():

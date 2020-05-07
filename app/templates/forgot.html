@@ -4,9 +4,8 @@
     
     <div class="col-lg-5">
         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-          <h1>User Login</h1>
-          <h6 class="font-weight-light">Please enter your user identification number and password. 
-            If you do not remember yor password. Please select the Forgot Password button. </h6>
+          <h1>Forgot Password</h1>
+          <h6 class="font-weight-light">Please enter your user identification number and account email. </h6>
           
           
           {% if error: %} 
@@ -19,22 +18,21 @@
           <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
             <p>
-                {{ form.username.label }}<br>
-                {{ form.username(size=32) }}<br>
-                {% for error in form.username.errors %}
+                {{ form.email.label }}<br>
+                {{ form.email(size=32) }}<br>
+                {% for error in form.email.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
             <p>
-                {{ form.password.label }}<br>
-                {{ form.password(size=32) }}<br>
-                {% for error in form.password.errors %}
+                {{ form.userid.label }}<br>
+                {{ form.userid(size=32) }}<br>
+                {% for error in form.userid.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
-            <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
             <p>{{ form.submit() }}</p>
-            <a href ="/forgot"> Forgot Password </a>
+            <a href ="/login"> Login </a>
         </form>
             
         </div>
