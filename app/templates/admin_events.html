@@ -29,14 +29,16 @@
     {% if searchName != "" %}
     <br/>
     <p> You searched for <b>{{searchName}}</b>. Showing {{search_count}} events. <a href = "/admin/events"> View all Events </a> </p>
-    {% else %}
-    <br/>
-    <p> Showing {{search_count}} events.  </p>
     {% endif %}
 
 </div>
 
-<table class="table table-light text-left table-hover">
+<table class="table table-light text-left table-hover"
+  id="table"
+  data-toggle="table"
+  data-height="460"
+  data-pagination="true">
+
     <thead>
         <th> Name </th>
         <th> Location </th>
