@@ -5,7 +5,45 @@
 <div class="container">
 
     <div class="row">
-       
+	   
+	<h3> {{current_date}} </h3>
+
+	{% if current_day == "Monday": %}
+	<style>
+		.day_today_Monday{
+			background:rgb(199, 241, 219);
+			color:#000;
+		}
+	</style>
+	{% elif current_day == "Tuesday": %}
+	<style>
+		.day_today_Tuesday{
+			background:rgb(199, 241, 219);
+			color:#000;
+		}
+	</style>
+	{% elif current_day == "Wednesday": %}
+	<style>
+		.day_today_Wednesday{
+			background:rgb(199, 241, 219);
+			color:#000;
+		}
+	</style>
+	{% elif current_day == "Thursday": %}
+	<style>
+		.day_today_Thursday{
+			background:rgb(199, 241, 219);
+			color:#000;
+		}
+	</style>
+	{% elif current_day == "Friday": %}
+	<style>
+		.day_today_Friday{
+			background:rgb(199, 241, 219);
+			color:#000;
+		}
+	</style>
+	{% endif%}
 
 	<table class="table table-hover">
 		<thead class="thead-dark">
@@ -20,15 +58,95 @@
 		</thead>
 		<tbody>
 		  
+		<tr>
+			<th class = "hour_9" scope="row">9:00</th>
+			<td class = "day_today_Monday">{{Monday["9:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["9:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["9:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["9:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["9:00"]}}</td>
+		</tr>
 
-	<tr>
-		<th scope="row">9:00</th>
-		<td>{{Monday}}</td>
-		<td>{{Tuesday}}</td>
-		<td>{{Wednesday}}</td>
-		<td>{{Thursday}}</td>
-		<td>{{Friday}}</td>
-	</tr>
+		<tr>
+			<th class = "hour_10" scope="row">10:00</th>
+			<td class = "day_today_Monday"> {{Monday["10:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["10:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["10:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["10:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["10:00"]}}</td>
+		</tr>
+
+		<tr>
+			<th class = "hour_11" scope="row">11:00</th>
+			<td class = "day_today_Monday">{{Monday["11:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["11:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["11:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["11:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["11:00"]}}</td>
+		</tr>
+
+		<tr>
+			<th class = "hour_12" scope="row">12:00</th>
+			<td class = "day_today_Monday">{{Monday["12:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["12:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["12:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["12:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["12:00"]}}</td>
+		</tr>
+
+		<tr>
+			<th class = "hour_13" scope="row">1:00</th>
+			<td class = "day_today_Monday">{{Monday["1:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["1:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["1:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["1:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["1:00"]}}</td>
+		</tr>
+
+		<tr>
+			<th class = "hour_14" scope="row">2:00</th>
+			<td class = "day_today_Monday">{{Monday["2:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["2:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["2:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["2:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["2:00"]}}</td>
+		</tr>
+
+		<tr>
+			<th class = "hour_15" scope="row">3:00</th>
+			<td class = "day_today_Monday">{{Monday["3:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["3:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["3:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["3:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["3:00"]}}</td>
+		</tr>
+
+		<tr>
+			<th class = "hour_16" scope="row">4:00</th>
+			<td class = "day_today_Monday">{{Monday["4:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["4:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["4:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["4:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["4:00"]}}</td>
+		</tr>
+
+		<tr>
+			<th class = "hour_17" scope="row">5:00</th>
+			<td class = "day_today_Monday">{{Monday["5:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["5:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["5:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["5:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["5:00"]}}</td>
+		</tr>
+
+		<tr>
+			<th class = "hour_18" scope="row">6:00</th>
+			<td class = "day_today_Monday">{{Monday["6:00"]}}</td>
+			<td class = "day_today_Tuesday">{{Tuesday["6:00"]}}</td>
+			<td class = "day_today_Wednesday">{{Wednesday["6:00"]}}</td>
+			<td class = "day_today_Thursday">{{Thursday["6:00"]}}</td>
+			<td class = "day_today_Friday">{{Friday["6:00"]}}</td>
+		</tr>
 
 	</tbody>
   </table>

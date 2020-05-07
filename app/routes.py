@@ -8,6 +8,7 @@ from datetime import datetime
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
+from datetime import date
 
 # generate random integer values
 from random import randint
@@ -355,6 +356,12 @@ def registrationstatus():
 @app.route('/schedule')
 def schedule():
 
+    global menu_type
+    global username
+    menu_type = 2
+    username = session['username']
+    studentid = session['userid']
+
     studentid = str(session['userid'])
      
     
@@ -377,48 +384,70 @@ def schedule():
 
     registered_list = db.course.find({'Year': "1"})
     
-    
-    Monday = ""
+    Monday = ""    
+    Monday2 = {"9:00":'',"10:00":"", "11:00":"", "12:00":"", "1:00":"", "2:00":"", "3:00":"", "4:00":"", "5:00":"", "6:00":""}
+
     Tuesday = ""
+    Tuesday2 = {"9:00":'',"10:00":"", "11:00":"", "12:00":"", "1:00":"", "2:00":"", "3:00":"", "4:00":"", "5:00":"", "6:00":""}
+
     Wednesday = ""
+    Wednesday2 = {"9:00":'',"10:00":"", "11:00":"", "12:00":"", "1:00":"", "2:00":"", "3:00":"", "4:00":"", "5:00":"", "6:00":""}
+
     Thursday = ""
+    Thursday2 = {"9:00":'',"10:00":"", "11:00":"", "12:00":"", "1:00":"", "2:00":"", "3:00":"", "4:00":"", "5:00":"", "6:00":""}
+
     Friday = ""
+    Friday2 = {"9:00":'',"10:00":"", "11:00":"", "12:00":"", "1:00":"", "2:00":"", "3:00":"", "4:00":"", "5:00":"", "6:00":""}
 
     for i in registered_list:
 
         if ( i['CourseActivity']["L1"]["times"][1]!= "0" ):
-            Monday += i['Name'] + " L1 @ " + i['CourseActivity']["L1"]["times"][1]
+            Monday += i['Name'] + " - L1" + i['CourseActivity']["L1"]["times"][1]
+            Monday2[ i['CourseActivity']["L1"]["times"][1] ] += i['Name'] + " L1"
         
         if ( i['CourseActivity']["P1"]["times"][1]!= "0" ):
-            Monday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][1]
+            Monday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][1]
+            Monday2[ i['CourseActivity']["P1"]["times"][1] ] += i['Name'] + " P1"
         
         if ( i['CourseActivity']["L1"]["times"][2]!= "0" ):
-            Tuesday += i['Name'] + " L1 @ " + i['CourseActivity']["L1"]["times"][2]
+            Tuesday += i['Name'] + " L1" + i['CourseActivity']["L1"]["times"][2]
+            Tuesday2[ i['CourseActivity']["L1"]["times"][2] ] += i['Name'] + " L1"
 
         if ( i['CourseActivity']["P1"]["times"][2]!= "0" ):
-            Tuesday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][2]
+            Tuesday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][2]
+            Tuesday2[ i['CourseActivity']["P1"]["times"][2] ] += i['Name'] + " P1"
         
         if ( i['CourseActivity']["L1"]["times"][3]!= "0" ):
-            Wednesday += i['Name']+ " L1 @ " + i['CourseActivity']["L1"]["times"][3]
+            Wednesday += i['Name']+ " L1" + i['CourseActivity']["L1"]["times"][3]
+            Wednesday2[ i['CourseActivity']["P1"]["times"][3] ] += i['Name'] + " P1"
         
         if ( i['CourseActivity']["P1"]["times"][3]!= "0" ):
-            Wednesday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][3]
+            Wednesday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][3]
+            Wednesday2[ i['CourseActivity']["P1"]["times"][3] ] += i['Name'] + " P1"
         
         if ( i['CourseActivity']["L1"]["times"][4]!= "0" ):
-            Thursday += i['Name'] + " L1 @ " + i['CourseActivity']["L1"]["times"][4]
+            Thursday += i['Name'] + " L1" + i['CourseActivity']["L1"]["times"][4]
+            Thursday2[ i['CourseActivity']["L1"]["times"][4] ] += i['Name'] + " L1"
 
         if ( i['CourseActivity']["P1"]["times"][4]!= "0" ):
-            Thursday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][4]
+            Thursday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][4]
+            Thursday2[ i['CourseActivity']["P1"]["times"][4] ] += i['Name'] + " P1"
         
         if ( i['CourseActivity']["L1"]["times"][5]!= "0" ):
-            Friday += i['Name'] + " L1 @ " + i['CourseActivity']["P1"]["times"][5]
+            Friday += i['Name'] + " L1" + i['CourseActivity']["P1"]["times"][5]
+            Friday2[ i['CourseActivity']["L1"]["times"][5] ] += i['Name'] + " L1"
 
         if ( i['CourseActivity']["P1"]["times"][5]!= "0" ):
-            Friday += i['Name'] + " P1 @ " + i['CourseActivity']["P1"]["times"][5]
+            Friday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][5]
+            Friday2[ i['CourseActivity']["P1"]["times"][5] ] += i['Name'] + " P1"
 
-        print("Hello World")
+    today = date.today()
+    # Textual month, day and year	
+    d2 = today.strftime("%B %d, %Y")
+    Day_of_week = today.strftime("%A")
+    Hour_of_day = today.strftime("%H")
 
-    return render_template('schedule.html', title='Schedule Details', QuickLinks = QuickLinks, Monday = Monday, Tuesday = Tuesday, Wednesday = Wednesday, Thursday = Thursday, Friday = Friday, courses = registered_list)
+    return render_template('schedule.html', user = username, current_date = d2, current_day = Day_of_week, current_hour = Hour_of_day, title='Schedule Details', QuickLinks = QuickLinks, Monday = Monday2, Tuesday = Tuesday2, Wednesday = Wednesday2, Thursday = Thursday2, Friday = Friday2, courses = registered_list)
 
 @app.route('/course/grade-detail')
 def courseGradeDetail():
