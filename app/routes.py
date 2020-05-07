@@ -22,7 +22,7 @@ from wtforms import Form, validators
 
 # Form Classes
 from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts
-from app.forms import QueryForm, PersonalInfoForm, ForgotForm
+from app.forms import QueryForm, PersonalInfoForm, InsuranceForm, ForgotForm
 from app.forms import EventForm, LoginForm
 
 from bson import Binary, Code, ObjectId
@@ -717,6 +717,7 @@ def insurance():
     global username
     menu_type = 1
     username = session['username']
+    email = session['email']
     
     form = InsuranceForm()
     userId = int(session['userid'])
