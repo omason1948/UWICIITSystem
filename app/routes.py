@@ -737,7 +737,7 @@ def personalinfopage():
         studentData = db.student.find_one({"studentId" : userId})
         # return redirect('/personalInfo/view')
 
-    return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user = username, studentData = studentData)
+    return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user=username, studentData=studentData)
 
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
 @login_required
@@ -747,6 +747,7 @@ def insurance():
     menu_type = 1
     username = session['username']
     email = session['email']
+    filename = ""
     
     form = InsuranceForm()
     userId = int(session['userid'])
@@ -756,7 +757,30 @@ def insurance():
     loguseractvity('Update', '/personalInfo/insurance')
     
     if request.method=='POST':
-        db.insurance.insert_one(form.data)
+         file = request.files["payment"]
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+
+            # generate some integers
+            randvalue = randint(10, 10000000)
+
+            # Directory 
+            directory = form.data["studentName"] + "" + str(randvalue)
+            directory = directory.replace(" ", "")
+  
+            # mode 
+            mode = 0o777
+
+            #path
+            path = os.path.join(app.config['UPLOAD_FOLDER'], directory) 
+            
+            #create directory
+            os.mkdir(path, mode)
+
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
+#         db.insurance.insert_one(form.data)
+        db.insurance.insert_one({"studentId ": form.data["studentId "],"studentName ":form.data["studentName"], "studentEmail ":form.data["studentEmail"], "insurancePeriod ":form.data["insurancePeriod"], "payment": directory + "/" + filename})
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
 
 
