@@ -842,7 +842,7 @@ def insurance():
             return "complete 2"
 
         #db.insurance.insert_one(form.data)
-        db.insurance.insert_one({"studentId": form.data["studentId"],"studentName":form.data["studentName"], "studentEmail":form.data["studentEmail"], "insurancePeriod":form.data["insurancePeriod"], "payment": directory + "/" + filename})
+        db.insurance.insert_one({"studentId": form.data["userId"],"studentName":form.data["studentName"], "studentEmail":form.data["studentEmail"], "insurancePeriod":form.data["insurancePeriod"], "payment": directory + "/" + filename})
         return "complete"
         
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
