@@ -841,7 +841,7 @@ def insurance():
             #file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
 #             return "complete 2"
 
-        db.insurance.insert_one("studentId": form.data["userId"])
+        db.insurance.insert_one({"studentId": form.data["userId"]})
         #db.insurance.insert_one({"studentId": form.data["userId"],"studentName":form.data["studentName"], "studentEmail":form.data["studentEmail"], "insurancePeriod":form.data["insurancePeriod"], "payment": directory + "/" + filename})
         return "complete"
         
