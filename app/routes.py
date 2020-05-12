@@ -30,7 +30,7 @@ from bson import Binary, Code, ObjectId
 from bson.json_util import dumps
 
 #Mail
-from flask_mail import Mail, Message
+from flask_mail import Mail, Message 
 
 #easy_install Flask-Session or pip install Flask-Session
 from flask import Flask, session
@@ -818,7 +818,7 @@ def insurance():
     loguseractvity('Update', '/personalInfo/insurance')
     
     if request.method=='POST':
-         file = request.files["payment"]
+        file = request.files["payment"]
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
