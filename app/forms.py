@@ -28,7 +28,9 @@ class ForgotForm(FlaskForm):
 ############################################################
 
 class CourseSelectTermForm(FlaskForm):
-    terms = SelectField(u'Terms', choices=[('2019/2020SI', '2019/2020 Semester II'), ('2019/2020SII', '2019/2020 Semester I'), ('2018/2019SII', '2018/2019 Semester II')])
+    terms = SelectField(u'Term', choices=[('1', 'Semester I'), ('2', 'Semester II'), ('3', 'Semester III')])
+    years = SelectField(u'Year', choices=[('1', 'Year 1'), ('2', 'Year 2'), ('3', 'Year 3'), ('4', 'Year 4')])
+    
     submit = SubmitField('Next')
 
 class CourseFinderForm(FlaskForm):

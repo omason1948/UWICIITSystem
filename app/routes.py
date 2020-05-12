@@ -79,6 +79,17 @@ def login_required(f):
 
     return wrap
 
+# Wrapper function to prevent users from requesting unauthorized pages
+def admin_login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'admin_logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to login first")
+            return redirect(url_for('login'))
+
+    return wrap
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
@@ -95,23 +106,23 @@ def loguseractvity(activity, location):
 
     return True
 
+from bson.son import SON
+
 def getUserQuickLinks():
     
-    QuickLinks = [
-        {
-            'title': "View Semester Grades",
-            'link': "",
-        },
-        {
-            'title': "View Profile",
-            'link': "",
-        },{
-            'title': "View Schedule",
-            'link': "",
-        }
+    userid = session['userid']
+
+    collection = db.systemlog.find().limit(5)
+
+    pipeline = [
+        {"$unwind": "$tags"},
+        {"$group": {"user": "$tags", "count": {"$sum": 1}}},
+        {"$sort": SON([("count", -1), ("_id", -1)])}
     ]
 
-    return QuickLinks
+    #collection = list(db.systemlog.aggregate(pipeline))
+
+    return collection
 
 @app.route('/')
 @login_required
@@ -173,7 +184,7 @@ def login():
                     setUserRoles(userRoles)
 
                 # Setup Session
-                sessionState = setSessionInformation(form.username.data, UserLoggedIn['name'], UserLoggedIn['email'])
+                sessionState = setSessionInformation(form.username.data, UserLoggedIn['name'], UserLoggedIn['email'], userType)
 
                 # Record User Activity
                 loguseractvity("Login Success", "/login")
@@ -225,12 +236,16 @@ def setUserRoles(userRoles):
     
     return "OK"
 
-def setSessionInformation(userID, name, email):
+def setSessionInformation(userID, name, email, userType):
 
     session['username'] = name
     session['userid'] = userID
     session['email'] = email
     session['logged_in'] = True
+
+    if userType == 2:
+        session['admin_logged_in'] = True
+
     return 'OK'
 
 @app.route("/logout")
@@ -298,6 +313,7 @@ def registration():
 
 # Displays the students registration status
 @app.route('/registration/status')
+@login_required
 def registrationstatus():
     
     userid = session['userid']
@@ -354,6 +370,7 @@ def registrationstatus():
 
 
 @app.route('/schedule')
+@login_required
 def schedule():
 
     global menu_type
@@ -450,10 +467,12 @@ def schedule():
     return render_template('schedule.html', user = username, current_date = d2, current_day = Day_of_week, current_hour = Hour_of_day, title='Schedule Details', QuickLinks = QuickLinks, Monday = Monday2, Tuesday = Tuesday2, Wednesday = Wednesday2, Thursday = Thursday2, Friday = Friday2, courses = registered_list)
 
 @app.route('/course/grade-detail')
+@login_required
 def courseGradeDetail():
     return ""
 
 @app.route('/courses/registered/<id>')
+@login_required
 def coursesRegistered(id):
     
     global menu_type
@@ -462,6 +481,7 @@ def coursesRegistered(id):
     return render_template('courses-registered.html', title='My Registered Courses', keyword = id)
 
 @app.route('/courses/add/', methods=['GET', 'POST'])
+@login_required
 def coursesAdd():
 
     global menu_type
@@ -473,34 +493,36 @@ def coursesAdd():
 
         # Record User Activity
         loguseractvity("Register", "/courses/add/")
+
+        if request.method == 'POST':
+            term = form.data['terms']
+            year = form.data['years']
+
+            return coursesLookup(term, year)
         
-        return redirect('/courses/add/lookup')
     return render_template('course-add.html', title='Add a Course / Select a Term', form=form)
 
 @app.route('/courses/add/lookup', methods=['GET', 'POST'])
-def coursesLookup():
+@login_required
+def coursesLookup(term, year):
 
     global menu_type
     menu_type = 2
     studentid = session['userid']
 
-    term = "2019/2020"
     semester = 1
- 
-    course_list = list(db.course.find({ 'Term': term }))
+
+    course_list = list(db.course.find({'Year':year, 'Term': term}))
     registered_list = list(db.registration.find({'studentID': studentid}))
 
     # Record User Activity
     loguseractvity("Lookup", "/courses/add/lookup")
     
-    return render_template('course-lookup.html', studentID = studentid, title='Add a Course / Lookup a Course', course_list=course_list, registered_list = registered_list)
+    return render_template('course-lookup.html', term = term, year = year, studentID = studentid, title='Add a Course / Lookup a Course', course_list=course_list, registered_list = registered_list)
 
-@app.route('/api/register/<studentid>/<courseid>')
-def api_register_student(studentid, courseid):
-
-    # Get current semester information    
-    term = "2019/2020"
-    semester = 1
+@app.route('/api/register/<studentid>/<courseid>/<term>/<year>')
+@login_required 
+def api_register_student(studentid, courseid, term, year):
 
     # Check if the user exist in the registration
     registrationStatus = db.registration.find_one({'studentID': studentid, 'courseID': courseid})
@@ -509,7 +531,7 @@ def api_register_student(studentid, courseid):
     if registrationStatus:
 
         flash("You are already registered for this course")
-        return redirect('/courses/add/lookup')
+        return coursesLookup(term, year)
 
     else:
 
@@ -519,11 +541,12 @@ def api_register_student(studentid, courseid):
         now = datetime.now()
         timestamp = now.strftime("%m/%d/%Y, %H:%M:%S")
 
-        registration_id = db.registration.insert_one({"studentID": studentid,"courseID": courseid,"courseName": courseInformation["Name"],"Term": term, "Semester": semester, "registered": timestamp})
+        registration_id = db.registration.insert_one({"studentID": studentid,"courseID": courseid,"courseName": courseInformation["Name"], "Term": term, "Semester": year, "registered": timestamp})
     
     return redirect('/courses/add/lookup')
 
 @app.route('/courses/detail/<course>')
+@login_required
 def courseDetail(course):
 
     global menu_type
@@ -541,6 +564,7 @@ def courseDetail(course):
     return render_template('course-detail.html', title='Course Details', courseInformation=courseInformation, form=form, user = username)
 
 @app.route('/courses/find', methods=['GET', 'POST'])
+@login_required
 def coursesFind():
 
     course_list = list(db.course.find({}))
@@ -562,24 +586,29 @@ def coursesFind():
 
     return render_template('course-find.html', title='Course Finder', QuickLinks = QuickLinks, UserCourses = course_list, form = form, user = username)
 
-
 @app.route('/courses/find/<searchkeyword>')
+@login_required
 def coursesFindSearch(searchkeyword, methods=['POST']):
     
+    QuickLinks = getUserQuickLinks()
     global menu_type
     global username
     menu_type = 2
     username = session['username']
     
-    studentData = db.course.find_one({"Name" : searchkeyword})
+    studentData = db.course.find({"Name":{"$regex": searchkeyword}})
     
     # Record User Activity
     loguseractvity("Find", "/courses/find/" + searchkeyword)
+
+    #print(studentData)
+    #return studentData
     
-    return render_template('course-search.html', title='Course Search', keyword = searchkeyword, user = username)
+    return render_template('course-search.html', title='Course Search', studentData = studentData, keyword = searchkeyword, QuickLinks = QuickLinks, user = username)
 
 
 @app.route('/transcripts/view/<id>')
+@login_required
 def transcriptsView(id):
     
     global menu_type
@@ -595,6 +624,7 @@ def transcriptsView(id):
     return render_template('transcripts-view-details.html', title='View Transcripts', id=id, data = data, user = username)
 
 @app.route('/transcripts/view')
+@login_required
 def transcriptsViewAll():
     
     global menu_type
@@ -609,6 +639,7 @@ def transcriptsViewAll():
     return render_template('transcripts-view.html', data = data,title='View Transcripts', num = 1, user = username)
 
 @app.route('/transcripts/request', methods=['GET', 'POST'])
+@login_required
 def transcriptsRequest():
     
     global menu_type
@@ -634,6 +665,7 @@ def inject_user():
     return dict(menu_type=menu_type)
 
 @app.route('/termcourses')
+@login_required
 def termcourses():
 
     global menu_type
@@ -658,6 +690,7 @@ def transcript():
 ############################################################
 
 @app.route('/querypage', methods = ['GET', 'POST'])
+@login_required
 def query():
     form = QueryForm()
     userId = int(session['userid'])
@@ -678,6 +711,7 @@ def query():
     return render_template('querypage.html', title='Student Query', form=form, userId=userId, data=data, user=username, email=email)
 
 @app.route('/queryhistory')
+@login_required
 def queryhistory():
     
     global menu_type
@@ -701,6 +735,8 @@ def personalinfoOptions():
 @app.route('/personalInfo/view')
 @login_required
 def viewpersonalInfo():
+
+    QuickLinks = getUserQuickLinks()
     global menu_type
     global username
     menu_type = 1
@@ -708,11 +744,13 @@ def viewpersonalInfo():
     
     userId = int(session['userid'])
     data = list(db.student.find({"studentId" : userId}))
-    return render_template('view-personalinfo.html', title='View Personal Info', data=data, user=username, userId=userId)
+    return render_template('view-personalinfo.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
 @login_required
 def personalinfopage():
+
+    QuickLinks = getUserQuickLinks()
     global menu_type
     global username
     menu_type = 1
@@ -737,7 +775,7 @@ def personalinfopage():
         studentData = db.student.find_one({"studentId" : userId})
         # return redirect('/personalInfo/view')
 
-    return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user = username, studentData = studentData)
+    return render_template('personalinfopage.html', QuickLinks = QuickLinks, title='Update Info', form=form, userId=userId, user = username, studentData = studentData)
 
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
 @login_required
@@ -765,6 +803,7 @@ def insurance():
 ############################################################
 
 @app.route('/events')    
+@login_required
 def eventsview():
     
     global menu_type
@@ -779,6 +818,7 @@ def eventsview():
     return render_template('event-view.html', data = data,title='View Events', user = username)
 
 @app.route('/events/add', methods = ['GET', 'POST'])
+@login_required
 def eventsadd():
 
     # mydict = ["name":] 
@@ -825,6 +865,7 @@ def eventsadd():
     return render_template('event-add.html', title='Add Events', form = form, user = username)
 
 @app.route('/events/edit/<id>', methods = ['GET', 'POST'])
+@login_required
 def eventsedit(id):
     form = EventForm()
     
@@ -844,6 +885,7 @@ def eventsedit(id):
     return render_template('event-edit.html', title='Edit Events', data = data, form = form, user = username)
 
 @app.route('/events/delete/<id>')
+@login_required
 def eventsdelete(id):
 
     global menu_type
@@ -861,6 +903,7 @@ def eventsdelete(id):
 
 # Displays the students grades information
 @app.route('/grades/view')
+@login_required
 def student_grades():
 
     global menu_type
@@ -870,14 +913,20 @@ def student_grades():
     userID = session['userid']
 
     student_registered_courses = db.registration.find({"studentID" : userID})
+    courseList = {}
+
+    #for course in student_registered_courses:
+    #    courseList = datetime.strptime(course["registered"], '%m/%d/%y %H:%M:%S')
 
     # Record User Activity
     loguseractvity("View", "/grades/view/")
 
+    #return courseList
     return render_template('grade.html', title='View Grades', user = username, registered_courses = student_registered_courses)
 
 # Displays the students grades information
 @app.route('/grade/view/<id>')
+@login_required
 def student_course_grade(id):
 
     global menu_type
@@ -916,6 +965,7 @@ def admin_dashboard():
 
 
 @app.route('/admin/students', methods = ['GET', 'POST'])
+@admin_login_required
 def admin_students():
 
     global username
@@ -942,6 +992,7 @@ def admin_students():
     return render_template('admin_students.html', title = 'Admin Student', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
 
 @app.route('/admin/events', methods = ['GET', 'POST'])
+@admin_login_required
 def admin_events():
 
     global username
@@ -968,6 +1019,7 @@ def admin_events():
     return render_template('admin_events.html', search_count = search_count, searchName = searched_name, title = 'Events', form = form, user = username, collection = collection)
 
 @app.route('/admin/courses', methods = ['GET', 'POST'])
+@admin_login_required
 def admin_courses():
 
     global username
@@ -996,6 +1048,7 @@ def admin_courses():
     return render_template('admin_course.html', title = 'Courses', form = form, search_count = search_count, searchName = searched_name_course_name, user = username, collection = collection)
 
 @app.route('/admin/course/<crn>', methods = ['GET', 'POST'])
+@admin_login_required
 def admin_course_detail(crn):
     
     global username
@@ -1012,6 +1065,7 @@ def admin_course_detail(crn):
     return render_template('admin_course_view.html', title = 'Course Details', courseInformation = courseInformation, user = username)
 
 @app.route('/admin/reports', methods = ['GET', 'POST'])
+@admin_login_required
 def admin_reports():
 
     # Record User Activity
@@ -1020,6 +1074,7 @@ def admin_reports():
     return "reports"
 
 @app.route('/admin/settings')
+@admin_login_required
 def admin_settings():
 
     # Record User Activity
@@ -1029,6 +1084,7 @@ def admin_settings():
     return "settings"
 
 @app.route('/admin/grades', methods = ['GET', 'POST'])
+@admin_login_required
 def admin_grades():
 
     # Record User Activity
@@ -1038,6 +1094,7 @@ def admin_grades():
 
 
 @app.route('/admin/queries', methods = ['GET', 'POST'])
+@admin_login_required
 def admin_queries():
 
     form = SearchFormQueries()
@@ -1062,6 +1119,7 @@ def admin_queries():
 
 
 @app.route('/admin/transcripts', methods = ['GET', 'POST'])
+@admin_login_required
 def admin_transcripts():
 
     global username

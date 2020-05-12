@@ -9,12 +9,12 @@
             
             <div class="col-sm-12">
 
-                <h2> Select Term </h2>
+                <h2> When is the course offered? </h2>
                 
                 <div class="card">
                     <div class="card-body">
                     
-                        <form action="" method="post" novalidate>
+                        <form action = "" method="post" novalidate>
 
                             {{ form.hidden_tag() }}
                             <p>
@@ -24,6 +24,15 @@
                                 <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </p>
+                            
+                            <p>
+                                {{ form.years.label }}<br>
+                                {{ form.years(class="form-control")  }}<br>
+                                {% for error in form.years.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </p>
+
 
                             <p>{{ form.submit( class="btn btn-primary") }}</p>
                             

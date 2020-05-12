@@ -6,82 +6,26 @@
     <div class="row">
 
         <div class = "col-sm-8">
-
+            
             <p> You searched for the course "{{keyword}}" </p> 
+            
+            <h5> Recently Viewed </h5>
+            <p> Here is a quick list of courses associated with your current degree program. </p>
 
-            <div class="col-sm-12 card-slim-icon">
-                <div class="card">
-                    <div class="card-body">
-                    <p> You have no Holds which prevent registration. </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-12 card-slim-icon">
-                <div class="card">
-                    <div class="card-body">
-                    <p> Your Academic Standing is Good Standing which permits registration.  </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-12 card-slim-icon">
-                <div class="card">
-                    <div class="card-body">
-                    <p> Your Student Status permits registration.  </p>
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <h5> Curriculum Information </h5>
-            <br/>
-            <strong>Current Program</strong>
-            <p>Bachelor of Science</p>
-            <br/>
-           
             <table class="table table-light text-left table-hover">
+                <thead>
+                    <th> Course Name </th>
+                    <th> Course Code </th>
+                    <th> Action </th>
+                </thead>
                 <tbody>
-                    {% for info in UserProfile %}
+                    {% for course in studentData %}
                     <tr>
-                        <th scope="row">Level</th>
-                        <td>{{info.Level}}</td>
+                        <td>{{course.Name}}</td>
+                        <td>{{course.Code}}</td>
+                        <td> <a href = "/courses/detail/{{course.CRN}}" class="btn btn-sm btn-primary"> View </a> </td>
                     </tr>
 
-                    <tr>
-                        <th scope="row">Program</th>
-                        <td>{{info.Program}}</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">Admit Term</th>
-                        <td>{{info.AdmitTerm}}</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">Admit Type</th>
-                        <td>{{info.AdmitType}}</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">Catalog Term</th>
-                        <td>{{info.CatalogTerm}}</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">College</th>
-                        <td>{{info.CatalogTerm}}</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">Campus</th>
-                        <td>{{info.CatalogTerm}}</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">Major</th>
-                        <td>{{info.Major}}</td>
-                    </tr>
-                    
                     {% endfor %}
                 </tbody>
             </table>
@@ -98,9 +42,11 @@
 
             <h5> Quick Links </h5>
             
+{{QuickLinks}}
+
             <ul>
                 {% for links in QuickLinks %}
-                    <li><a>{{links.title}}</a></li>
+                    <li><a>{{links.activty}}</a></li>
                 {% endfor %}
             </ul>
 
