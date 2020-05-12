@@ -30,7 +30,7 @@ from bson import Binary, Code, ObjectId
 from bson.json_util import dumps
 
 #Mail
-from flask_mail import Mail, Message 
+#from flask_mail import Mail, Message 
 
 #easy_install Flask-Session or pip install Flask-Session
 from flask import Flask, session
@@ -53,7 +53,7 @@ app.config['MAIL_PASSWORD'] = '*****'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
-mail = Mail(app)
+#mail = Mail(app)
 
 # Uploads
 UPLOAD_FOLDER = os.path.basename('userphotos')
@@ -239,9 +239,9 @@ def forgotPassword():
 
 @app.route("/sendEmail")
 def sendEmail():
-   msg = Message('Hello', sender = 'yourId@gmail.com', recipients = ['someone1@gmail.com'])
-   msg.body = "This is the email body"
-   mail.send(msg)
+   #msg = Message('Hello', sender = 'yourId@gmail.com', recipients = ['someone1@gmail.com'])
+   #msg.body = "This is the email body"
+   #mail.send(msg)
    return "Sent"
 
 def setUserRoles(userRoles):
@@ -840,8 +840,11 @@ def insurance():
             os.mkdir(path, mode)
 
             file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
-#         db.insurance.insert_one(form.data)
-        db.insurance.insert_one({"studentId ": form.data["studentId "],"studentName ":form.data["studentName"], "studentEmail ":form.data["studentEmail"], "insurancePeriod ":form.data["insurancePeriod"], "payment": directory + "/" + filename})
+
+        #db.insurance.insert_one(form.data)
+        db.insurance.insert_one({"studentId": form.data["studentId"],"studentName":form.data["studentName"], "studentEmail":form.data["studentEmail"], "insurancePeriod":form.data["insurancePeriod"], "payment": directory + "/" + filename})
+        return "complete"
+        
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
 
 
