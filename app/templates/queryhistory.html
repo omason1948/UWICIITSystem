@@ -3,7 +3,16 @@
 {% block content %}
 <div class="container">
             <h3 class="card-title"> Query History</h3>
-            <table class="table table-bordered">
+            <table class="table table-bordered"
+            id="table"
+            data-toggle="table"
+            data-search="true"
+            data-search-align="right"
+            data-height="460"
+            data-pagination="true"
+            data-pagination-h-align="left"
+            data-pagination-detail-h-align="right"
+                   >
                 <thead>
                     <tr class="table-success">
                         <th scope="col"> Issue</th>
