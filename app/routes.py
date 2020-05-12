@@ -815,10 +815,10 @@ def insurance():
             
             #create directory
             os.mkdir(path, mode)
-
+            
             file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
 #         db.insurance.insert_one(form.data)
-        db.insurance.insert_one({"studentId ": form.data["studentId "],"studentName ":form.data["studentName"], "studentEmail ":form.data["studentEmail"], "insurancePeriod ":form.data["insurancePeriod"], "payment": directory + "/" + filename})
+       db.insurance.insert_one({"studentId ": form.data["studentId "],"studentName ":form.data["studentName"], "studentEmail ":form.data["studentEmail"], "insurancePeriod ":form.data["insurancePeriod"], "payment": directory + "/" + filename})
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
 
 
