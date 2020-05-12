@@ -29,6 +29,9 @@ from app.forms import EventForm, LoginForm
 from bson import Binary, Code, ObjectId
 from bson.json_util import dumps
 
+#Mail
+from flask_mail import Mail, Message
+
 #easy_install Flask-Session or pip install Flask-Session
 from flask import Flask, session
 
@@ -41,6 +44,16 @@ load_dotenv(verbose=True)
 # Keys
 SECRET_KEY = os.getenv("SECRET_KEY")
 MONGO_URL = os.getenv("MONGO_URL")
+
+# Mail Server Configuration
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'yourId@gmail.com'
+app.config['MAIL_PASSWORD'] = '*****'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
 
 # Uploads
 UPLOAD_FOLDER = os.path.basename('userphotos')
@@ -214,6 +227,8 @@ def forgotPassword():
     if form.validate_on_submit():
         useremail = form.email.data
         userid = form.userid.data
+
+        flash('We sent an email to your inbox.')
         return render_template('forgot_success.html', title='UWICIIT Forgot Password', form=form)
     else:
         flash('An error occured trying to reset your password. Try again later.')
@@ -221,6 +236,13 @@ def forgotPassword():
     # Send user an email regarding the forgotten email
 
     return render_template('forgot.html', title='UWICIIT Forgot Password', form=form)
+
+@app.route("/sendEmail")
+def sendEmail():
+   msg = Message('Hello', sender = 'yourId@gmail.com', recipients = ['someone1@gmail.com'])
+   msg.body = "This is the email body"
+   mail.send(msg)
+   return "Sent"
 
 def setUserRoles(userRoles):
 
@@ -697,6 +719,7 @@ def query():
     email = session['email']
     data = db.query.find({"studentId" : userId})
 
+    QuickLinks = getUserQuickLinks()
     global menu_type
     global username
     menu_type = 1
@@ -708,7 +731,7 @@ def query():
     if request.method=='POST':
         db.query.insert_one(form.data)
         
-    return render_template('querypage.html', title='Student Query', form=form, userId=userId, data=data, user=username, email=email)
+    return render_template('querypage.html', title='Student Query', QuickLinks = QuickLinks, form=form, userId=userId, data=data, user=username, email=email)
 
 @app.route('/queryhistory')
 @login_required

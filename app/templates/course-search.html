@@ -42,11 +42,9 @@
 
             <h5> Quick Links </h5>
             
-{{QuickLinks}}
-
             <ul>
                 {% for links in QuickLinks %}
-                    <li><a>{{links.activty}}</a></li>
+                    <li><a href = "{{links.location}}">{{links.activty}} {{links.location}}</a></li>
                 {% endfor %}
             </ul>
 
