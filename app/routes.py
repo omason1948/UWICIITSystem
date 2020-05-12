@@ -820,23 +820,23 @@ def insurance():
     if request.method=='POST':
         file = request.files["payment"]
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            #filename = secure_filename(file.filename)
             
             # generate some integers
-            randvalue = randint(10, 10000000)
+            #randvalue = randint(10, 10000000)
 
             # Directory 
-            directory = form.data["studentName"] + "" + str(randvalue)
-            directory = directory.replace(" ", "")
+            #directory = form.data["studentName"] + "" + str(randvalue)
+            #directory = directory.replace(" ", "")
   
             # mode 
-            mode = 0o777
+            #mode = 0o777
 
             #path
-            path = os.path.join(app.config['UPLOAD_FOLDER'], directory) 
+            #path = os.path.join(app.config['UPLOAD_FOLDER'], directory) 
             
             #create directory
-            os.mkdir(path, mode)
+            #os.mkdir(path, mode)
             
             #file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
             return "complete 2"
