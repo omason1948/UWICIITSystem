@@ -819,10 +819,9 @@ def insurance():
     
     if request.method=='POST':
         file = request.files["payment"]
-
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-
+            
             # generate some integers
             randvalue = randint(10, 10000000)
 
@@ -838,7 +837,7 @@ def insurance():
             
             #create directory
             os.mkdir(path, mode)
-
+            
             file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
 
         #db.insurance.insert_one(form.data)
