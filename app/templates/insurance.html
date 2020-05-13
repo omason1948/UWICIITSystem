@@ -25,6 +25,13 @@
                             </div>
                             <p> {{ form.submit( class="btn btn-success" ) }} </p>
                             
+                            <script>
+                            $(document).ready(function(){
+                              $('.btn').popover({title: "Header", content: "Text in popover body",}); 
+                            });
+                            </script>
+
+                            
                             
                         </div>
                     </div>
