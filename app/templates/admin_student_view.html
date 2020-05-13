@@ -1,0 +1,99 @@
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+<div class = "front_half" style = "text-align:center;margin:-10px -24px 40px">
+    
+    <h5> {{student_data.name}} </h5>
+    <p> Last Logged In {{student_data.email}} </p>
+    <small> Last Logged In {{student_data.lastlogin}} </small>
+
+</div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6"> 
+                
+                <p> Displayed below are various items which may affect your registration. Your Time Ticket, Holds, Academic Standing, Student Status, Class, and Curriculum may prevent registration or restrict the courses you will be permitted to select. </p>
+
+                <div class="col-sm-12 card-slim-icon">
+                    <div class="card">
+                        <div class="card-body">
+                        <p> {{ hold_status_message }} </p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-sm-12 card-slim-icon">
+                    <div class="card">
+                        <div class="card-body">
+                        <p> {{ academic_standing_message }}  </p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-sm-12 card-slim-icon">
+                    <div class="card">
+                        <div class="card-body">
+                        <p> {{ registration_status_message }}  </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-sm-6">
+
+                <br/>
+            <h5> Curriculum Information </h5>
+            <br/>
+            <strong>Current Program</strong>
+            <p>Bachelor of Science</p>
+            <br/>
+           
+            <table class="table table-light text-left table-hover">
+                <tbody>
+                    {% for info in UserProfile %}
+                    <tr>
+                        <th scope="row">Level</th>
+                        <td>{{info.Level}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Program</th>
+                        <td>{{info.Program}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Admit Term</th>
+                        <td>{{info.AdmitTerm}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Admit Type</th>
+                        <td>{{info.AdmitType}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">College</th>
+                        <td>{{info.College}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Campus</th>
+                        <td>{{info.Campus}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Major</th>
+                        <td>{{info.Major}}</td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            </div>
+        </div>
+    </div>
+            
+{% endblock %}

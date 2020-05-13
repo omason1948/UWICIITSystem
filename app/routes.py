@@ -1056,6 +1056,59 @@ def admin_students():
 
     return render_template('admin_students.html', title = 'Admin Student', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
 
+@app.route('/admin/student/<studentid>', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_students_view(studentid):
+
+    student_data = db.user.find_one({"_id" : ObjectId(studentid)})
+    #return userProfile['userType']
+
+    UserProfile = [
+        {
+            'Level': student_data['program'][0]['level'],
+            'Program': student_data['program'][0]['program'],
+            'AdmitTerm': student_data['program'][0]['term'],
+            'AdmitType': student_data['program'][0]['type'],
+            'College': student_data['program'][0]['college'],
+            'Campus': student_data['program'][0]['campus'],
+            'Major': student_data['program'][0]['major'],
+        }
+    ]
+
+    hold_status = student_data["hold_status"]
+    academic_standing = student_data["academic_status"]
+    registration_status = student_data["registration_status"]
+
+    hold_status_message = ""
+
+    if hold_status == "1":
+        system_text = db.system_text.find_one({'title': "hold_status_no"})
+        hold_status_message = system_text['message']
+    else:
+        system_text = db.system_text.find_one({'title': "hold_status_yes"})
+        hold_status_message = system_text['message']
+
+    academic_standing_message = ""
+
+    if academic_standing == "1":
+        system_text = db.system_text.find_one({'title': "academic_standing_good"})
+        academic_standing_message = system_text['message']
+    else:
+        system_text = db.system_text.find_one({'title': "academic_standing_bad"})
+        academic_standing_message = system_text['message']
+
+    registration_status_message = ""
+
+    if registration_status == "1":
+        system_text = db.system_text.find_one({'title': "registration_allowed"})
+        registration_status_message = system_text['message']
+    else:
+        system_text = db.system_text.find_one({'title': "registration_not_allowed"})
+        registration_status_message = system_text['message']
+
+    
+    return render_template('admin_student_view.html', title = 'Admin Student Information', student_data = student_data, hold_status_message = hold_status_message, academic_standing_message = academic_standing_message, registration_status_message = registration_status_message, UserProfile = UserProfile)
+
 @app.route('/admin/events', methods = ['GET', 'POST'])
 @admin_login_required
 def admin_events():
