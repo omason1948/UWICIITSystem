@@ -1,1 +1,40 @@
-hh
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+<!---courseInformation-->
+
+<div class = "front_half"  style = "text-align:center;margin:-10px -24px 40px">
+
+    <small> Code {{ courseInformation.Code }} </small>
+    <h3 style = "text-align:center;"> {{courseInformation.Name}} </h3>
+
+</div>
+
+<div class = "container">
+
+    <div class = "row">
+
+        <div class = "col-sm-8">{{courseInformation.Description}}</div>
+        <div class = "col-sm-4">
+
+            <br/>
+            <h4> Course Details </h4>
+            Offered at {{ courseInformation.Campus }} <br/>
+            Credits {{ courseInformation.Credits }} <br/>
+            CRN {{ courseInformation.CRN }} <br/>
+            Term {{ courseInformation.Term }} <br/>
+            Level {{ courseInformation.Level }} <br/>
+            <br/>
+            <h4> Course Instructors </h4>
+
+            {{ courseInformation.Instructor[0] }} <br/>
+            {{ courseInformation.Instructor[1] }} <br/>
+
+        </div>
+
+    </div>
+
+</div>
+            
+{% endblock %}

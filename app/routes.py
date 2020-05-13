@@ -30,10 +30,10 @@ from bson import Binary, Code, ObjectId
 from bson.json_util import dumps
 
 #Mail
-from flask_mail import Mail, Message 
+#from flask_mail import Mail, Message 
 #import smptlib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+#from email.mime.multipart import MIMEMultipart
+#from email.mime.text import MIMEText
 
 #easy_install Flask-Session or pip install Flask-Session
 from flask import Flask, session
@@ -56,7 +56,7 @@ app.config['MAIL_PASSWORD'] = 'dehgyd-wuXkas-4mezty'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
-mail = Mail(app)
+#mail = Mail(app)
 
 # Uploads
 UPLOAD_FOLDER = os.path.basename('userphotos')
