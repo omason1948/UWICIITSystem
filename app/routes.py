@@ -864,9 +864,14 @@ def insurance():
             os.mkdir(path, mode)
             
             #file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
-            return "complete 2"
+#             return "complete 2"
 
+<<<<<<< HEAD
         db.insurance.insert_one({"studentId": form.data["studentId"],"studentName":form.data["studentName"], "studentEmail":form.data["studentEmail"], "insurancePeriod":form.data["insurancePeriod"], "payment": directory + "/" + filename})
+=======
+        db.insurance.insert_one({"studentId": form.data["userId"]})
+        #db.insurance.insert_one({"studentId": form.data["userId"],"studentName":form.data["studentName"], "studentEmail":form.data["studentEmail"], "insurancePeriod":form.data["insurancePeriod"], "payment": directory + "/" + filename})
+>>>>>>> a8a7a5da3b9dca5d1e723b16a33ab0fb9f223150
         return "complete"
         
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
