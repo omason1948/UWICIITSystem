@@ -828,6 +828,7 @@ def personalinfopage():
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
 @login_required
 def insurance():
+    
     global menu_type
     global username
     menu_type = 1
@@ -845,43 +846,40 @@ def insurance():
     if request.method=='POST':
         file = request.files["payment"]
         if file and allowed_file(file.filename):
+
             filename = secure_filename(file.filename)
-            
-            # generate some integers
-            randvalue = randint(10, 10000000)
+            path = os.path.join(os.path.abspath('app/userphotos'))
+            file.save(os.path.join(path, secure_filename(filename)))
 
-            # Directory 
-            directory = form.data["studentName"] + "" + str(randvalue)
-            directory = directory.replace(" ", "")
-  
-            # mode 
-            mode = 0o777
+        db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
 
-            #path
-            path = os.path.join(app.config['UPLOAD_FOLDER'], directory) 
-            
-            #create directory
-            os.mkdir(path, mode)
-            
-            #file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
-#             return "complete 2"
-
-<<<<<<< HEAD
-        db.insurance.insert_one({"studentId": form.data["studentId"],"studentName":form.data["studentName"], "studentEmail":form.data["studentEmail"], "insurancePeriod":form.data["insurancePeriod"], "payment": directory + "/" + filename})
-=======
-        db.insurance.insert_one({"studentId": form.data["userId"]})
-        #db.insurance.insert_one({"studentId": form.data["userId"],"studentName":form.data["studentName"], "studentEmail":form.data["studentEmail"], "insurancePeriod":form.data["insurancePeriod"], "payment": directory + "/" + filename})
->>>>>>> a8a7a5da3b9dca5d1e723b16a33ab0fb9f223150
-        return "complete"
+        return redirect(url_for('insurance'))
         
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
 
+
+import cgi, os
+import cgitb; cgitb.enable()
+
+@app.route('/upload')
+def upload_file():
+   return render_template('upload.html')
+	
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_filer():
+   if request.method == 'POST':
+      f = request.files['file']
+      #f.save(secure_filename(f.filename)) #working but saves to root
+      path = os.path.join(os.path.abspath('app/userphotos'))
+      f.save(os.path.join(path, secure_filename(f.filename)))
+      
+      return 'file uploaded successfully'
 
 ############################################################
 ##################### Events ROUTING  ######################
 ############################################################
 
-@app.route('/events')    
+@app.route('/events', methods = ['GET', 'POST']) 
 @login_required
 def eventsview():
     
@@ -892,7 +890,7 @@ def eventsview():
 
     # Record User Activity
     loguseractvity("View", "/events")
-
+    
     data = list(db.events.find({}))
     return render_template('event-view.html', data = data,title='View Events', user = username)
 
@@ -915,26 +913,13 @@ def eventsadd():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-
-            # generate some integers
-            randvalue = randint(10, 10000000)
-
-            # Directory 
-            directory = form.data["name"] + "" + str(randvalue)
-            directory = directory.replace(" ", "")
-  
-            # mode 
-            mode = 0o777
-
-            #path
-            path = os.path.join(app.config['UPLOAD_FOLDER'], directory) 
             
-            #create directory
-            os.mkdir(path, mode)
+            path = os.path.join(os.path.abspath('app/userphotos'))
+            file.save(os.path.join(path, secure_filename(filename)))
 
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
+            #file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
 
-        events_id = db.events.insert_one({"name": form.data["name"],"eventDate":form.data["eventDate"], "location":form.data["location"],"photo": directory + "/" + filename})
+        events_id = db.events.insert_one({"name": form.data["name"],"eventDate":form.data["eventDate"], "location":form.data["location"],"photo": filename})
 
         # Record User Activity
         loguseractvity("Add", "/events/add")
