@@ -145,9 +145,9 @@
 
             <h5> Quick Links </h5>
             
-            <ul>
+            <ul class = "quicklinks">
                 {% for links in QuickLinks %}
-                    <li><a>{{links.title}}</a></li>
+                    <li><a href = "{{links.location}}">{{links.activty}} {{links.location}}</a></li>
                 {% endfor %}
             </ul>
 

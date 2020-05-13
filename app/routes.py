@@ -30,7 +30,10 @@ from bson import Binary, Code, ObjectId
 from bson.json_util import dumps
 
 #Mail
-#from flask_mail import Mail, Message 
+from flask_mail import Mail, Message 
+#import smptlib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 #easy_install Flask-Session or pip install Flask-Session
 from flask import Flask, session
@@ -48,12 +51,12 @@ MONGO_URL = os.getenv("MONGO_URL")
 # Mail Server Configuration
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'yourId@gmail.com'
-app.config['MAIL_PASSWORD'] = '*****'
+app.config['MAIL_USERNAME'] = 'theuwiciit@gmail.com'
+app.config['MAIL_PASSWORD'] = 'dehgyd-wuXkas-4mezty'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
-#mail = Mail(app)
+mail = Mail(app)
 
 # Uploads
 UPLOAD_FOLDER = os.path.basename('userphotos')
@@ -227,6 +230,7 @@ def forgotPassword():
     if form.validate_on_submit():
         useremail = form.email.data
         userid = form.userid.data
+        sendEmail(useremail)
 
         flash('We sent an email to your inbox.')
         return render_template('forgot_success.html', title='UWICIIT Forgot Password', form=form)
@@ -238,11 +242,30 @@ def forgotPassword():
     return render_template('forgot.html', title='UWICIIT Forgot Password', form=form)
 
 @app.route("/sendEmail")
-def sendEmail():
-   #msg = Message('Hello', sender = 'yourId@gmail.com', recipients = ['someone1@gmail.com'])
-   #msg.body = "This is the email body"
-   #mail.send(msg)
-   return "Sent"
+def sendEmail(useremail):
+    #mail_content = "Hello, This is a simple mail. There is only text, no attachments are there The mail is sent using Python SMTP library. Thank You"
+
+    #The mail addresses and password
+    ##sender_address = 'theuwiciit@gmail.com'
+    #sender_pass = 'dehgyd-wuXkas-4mezty'
+    #receiver_address = useremail
+    #Setup the MIME
+    #message = MIMEMultipart()
+    #message['From'] = sender_address
+    #message['To'] = receiver_address
+    #message['Subject'] = 'A test mail sent by Python. It has an attachment.'   #The subject line
+    #The body and the attachments for the mail
+    #message.attach(MIMEText(mail_content, 'plain'))
+    #Create SMTP session for sending the mail
+    #session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+    #session.starttls() #enable security
+    #session.login(sender_address, sender_pass) #login with mail_id and password
+    #text = message.as_string()
+    #session.sendmail(sender_address, receiver_address, text)
+    #session.quit()
+    #print('Mail Sent')
+
+    return "mail"
 
 def setUserRoles(userRoles):
 
@@ -338,6 +361,8 @@ def registration():
 @login_required
 def registrationstatus():
     
+    QuickLinks = getUserQuickLinks()
+
     userid = session['userid']
     userProfile = db.user.find_one({'UserID': userid})
     #return userProfile['userType']
@@ -386,9 +411,9 @@ def registrationstatus():
 
 
     # Record User Activity
-    loguseractvity("View", "/registration/status")
+    loguseractvity("View", "/registration/status") 
     
-    return render_template('registration-status.html', title='Registration Status', UserProfile = UserProfile, hold_status_message = hold_status_message, academic_standing_message = academic_standing_message, registration_status_message = registration_status_message)
+    return render_template('registration-status.html', QuickLinks = QuickLinks, title='Registration Status', UserProfile = UserProfile, hold_status_message = hold_status_message, academic_standing_message = academic_standing_message, registration_status_message = registration_status_message)
 
 
 @app.route('/schedule')
@@ -820,28 +845,27 @@ def insurance():
     if request.method=='POST':
         file = request.files["payment"]
         if file and allowed_file(file.filename):
-            #filename = secure_filename(file.filename)
+            filename = secure_filename(file.filename)
             
             # generate some integers
-            #randvalue = randint(10, 10000000)
+            randvalue = randint(10, 10000000)
 
             # Directory 
-            #directory = form.data["studentName"] + "" + str(randvalue)
-            #directory = directory.replace(" ", "")
+            directory = form.data["studentName"] + "" + str(randvalue)
+            directory = directory.replace(" ", "")
   
             # mode 
-            #mode = 0o777
+            mode = 0o777
 
             #path
-            #path = os.path.join(app.config['UPLOAD_FOLDER'], directory) 
+            path = os.path.join(app.config['UPLOAD_FOLDER'], directory) 
             
             #create directory
-            #os.mkdir(path, mode)
+            os.mkdir(path, mode)
             
             #file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
             return "complete 2"
 
-        #db.insurance.insert_one(form.data)
         db.insurance.insert_one({"studentId": form.data["studentId"],"studentName":form.data["studentName"], "studentEmail":form.data["studentEmail"], "insurancePeriod":form.data["insurancePeriod"], "payment": directory + "/" + filename})
         return "complete"
         
