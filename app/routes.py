@@ -197,6 +197,7 @@ def login():
                 if( userType == "2"):
                     
                     userRoles = UserLoggedIn['roles']
+                    session['admin_logged_in'] = True
                     setUserRoles(userRoles)
 
                 # Setup Session
