@@ -24,32 +24,29 @@
                                 {{ form.payment() }}<br>
                             </div>
                             <p> <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalSuccess"> </p>
-                            
-                            <!-- Modal -->
-                            <div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="modalSuccessLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="modalSuccessLabel">Success!</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  
-                                  <div class="modal-body">
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
                                       <i class="fas fa-check fa-4x mb-3" style="color:green";></i>
-                                    Thank you for updating you insurance information.
+                                      <p>Thank you for updating you insurance information.</p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <a type="button" class="btn btn-primary" href="/personalInfo/insurance" >Submit</a>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success">Save changes</button>
-                                  </div>
-                                </div>  
-                              </div>
-                            </div>
-                            
-                                    
-                   
+                                </div>
+                                     
                         </div>
                     </div>
                 </form>
