@@ -853,7 +853,7 @@ def insurance():
             file.save(os.path.join(path, secure_filename(filename)))
 
         db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
-	return redirect('/personalInfo/view')
+# 	return redirect('/personalInfo/view')
 #         return redirect(url_for('insurance'))
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
 
