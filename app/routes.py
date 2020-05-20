@@ -1261,3 +1261,29 @@ def admin_transcripts():
 
     return render_template('admin_transcripts.html', title = 'Courses', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
 
+@app.route('/admin/insurance', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_insurance():
+
+    global username
+    username = session['username']
+    form = SearchFormInsurance()
+    searched_id = ""
+    search_count = ""
+
+    # Record User Activity
+    loguseractvity("View", "/admin/insurance")
+
+    if form.validate_on_submit():
+
+        searched_id = form.data["name"]
+        collection = db.insurance.find({"studentId":{"$regex": searched_id}})
+        search_count = collection.count()
+
+    else:
+
+        collection = db.insurance.find()
+        search_count = collection.count()
+
+    return render_template('admin_insurance.html', title = 'Insurance', search_count = search_count, searchId = searched_id, form = form, user = username, collection = collection)
+
