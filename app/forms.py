@@ -181,6 +181,6 @@ class SearchFormEvents(FlaskForm):
     submit = SubmitField('Search')
 
 class SearchFormInsurance(FlaskForm):
-    name = StringField('Student Name or Number', validators=[DataRequired()])
+    name = StringField('Student ID', validators=[DataRequired()])
     submit = SubmitField('Search')
     
