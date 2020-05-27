@@ -88,7 +88,7 @@ class QueryForm(FlaskForm):
     choices=[('Grades','Grades'), ('Finance', 'Finance'), 
     ('Transcript', 'Transcript'), ('Course', 'Course'), ('Other', 'Other')])
     queryDesc = TextAreaField('Please state your query: ', validators=[DataRequired()])
-#     submit = SubmitField('Submit')
+    submit = SubmitField('Submit')
 
 
 class PersonalInfoForm(FlaskForm):
