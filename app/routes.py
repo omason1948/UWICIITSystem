@@ -845,12 +845,13 @@ def insurance():
     loguseractvity('Update', '/personalInfo/insurance')
     
     if request.method=='POST':
-        file = request.files["payment"]
-        if file and allowed_file(file.filename):
+        
+        #file = request.files["payment"]
+        #if file and allowed_file(file.filename):
 
-            filename = secure_filename(file.filename)
-            path = os.path.join(os.path.abspath('app/static/insurance'))
-            file.save(os.path.join(path, secure_filename(filename)))
+        #    filename = secure_filename(file.filename)
+        #    path = os.path.join(os.path.abspath('app/static/insurance'))
+        #    file.save(os.path.join(path, secure_filename(filename)))
 
         db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
 
@@ -1208,7 +1209,7 @@ def admin_grades():
     # Record User Activity
     loguseractvity("View", "/admin/grades/")
 
-    return "grades"
+    return render_template('admin_grades.html', title = 'Course Grade Details')
 
 
 @app.route('/admin/queries', methods = ['GET', 'POST'])
