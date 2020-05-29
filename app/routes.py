@@ -22,7 +22,7 @@ from flask_pymongo import PyMongo, MongoClient, BSONObjectIdConverter
 from wtforms import Form, validators
 
 # Form Classes
-from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts
+from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts, SearchFormInsurance
 from app.forms import QueryForm, PersonalInfoForm, InsuranceForm, ForgotForm
 from app.forms import EventForm, LoginForm
 
@@ -740,22 +740,22 @@ def transcript():
 @app.route('/querypage', methods = ['GET', 'POST'])
 @login_required
 def query():
-    form = QueryForm()
-    userId = int(session['userid'])
-    email = session['email']
-    data = db.query.find({"studentId" : userId})
-
     QuickLinks = getUserQuickLinks()
     global menu_type
     global username
     menu_type = 1
     username = session['username']
 
+    form = QueryForm()
+    userId = int(session['userid'])
+    email = session['email']
+    data = db.query.find({"studentId" : userId})
+
     # Record User Activity
     loguseractvity("View", "/querypage/")
     
     if request.method=='POST':
-        db.query.insert_one(form.data)
+        db.query.insert_one({"studentId": userId, "studentName" : username, "studentEmail": email, "yearOfStudy": form.data['yearOfStudy'], "semester": form.data['semester'], "studentIssues": form.data['studentIssues'], "queryDesc": form.data['queryDesc']}  )
         
     return render_template('querypage.html', title='Student Query', QuickLinks = QuickLinks, form=form, userId=userId, data=data, user=username, email=email)
 
@@ -767,7 +767,8 @@ def queryhistory():
     global username
     menu_type = 1
     username = session['username']
-    
+    email = session['email']
+
     userId = int(session['userid'])
     data = list(db.query.find({"studentId" : userId}))
     return render_template('queryhistory.html', title='Query History', data=data, user=username, userId=userId)
@@ -846,17 +847,9 @@ def insurance():
     
     if request.method=='POST':
         
-        #file = request.files["payment"]
-        #if file and allowed_file(file.filename):
-
-        #    filename = secure_filename(file.filename)
-        #    path = os.path.join(os.path.abspath('app/static/insurance'))
-        #    file.save(os.path.join(path, secure_filename(filename)))
-
         db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
+        return "test"
 
-        return redirect(url_for('insurance'))
-        
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
 
 
@@ -1262,4 +1255,30 @@ def admin_transcripts():
         search_count = collection.count()
 
     return render_template('admin_transcripts.html', title = 'Courses', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
+
+@app.route('/admin/insurance', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_insurance():
+
+    global username
+    username = session['username']
+    form = SearchFormInsurance()
+    searched_id = ""
+    search_count = ""
+
+    # Record User Activity
+    loguseractvity("View", "/admin/insurance")
+
+    if form.validate_on_submit():
+
+        searched_id = form.data["name"]
+        collection = db.insurance.find({"studentId":{"$regex": searched_id}})
+        search_count = collection.count()
+
+    else:
+
+        collection = db.insurance.find()
+        search_count = collection.count()
+
+    return render_template('admin_insurance.html', title = 'Insurance', search_count = search_count, searchId = searched_id, form = form, user = username, collection = collection)
 

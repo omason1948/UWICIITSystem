@@ -126,7 +126,7 @@ class InsuranceForm(FlaskForm):
     insurancePeriod = SelectField(u'Insurance Period: ', 
                                   choices=[('6 months','6 Months'), ('1 Year', '1 Year')])
     payment = FileField('Payement Reciept: ', validators=[FileRequired()])
-    submit = SubmitField('Submit')
+#     submit = SubmitField('Submit')
 
 
 ############################################################
@@ -179,3 +179,8 @@ class SearchFormTranscripts(FlaskForm):
 class SearchFormEvents(FlaskForm):
     name = StringField('Event Name', validators=[DataRequired()])
     submit = SubmitField('Search')
+
+class SearchFormInsurance(FlaskForm):
+    name = StringField('Student ID', validators=[DataRequired()])
+    submit = SubmitField('Search')
+    

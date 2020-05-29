@@ -1,0 +1,57 @@
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+
+<div class = "front_half">
+    <h5> Student Insurance </h5>
+    <p> Year 3 & 4 students' insurance information and updates </p>
+    
+        <form action = "/admin/insurance" method = "POST">
+        <div class="form-row">
+        
+            {{ form.hidden_tag() }}
+           <div class="col-sm-10">
+
+                <label>{{ form.name.label }} </label>
+                {{ form.name(size=32, class = "form-control") }}
+
+            </div>
+
+            <div class="col">
+                <label> &nbsp;</label><br/>
+                {{ form.submit( class="btn btn-primary btn-search-correction") }}
+            </div>
+        </div>
+    </form>
+    {% if searchName != "" %}
+    <br/>
+    <p> You searched for <b>{{searchName}}</b>. Showing {{search_count}} insurance updates. <a href = "/admin/insurance"> View all Insurance Updates </a> </p>
+    {% else %}
+    <br/>
+    <p> Showing {{search_count}} insurance updates.  </p>
+    {% endif %} 
+</div>
+
+<table class="table table-light text-left table-hover"
+  id="table"
+  data-toggle="table"
+  data-height="460"
+  data-pagination="true">
+
+    <thead>
+        <th> Student ID </th>
+        <th> Payment Receipt </th>
+    </thead>
+    <tbody>
+        {% for insurance in collection %}
+        
+        <tr>
+            <td><a href = "/admin/insurance/{{insurance._id}}">{{insurance.studentId}}</td>
+            <td><img src = "/static/userphotos/{{insurance.payment}}" width = "100"></td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
