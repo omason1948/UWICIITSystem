@@ -755,7 +755,7 @@ def query():
     loguseractvity("View", "/querypage/")
     
     if request.method=='POST':
-        db.query.insert_one({"studentId": userId}, )
+        db.query.insert_one({"studentId": userId, "studentName" : username, "studentEmail": email, "yearOfStudy": form.data['yearOfStudy'], "semester": form.data['semester'], "studentIssues": form.data['studentIssues'], "queryDesc": form.data['queryDesc']}  )
         
     return render_template('querypage.html', title='Student Query', QuickLinks = QuickLinks, form=form, userId=userId, data=data, user=username, email=email)
 
@@ -770,7 +770,7 @@ def queryhistory():
     email = session['email']
 
     userId = int(session['userid'])
-    data = list(db.query.find({"studentId" : userId, "studentName" : username, "studentEmail": email, "yearOfStudy": form.data['yearOfStudy'], "semester": form.data['semester'], "studentIssues": form.data['studentIssues'], "queryDesc": form.data['queryDesc']}  ))
+    data = list(db.query.find({"studentId" : userId}))
     return render_template('queryhistory.html', title='Query History', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo', methods=('GET', 'POST'))
