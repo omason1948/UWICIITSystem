@@ -740,16 +740,16 @@ def transcript():
 @app.route('/querypage', methods = ['GET', 'POST'])
 @login_required
 def query():
-    form = QueryForm()
-    userId = int(session['userid'])
-    email = session['email']
-    data = db.query.find({"studentId" : userId})
-
     QuickLinks = getUserQuickLinks()
     global menu_type
     global username
     menu_type = 1
     username = session['username']
+
+    form = QueryForm()
+    userId = int(session['userid'])
+    email = session['email']
+    data = db.query.find({"studentId" : userId})
 
     # Record User Activity
     loguseractvity("View", "/querypage/")
