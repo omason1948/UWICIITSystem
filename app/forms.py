@@ -79,11 +79,11 @@ class QueryForm(FlaskForm):
     studentName = HiddenField('Name: ', validators=[DataRequired()])
     studentEmail = HiddenField('Email: ', validators=[DataRequired()])
     yearOfStudy = SelectField(u'Year of Study: ', 
-    choices=[('year1','Year 1'), ('year2', 'Year 2'), 
-    ('year3', 'Year 3'), ('year4', 'Year 4')])
+    choices=[('Year 1','Year 1'), ('Year 2', 'Year 2'), 
+    ('Year 3', 'Year 3'), ('Year 4', 'Year 4')])
     semester = SelectField(u'Semester: ', 
-    choices=[('semester1','Semester 1'), ('semester2', 'Semester 2'), 
-    ('summer', 'Summer')])
+    choices=[('Semester I','Semester I'), ('Semester II', 'Semester II'), 
+    ('Summer/Semester III', 'Summer/Semester III')])
     studentIssues = SelectField(u'Issue: ', 
     choices=[('Grades','Grades'), ('Finance', 'Finance'), 
     ('Transcript', 'Transcript'), ('Course', 'Course'), ('Other', 'Other')])

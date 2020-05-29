@@ -35,7 +35,27 @@
                     <h6 class="card-title">{{ form.queryDesc.label }}</h6><br>
                     {{ form.queryDesc(size=300) }}
                 </div>        
-                <p>{{ form.submit( class="btn btn-success" ) }}</p>         
+                <p>{{ form.submit( class="btn btn-success" data-target="#thankYouModals data-toggle="modal"  ) }}</p>    
+                    <!-- Modal -->
+                                <div class="modal fade" id="thankYouModals" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalLabel">Query Submitted</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                      <p><h4>Thank you patience as the UWICIIT strives to serve you better.</h4><br><br>
+                                          Please wait 3-5 business days for a update.</p>
+                                      </div> 
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" >Ok</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                 </div></div>
             </form>
         </div>
