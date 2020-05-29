@@ -23,10 +23,10 @@
                                 {{ form.payment.label }} <br>
                                 {{ form.payment() }}<br>
                             </div>
-                            <p> {{ form.submit( class="btn btn-success" ) }} </p>
+                            <p> {{ form.submit( class="btn btn-success" data-toggle="modal" data-target="#myModal" ) }} </p>
                             
                                     
-                             <!-- The Modal data-toggle="modal" data-target="#myModal" -->
+                             <!-- The Modal -->
                               <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
@@ -45,7 +45,7 @@
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
                                       <a type="button" class="btn btn-success" data-dismiss="modal" href="/personalInfo/view">Close</a>
-                    
+                                      {{ form.submit( class="btn btn-success" ) }}
                                     </div>
 
                                   </div>
