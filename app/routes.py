@@ -847,6 +847,13 @@ def insurance():
     
     if request.method=='POST':
         
+        file = request.files["payment"]
+        if file and allowed_file(file.filename):
+
+            filename = secure_filename(file.filename)
+            path = os.path.join(os.path.abspath('app/static/userphotos'))
+            file.save(os.path.join(path, secure_filename(filename)))
+
         db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
         return "test"
 
