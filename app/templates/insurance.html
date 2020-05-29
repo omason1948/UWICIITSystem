@@ -23,30 +23,39 @@
                                 {{ form.payment.label }} <br>
                                 {{ form.payment() }}<br>
                             </div>
-                            <p> <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalSuccess"> Submit</button></p>
-                                
-                                <!-- Modal -->
-                                <div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                      <i class="fas fa-check fa-4x mb-3" style="color:green";></i>
-                                      <p>Thank you for updating you insurance information.</p>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <a type="button" class="btn btn-primary" href="/personalInfo/view" >Submit</a>
-                                      </div>
+                            <p> {{ form.submit( class="btn btn-success" ) }} </p>
+                            
+                                    
+                             <!-- The Modal data-toggle="modal" data-target="#myModal" -->
+                              <div class="modal fade" id="myModal">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Success!</h4>
+                                      <button type="button" class="close" data-dismiss="modal">×</button>
                                     </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                      Thank you for updating you insurance information. 
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                      <a type="button" class="btn btn-success" data-dismiss="modal" href="/personalInfo/view">Close</a>
+                    
+                                    </div>
+
                                   </div>
                                 </div>
-                                     
+                              </div>
+  
+                            
+
+                            
+                            
                         </div>
                     </div>
                 </form>
