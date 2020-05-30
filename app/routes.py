@@ -795,7 +795,7 @@ def viewpersonalInfo():
     
     userId = int(session['userid'])
     data = list(db.student.find({"studentId" : userId}))
-    return render_template('view-personalinfo.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId)
+    return render_template('personalinfo-view.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
 @login_required
