@@ -813,7 +813,7 @@ def personalinfopage():
     
     if request.method=='POST':
         # Update the student based on their logged in ID
-        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"],"dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"] }})
+        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"] }})
         
         # Record User Activity
         loguseractvity("Edit", "/personalInfo/update/" + str(userId))
