@@ -76,7 +76,6 @@ class NewTranscriptForm(FlaskForm):
 ############################################################
 
 class QueryForm(FlaskForm):
-    studentPhoto = FileField('Student Photo: ', validators=[FileRequired()])
     studentId = HiddenField('Student ID: ', validators=[DataRequired()])
     studentName = HiddenField('Name: ', validators=[DataRequired()])
     studentEmail = HiddenField('Email: ', validators=[DataRequired()])
@@ -94,6 +93,7 @@ class QueryForm(FlaskForm):
 
 
 class PersonalInfoForm(FlaskForm):
+    studentPhoto = FileField('Student Photo: ', validators=[FileRequired()])
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     gender = SelectField(u'Gender: ', 
     choices=[('Male','Male'), ('Female', 'Female')])
