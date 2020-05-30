@@ -11,12 +11,18 @@
 <table class="table table-light text-left table-hover">
     <thead>
         <th> Name </th>
-        <th> Year </th>
-        <th> Term </th>
-        <th> CRN </th>
+        <th> Student </th>
+        <th> Actions </th>
     </thead>
     <tbody>
-       
+        {% for student in collection %}
+        <tr>
+            <td> {{student.studentID}} </td>
+            <td>Year {{student.registered}}</td>
+            <td> <a href = "/admin/grades/courseid/{{student.studentID}}/"> Add Grade </a> </td>
+        </tr>
+
+        {% endfor %}
     </tbody>
 </table>
             

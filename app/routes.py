@@ -1220,8 +1220,9 @@ def admin_grades_course(courseid):
 
     # Record User Activity
     loguseractvity("View", "/admin/grades/" + courseid)
+    collection = db.registration.find({'courseID': courseid})
 
-    return render_template('admin_grades_course.html', title = 'Course Grade Details')
+    return render_template('admin_grades_course.html', title = 'Course Grade Details', collection = collection)
 
 @app.route('/admin/queries', methods = ['GET', 'POST'])
 @admin_login_required
