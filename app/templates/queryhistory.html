@@ -2,8 +2,11 @@
 
 {% block content %}
 
-            <div class="container">
-                <h3 class="card-title"> Query History</h3>
+    <div class="container">
+        <div class="row"> 
+            <div class="col-sm-3"> </div>
+                    <div class="col-sm-6">
+                     <h3 class="card-title"> Query History</h3>
                          <table class="table table-light text-left
                         id="table"
                         data-toggle="table"
@@ -34,7 +37,8 @@
                             </tbody>
                         
                         </table>
-              <a type="button" class="btn btn-primary btn-lg" href"/querypage">Large button</a>
-          </div>
-             
+                    </div>
+                    <div class="col-sm-3"><a type="button" class="btn btn-primary btn-lg" href="/querypage">Large button</a> </div>
+        </div>
+    </div>
         {% endblock %}
