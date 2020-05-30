@@ -2,7 +2,15 @@
 
 {% block content %}
 
+<div class = "row">
+    <div class = "col-sm-8">
+        <h1>View Grades</h1>
+        <h6 class="font-weight-light">Here is a list of your grades. </h6>
+    </div>
+</div>
+
 <div class = "col-sm-6 text-center">
+    <div class="card">
     <div class="auth-form-light text-left py-5 px-4 px-sm-5">
       <h1>Request a New Transcript</h1>
       <h6 class="font-weight-light">Fill out the information below to get started. </h6>
@@ -32,7 +40,7 @@
             {% endfor %}
         </p>
         
-        <p>
+       <!-- <p>
             {{ form.startyear.label }}<br>
             {{ form.startyear }}<br>
             {% for error in form.startyear.errors %}
@@ -46,7 +54,7 @@
             {% for error in form.endyear.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
+        </p>-->
 
         <p>
             {{ form.faculty.label }}<br>
@@ -64,6 +72,8 @@
             {% endfor %}
         </p>
 
+        <p></p>
+
         <p>
             {{ form.emailTo.label }}<br>
             {{ form.emailTo(size=32, class="form-control") }}<br>
@@ -75,7 +85,7 @@
         <p>{{ form.submit( class="btn btn-success") }}</p>
     </form>
         
-    </div>
+    </div></div>
   </div>
 
 {% endblock %}
