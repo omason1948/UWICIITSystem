@@ -2,14 +2,7 @@
 
 {% block content %}
 
-<div class = "row">
-    <div class = "col-sm-8">
-        <h1>View Grades</h1>
-        <h6 class="font-weight-light">Here is a list of your grades. </h6>
-    </div>
-</div>
-
-<div class = "col-sm-6 text-center">
+<div class = "col-sm-6 offset-sm-3 text-center">
     <div class="card">
     <div class="auth-form-light text-left py-5 px-4 px-sm-5">
       <h1>Request a New Transcript</h1>
@@ -23,11 +16,11 @@
       </div>
       {% endif %} 
 
-      <form action="" method="post" novalidate>
+      <form action="" method="post" validate>
         {{ form.hidden_tag() }}
         <p>
             {{ form.fullname.label }}<br>
-            {{ form.fullname(size=32, class="form-control") }}<br>
+            {{ form.fullname(size=32, class="form-control", value = user) }}<br>
             {% for error in form.fullname.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
@@ -72,7 +65,13 @@
             {% endfor %}
         </p>
 
-        <p></p>
+        <p> <br/> </p>
+
+        <style>
+            .form-check-input li{
+                list-style-type: none;
+            }
+        </style>
 
         <p>
             {{ form.emailTo.label }}<br>

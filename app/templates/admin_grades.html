@@ -1,5 +1,31 @@
 {% extends "baseadmin.html" %}
 
 {% block content %}
+
+<div class = "front_half">
+    <h5> Courses </h5>
+    <p> Select a course from the list before to begin entering grades. </p>
+
+</div>
+
+<table class="table table-light text-left table-hover">
+    <thead>
+        <th> Name </th>
+        <th> Year </th>
+        <th> Term </th>
+        <th> CRN </th>
+    </thead>
+    <tbody>
+        {% for course in collection %}
+        <tr>
+            <td><a href = "/admin/grades/{{course.CRN}}">{{course.Name}}</a></td>
+            <td>Year {{course.Year}}</td>
+            <td>Semester {{course.Term}}</td>
+            <td>{{course.CRN}}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
             
 {% endblock %}

@@ -855,7 +855,7 @@ def insurance():
             file.save(os.path.join(path, secure_filename(filename)))
 
         db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
-        return "test"
+        return redirect("/personalInfo/view")
 
     return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
 
@@ -1209,8 +1209,19 @@ def admin_grades():
     # Record User Activity
     loguseractvity("View", "/admin/grades/")
 
-    return render_template('admin_grades.html', title = 'Course Grade Details')
+    collection = db.course.find()
 
+    return render_template('admin_grades.html', title = 'Course Grade Details', collection = collection)
+
+
+@app.route('/admin/grades/<courseid>', methods = ['GET'])
+@admin_login_required
+def admin_grades_course(courseid):
+
+    # Record User Activity
+    loguseractvity("View", "/admin/grades/" + courseid)
+
+    return render_template('admin_grades_course.html', title = 'Course Grade Details')
 
 @app.route('/admin/queries', methods = ['GET', 'POST'])
 @admin_login_required
