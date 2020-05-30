@@ -128,7 +128,7 @@ class InsuranceForm(FlaskForm):
     insurancePeriod = SelectField(u'Insurance Period: ', 
                                   choices=[('6 months','6 Months'), ('1 Year', '1 Year')])
     payment = FileField('Payement Reciept: ', validators=[FileRequired()])
-#     submit = SubmitField('Submit')
+    submit = SubmitField('Submit')
 
 
 ############################################################
@@ -151,8 +151,8 @@ class EventForm(FlaskForm):
     notification = RadioField('Notify students of event.',choices = [('Yes')])
 
     # Perhaps an end time
-    # Perhaps a description
-    # Ask to send email notification out to all of the student - radiobutton
+    # Perhaps a description - done
+    # Ask to send email notification out to all of the student - radiobutton (not functional)
 
     # Perhaps an image - done
     photo = FileField('Photo', validators=[FileRequired()])
