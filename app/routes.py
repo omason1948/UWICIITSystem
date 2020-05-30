@@ -756,7 +756,7 @@ def query():
     
     if request.method=='POST':
         db.query.insert_one({"studentId": userId, "studentName" : username, "studentEmail": email, "yearOfStudy": form.data['yearOfStudy'], "semester": form.data['semester'], "studentIssues": form.data['studentIssues'], "queryDesc": form.data['queryDesc']}  )
-        
+        return redirect('/queryhistory')
     return render_template('querypage.html', title='Student Query', QuickLinks = QuickLinks, form=form, userId=userId, data=data, user=username, email=email)
 
 @app.route('/queryhistory')
