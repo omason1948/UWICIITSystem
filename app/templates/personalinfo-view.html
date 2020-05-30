@@ -14,13 +14,13 @@
         <div class="card"><div class="card-body">
                         <h5 class="card-title">{{user}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">ID #{{ userId }}</h6>
-                        <div><img src = "/static/userphotos/{{student.studentPhoto}}"></div>
 
                             {%for i in data%} 
 
                             <div>
                              <p> 
-                              Date of Birth: {{ i.dob }} <br>
+                             <img src = "/static/userphotos/{{i.studentPhoto}}">
+                             Date of Birth: {{ i.dob }} <br>
                              Gender: {{ i.gender }} <br>
                              Marital Status: {{ i.maritalStatus }}
                              </p>
