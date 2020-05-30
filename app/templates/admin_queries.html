@@ -44,7 +44,8 @@
   data-pagination="true">
       
     <thead>
-        <th data-field="name"> Name </th>
+        <th data-field="id"> Student ID </th>
+        <th> Name </th>
         <th> Issue Type </th>
         <th> Description </th>
         <th>  </th>
@@ -53,7 +54,8 @@
         {% for query in collection %}
         
         <tr>
-            <td><a href = "/admin/quer/{{query._id}}">{{query.studentName}}</a></td>
+            <td>>{{query.studentId}}</td>
+            <td> {{query.studentName }}</td>
             <td>{{query.studentIssues}}</td>
             <td>{{query.queryDesc}}</td>
         </tr>
