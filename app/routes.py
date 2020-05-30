@@ -807,21 +807,13 @@ def personalinfopage():
     menu_type = 1
     username = session['username']
 
-    filename = ""
     form = PersonalInfoForm()
     userId = int(session['userid'])
     studentData = db.student.find_one({"studentId" : userId})
     
     if request.method=='POST':
-        file = request.files["studentPhoto"]
-        if file and allowed_file(file.filename):
-
-            filename = secure_filename(file.filename)
-            path = os.path.join(os.path.abspath('app/static/userphotos'))
-            file.save(os.path.join(path, secure_filename(filename)))
-		
         # Update the student based on their logged in ID
-        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"],"dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename }})
+        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"],"dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"] }})
         
         # Record User Activity
         loguseractvity("Edit", "/personalInfo/update/" + str(userId))
