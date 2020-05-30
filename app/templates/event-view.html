@@ -13,6 +13,8 @@
         <div class = "col-sm-4"> 
             <br/>
             <a class = "btn btn-primary float-right" href = "/events/add"> Create a New Event </a>
+            <br/>
+            <a class = "btn btn-primary float-right" href = "/events/register/view"> View Event Register </a>
         </div>
     </div>
 
@@ -31,7 +33,16 @@
 
                     <div class="col-sm-2">
                         <br/>
-                        <a class = "btn btn-sm btn-success" href = "/events/edit/{{i._id}}"> View Event </a>
+                        <div class = btnevent>
+                            <a class = "btn btn-sm btn-success" href = "/events/edit/{{i._id}}"> Edit Event </a>
+                            </div> 
+                            <div class = btnevent>
+                            <a class = "btn btn-sm btn-success" href = "/events/delete/{{i._id}}"> Delete Event </a>
+                            </div>
+                            <div class = btnevent>
+                                <a class = "btn btn-sm btn-success" href = "/events/register/{{i._id}}"> Register for Event </a>
+                            </div>
+                        
                     </div>
                 </div>
             </div>
