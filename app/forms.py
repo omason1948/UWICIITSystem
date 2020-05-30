@@ -6,6 +6,7 @@ from wtforms.fields.html5 import EmailField, DateField
 import datetime
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
+from wtforms.widgets import TextArea
 
 ############################################################
 ##################### GENERAL Form Classes #################
@@ -75,15 +76,16 @@ class NewTranscriptForm(FlaskForm):
 ############################################################
 
 class QueryForm(FlaskForm):
+    studentPhoto = FileField('Student Photo: ', validators=[FileRequired()])
     studentId = HiddenField('Student ID: ', validators=[DataRequired()])
     studentName = HiddenField('Name: ', validators=[DataRequired()])
     studentEmail = HiddenField('Email: ', validators=[DataRequired()])
     yearOfStudy = SelectField(u'Year of Study: ', 
-    choices=[('Year 1','Year 1'), ('Year 2', 'Year 2'), 
-    ('Year 3', 'Year 3'), ('Year 4', 'Year 4')])
+    choices=[('Year1','Year 1'), ('Year2', 'Year 2'), 
+    ('Year3', 'Year 3'), ('Year4', 'Year 4')])
     semester = SelectField(u'Semester: ', 
-    choices=[('Semester I','Semester I'), ('Semester II', 'Semester II'), 
-    ('Summer/Semester III', 'Summer/Semester III')])
+    choices=[('Semester1','Semester 1'), ('Semester2', 'Semester 2'), 
+    ('Summer', 'Summer')])
     studentIssues = SelectField(u'Issue: ', 
     choices=[('Grades','Grades'), ('Finance', 'Finance'), 
     ('Transcript', 'Transcript'), ('Course', 'Course'), ('Other', 'Other')])
@@ -92,7 +94,6 @@ class QueryForm(FlaskForm):
 
 
 class PersonalInfoForm(FlaskForm):
-    studentPhoto = FileField('Student Photo: ', validators=[FileRequired()])
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     gender = SelectField(u'Gender: ', 
     choices=[('Male','Male'), ('Female', 'Female')])
@@ -127,7 +128,7 @@ class InsuranceForm(FlaskForm):
     insurancePeriod = SelectField(u'Insurance Period: ', 
                                   choices=[('6 months','6 Months'), ('1 Year', '1 Year')])
     payment = FileField('Payement Reciept: ', validators=[FileRequired()])
-    submit = SubmitField('Submit')
+#     submit = SubmitField('Submit')
 
 
 ############################################################
@@ -145,6 +146,10 @@ class EventForm(FlaskForm):
         validators = [Required('please select startdate')]
     )
 
+    description = StringField('Description', widget = TextArea())
+
+    notification = RadioField('Notify students of event.',choices = [('Yes')])
+
     # Perhaps an end time
     # Perhaps a description
     # Ask to send email notification out to all of the student - radiobutton
@@ -154,6 +159,7 @@ class EventForm(FlaskForm):
 
     location = StringField('Event Location', validators=[DataRequired()])
     submit = SubmitField('Add Event')
+    
     
 ############################################################
 #################### ADMIN SEARCH Forms Classes ##################
