@@ -763,6 +763,7 @@ def query():
 @login_required
 def queryhistory():
     
+    QuickLinks = getUserQuickLinks()
     global menu_type
     global username
     menu_type = 1
@@ -771,7 +772,7 @@ def queryhistory():
 
     userId = int(session['userid'])
     data = list(db.query.find({"studentId" : userId}))
-    return render_template('queryhistory.html', title='Query History', data=data, user=username, userId=userId)
+    return render_template('queryhistory.html', title='Query History', data=data, user=username, userId=userId, QuickLinks = QuickLinks)
 
 @app.route('/personalInfo', methods=('GET', 'POST'))
 @login_required
