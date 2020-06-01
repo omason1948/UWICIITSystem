@@ -23,8 +23,9 @@
                     </div>
                     <div class="form-group">
                     {{form.studentPhoto.label}}<br/>
-                    {{form.studentPhoto()}}
+                    {{form.studentPhoto(value=studentData.studentPhoto)}}
                     </div>
+                 
                     <div class="form-group">
                         <label>{{ form.dob.label }}</label><br/>
                         {{ form.dob(value=studentData.dob, class = "form-control") }}
