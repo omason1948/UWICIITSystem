@@ -811,9 +811,10 @@ def personalinfopage():
     form = PersonalInfoForm()
     userId = int(session['userid'])
     studentData = db.student.find_one({"studentId" : userId})
-    
+
     if request.method=='POST':
-	file = request.files["studentPhoto"]
+        
+        file = request.files["studentPhoto"]
 	if file and allowed_file(file.filename):
 	    filename = secure_filename(file.filename)
 	    path = os.path.join(os.path.abspath('app/static/userphotos'))
