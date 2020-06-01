@@ -93,7 +93,7 @@ class QueryForm(FlaskForm):
 
 
 class PersonalInfoForm(FlaskForm):
-#     studentPhoto = FileField('Student Photo: ', validators=[FileRequired()])
+    studentPhoto = FileField('Student Photo: ', validators=[FileRequired()])
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     gender = SelectField(u'Gender: ', 
     choices=[('Male','Male'), ('Female', 'Female')])
@@ -102,7 +102,7 @@ class PersonalInfoForm(FlaskForm):
     dob = DateTimeLocalField(
         label='Date of Birth: ',
         format='%Y-%m-%dT%H:%M',
-        validators = [Required('please select a valid date of birth')]
+        validators = [DataRequired('please select a valid date of birth')]
     )
     
     maritalStatus = SelectField(u'Marital Status: ', 
@@ -110,7 +110,7 @@ class PersonalInfoForm(FlaskForm):
     ('Separated', 'Separated'), ('Divorced', 'Divorced')],
         default='single', validators=[DataRequired()])
     
-    studentAddress = TextAreaField('Address: ', validators=[DataRequired()], default='')
+    studentAddress = TextAreaField('Address: ', validators=[DataRequired()])
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy: ', validators=[FileRequired()])
     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
