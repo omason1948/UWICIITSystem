@@ -101,7 +101,7 @@ class PersonalInfoForm(FlaskForm):
     #dob = DateField('Date of Birth: ', validators=[DataRequired()], format='%Y-%m-%d')
     dob = DateTimeLocalField(
         label='Date of Birth: ',
-        format='%Y-%m-%dT%H:%M',
+        format='%Y-%m-%d',
         validators = [Required('please select a valid date of birth')]
     )
     
