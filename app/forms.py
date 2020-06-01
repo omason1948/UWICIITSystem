@@ -93,7 +93,7 @@ class QueryForm(FlaskForm):
 
 
 class PersonalInfoForm(FlaskForm):
-    studentPhoto = FileField('Student Photo: ', validators=[FileRequired()])
+    studentPhoto = FileField('Student Photo: ', validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'The file format should be .jpg or .png.')])
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     gender = SelectField(u'Gender: ', 
     choices=[('Male','Male'), ('Female', 'Female')])
