@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, InputRequired, Required
 from wtforms.fields.html5 import DateTimeLocalField
 from wtforms.fields.html5 import EmailField, DateField
 import datetime
-from flask_wtf.file import FileField, FileRequired
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from werkzeug.utils import secure_filename
 from wtforms.widgets import TextArea
 
