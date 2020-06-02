@@ -148,7 +148,7 @@ class EventForm(FlaskForm):
 
     description = StringField('Description', widget = TextArea())
 
-    notification = RadioField('Notify students of event.',choices = [('Yes')])
+    notification = RadioField('Notify students of event',choices = [('Yes')])
 
     # Perhaps an end time
     # Perhaps a description - done
