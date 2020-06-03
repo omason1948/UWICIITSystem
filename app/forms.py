@@ -99,9 +99,10 @@ class PersonalInfoForm(FlaskForm):
     choices=[('Male','Male'), ('Female', 'Female')])
 
     #dob = DateField('Date of Birth: ', validators=[DataRequired()], format='%Y-%m-%d')
-    dob = DateField(
+    dob = DateTimeField(
         label='Date of Birth: ',
         format='%Y-%m-%d',
+        default=datetime.today,
         validators = [Required('please select a valid date of birth')]
     )
     
@@ -110,7 +111,7 @@ class PersonalInfoForm(FlaskForm):
     ('Separated', 'Separated'), ('Divorced', 'Divorced')],
         default='single', validators=[DataRequired()])
     
-    studentAddress = TextAreaField('Address: ', validators=[DataRequired()])
+    studentAddress = TextAreaField('Address: ', default='Please enter your current address', validators=[DataRequired()])
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy: ', validators=[FileRequired()])
     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
