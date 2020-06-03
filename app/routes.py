@@ -795,7 +795,7 @@ def viewpersonalInfo():
     username = session['username']
     
     userId = int(session['userid'])
-    data = list(db.student.find({"studentId" : userId}))
+    data = list(db.user.find({"studentId" : userId}))
     return render_template('personalinfo-view.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
@@ -830,7 +830,7 @@ def personalinfopage():
     else:
 
         # Pull the users current information from the database
-        studentData = db.student.find_one({"studentId" : userId})
+        studentData = db.user.find_one({"studentId" : userId})
         # return redirect('/personalInfo/view')
 
     return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user=username, studentData=studentData, QuickLinks = QuickLinks)
