@@ -109,7 +109,7 @@ class PersonalInfoForm(FlaskForm):
     ('Separated', 'Separated'), ('Divorced', 'Divorced')],
         default='single', validators=[DataRequired()])
     
-    studentAddress = TextAreaField('Address: ', default='Please enter your current address', validators=[DataRequired()])
+    studentAddress = StringField('Address: ', validators=[DataRequired()])
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy: ', validators=[FileRequired()])
     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
