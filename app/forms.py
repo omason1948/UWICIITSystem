@@ -3,7 +3,6 @@ from wtforms import Form, StringField, PasswordField, BooleanField, SubmitField,
 from wtforms.validators import DataRequired, InputRequired, Required
 from wtforms.fields.html5 import DateTimeLocalField
 from wtforms.fields.html5 import EmailField, DateField
-import datetime
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 from wtforms.widgets import TextArea
