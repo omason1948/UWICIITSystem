@@ -3,7 +3,6 @@ from wtforms import Form, StringField, PasswordField, BooleanField, SubmitField,
 from wtforms.validators import DataRequired, InputRequired, Required
 from wtforms.fields.html5 import DateTimeLocalField
 from wtforms.fields.html5 import EmailField, DateField
-import datetime
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 from wtforms.widgets import TextArea
@@ -99,10 +98,15 @@ class PersonalInfoForm(FlaskForm):
     choices=[('Male','Male'), ('Female', 'Female')])
 
     #dob = DateField('Date of Birth: ', validators=[DataRequired()], format='%Y-%m-%d')
-    dob = DateTimeField(
-        label='Date of Birth: ',
-        format='%Y-%m-%d',
-        validators = [Required('please select a valid date of birth')]
+#     dob = DateTimeField(
+#         label='Date of Birth: ',
+#         format='%Y-%m-%d',
+#         validators = [Required('please select a valid date of birth')]
+#     )
+    dob = DateTimeLocalField(
+        label='Date of Birth',
+        format='%Y-%m-%dT%H:%M',
+        validators = [Required('Please select a valid date of birth')]
     )
     
     maritalStatus = SelectField(u'Marital Status: ', 
@@ -110,7 +114,7 @@ class PersonalInfoForm(FlaskForm):
     ('Separated', 'Separated'), ('Divorced', 'Divorced')],
         default='single', validators=[DataRequired()])
     
-    studentAddress = TextAreaField('Address: ', default='Please enter your current address', validators=[DataRequired()])
+    studentAddress = StringField('Address: ', validators=[DataRequired()])
     mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy: ', validators=[FileRequired()])
     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
