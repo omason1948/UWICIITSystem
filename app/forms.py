@@ -96,15 +96,6 @@ class PersonalInfoForm(FlaskForm):
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     gender = SelectField(u'Gender: ', 
     choices=[('Male','Male'), ('Female', 'Female')])
-
-    #dob = DateField('Date of Birth: ', validators=[DataRequired()], format='%Y-%m-%d')
-#     dob = DateTimeField(
-#         label='Date of Birth: ',
-#         format='%Y-%m-%d',
-#         validators = [Required('please select a valid date of birth')]
-#     )
-    dob = DateField('Date of Birth: ', validators=[DataRequired()], format="%d-%m-%y")
-    
     maritalStatus = SelectField(u'Marital Status: ', 
     choices=[('Single','Single'), ('Married', 'Married'), 
     ('Separated', 'Separated'), ('Divorced', 'Divorced')],
