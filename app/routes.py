@@ -821,7 +821,7 @@ def personalinfopage():
             file.save(os.path.join(path, secure_filename(filename)))
 	
         # Update the student based on their logged in ID
-        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename }})
+        db.user.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename }})
         
         # Record User Activity
         loguseractvity("Edit", "/personalInfo/update/" + str(userId))
@@ -929,7 +929,7 @@ def eventsadd():
 
             #file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
 
-        events_id = db.events.insert_one({"name": form.data["name"],"eventDate":form.data["eventDate"], "location":form.data["location"],"photo": filename})
+        events_id = db.events.insert_one({"name": form.data["name"],"eventDate":form.data["eventDate"], "description":form.data["description"],"location":form.data["location"],"photo": filename})
 
         # Record User Activity
         loguseractvity("Add", "/events/add")
@@ -951,7 +951,7 @@ def eventsedit(id):
     data = db.events.find({"_id" : ObjectId(id)})
 
     if request.method =='POST':
-        db.events.update_one({"_id": ObjectId(id)},{"$set":{"name": form.data["name"],"eventDate":form.data["eventDate"], "location":form.data["location"]}})
+        db.events.update_one({"_id": ObjectId(id)},{"$set":{"name": form.data["name"],"eventDate":form.data["eventDate"], "description":form.data["description"],"location":form.data["location"]}})
     
     # Record User Activity
     loguseractvity("Edit", "/events/edit/" + str(id))
