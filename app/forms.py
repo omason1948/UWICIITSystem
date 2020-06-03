@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, InputRequired, Required
 from wtforms.fields.html5 import DateTimeLocalField
 from wtforms.fields.html5 import EmailField, DateField
 import datetime
-from flask_wtf.file import FileField, FileRequired, FileAllowed
+from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 from wtforms.widgets import TextArea
 
@@ -93,7 +93,7 @@ class QueryForm(FlaskForm):
 
 
 class PersonalInfoForm(FlaskForm):
-    studentPhoto = FileField('Student Photo: ', validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'The file format should be .jpg or .png.')])
+    studentPhoto = FileField('Student Photo: ', validators=[FileRequired()])
     studentId = IntegerField('Student ID: ', validators=[DataRequired()])
     gender = SelectField(u'Gender: ', 
     choices=[('Male','Male'), ('Female', 'Female')])
