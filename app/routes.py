@@ -4,6 +4,7 @@ import json, os, signal
 import requests
 from flask import Flask, render_template, Markup, request, redirect, session, abort, url_for, flash, escape
 from datetime import datetime
+from app import momentjs
 
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
@@ -43,6 +44,9 @@ from pprint import pprint
 
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
+
+from app.momentjs import momentjs
+app.config['momentjs'] = momentjs
 
 # Keys
 SECRET_KEY = os.getenv("SECRET_KEY")

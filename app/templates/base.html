@@ -13,6 +13,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
 
+    <script src="{{ url_for('static', filename='js/moment.js') }}"></script>
+
     <link rel="stylesheet" type="text/css" media="screen"
      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
@@ -41,6 +43,9 @@
         <div class="row">
         <div class="col-sm-8">
           <p class="boldme"> <a href = "/personalInfo">Good Morning {{user}} </a></p>
+          <script>
+            alert( moment().format('MMMM Do YYYY, h:mm:ss a') );
+          </script>
           <p> It's 49 0 Outside today, you should wear more clothes </p>
           <a class = "menu_link_top" href = "/personalInfo"> My Account </a> | <a class = "menu_link_top" href = "/logout"> Sign Out </a>
         </div>
