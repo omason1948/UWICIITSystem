@@ -102,7 +102,6 @@ class PersonalInfoForm(FlaskForm):
     dob = DateTimeField(
         label='Date of Birth: ',
         format='%Y-%m-%d',
-        default=datetime.today,
         validators = [Required('please select a valid date of birth')]
     )
     
