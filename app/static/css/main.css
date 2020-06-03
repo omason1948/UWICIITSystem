@@ -362,7 +362,9 @@ html .fc,
 	white-space: nowrap;
 	cursor: pointer;
 	}
-	
+.btnevent{
+		margin-bottom: 5px;
+	}	
 .fc-state-default { /* non-theme */
 	border: 1px solid;
 	}
