@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class = "col-sm-8 offset-sm-2">
+        
+    <div class = "row">
+        <div class = "col-sm-8">
+            <h1>Register for Events</h1>
+            <h6 class="font-weight-light">Here are the events you registered for. </h6>
+        </div>
+
+        <div class = "col-sm-4"> 
+            <br/>
+            <a class = "btn btn-primary float-right" href = "/events"> Return </a>
+        </div>
+    </div>
+
+    {%for event in event_for_student%} 
+
+    <div class="col-sm-12 nopadding">
+        <div class="card container">
+            <div class = "row">
+                <div class="col-sm-10">
+                    <br/>
+                    <h4> {{event.info.name}} </h4>
+                    <p> Location: {{event.info.location}}
+                        Time: {{event.info.eventDate}} <br/>
+                     </p>
+                    <br/>
+                </div>
+
+                <div class="col-sm-2">
+                    <br/>
+                    <div class = btnevent>
+                        <a class = "btn btn-sm btn-success" href = "/events/deregister/{{event._id}}"> Deregister from Event </a>
+                        </div> 
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    {%endfor%}
+
+
+
+</div>
+           
+
+{% endblock %}

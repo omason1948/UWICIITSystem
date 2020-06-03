@@ -2,8 +2,10 @@
 
 {% block content %}
 
-            <div class="container">
-                <h3 class="card-title"> Query History</h3>
+    <div class="container">
+        <div class="row"> 
+                    <div class="col-8">
+                     <h3 class="card-title"> Query History</h3>
                          <table class="table table-light text-left
                         id="table"
                         data-toggle="table"
@@ -34,6 +36,17 @@
                             </tbody>
                         
                         </table>
-              
-             
+                    </div>
+                    <div class="col-4"><a type="button" class="btn btn-light btn-sm" href="/querypage">Return</a> 
+                    <h5> Quick Links </h5>
+
+                    <ul class = "quicklinks">
+                        {% for links in QuickLinks %}
+                            <li><a href = "{{links.location}}">{{links.location}} {{links.activty}}</a></li>
+                        {% endfor %}
+                    </ul>                                                                                                      
+                                                                                                      
+                        </div>
+        </div>
+    </div>
         {% endblock %}

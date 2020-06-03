@@ -757,13 +757,14 @@ def query():
     
     if request.method=='POST':
         db.query.insert_one({"studentId": userId, "studentName" : username, "studentEmail": email, "yearOfStudy": form.data['yearOfStudy'], "semester": form.data['semester'], "studentIssues": form.data['studentIssues'], "queryDesc": form.data['queryDesc']}  )
-        
+        return redirect('/queryhistory')
     return render_template('querypage.html', title='Student Query', QuickLinks = QuickLinks, form=form, userId=userId, data=data, user=username, email=email)
 
 @app.route('/queryhistory')
 @login_required
 def queryhistory():
     
+    QuickLinks = getUserQuickLinks()
     global menu_type
     global username
     menu_type = 1
@@ -772,7 +773,7 @@ def queryhistory():
 
     userId = int(session['userid'])
     data = list(db.query.find({"studentId" : userId}))
-    return render_template('queryhistory.html', title='Query History', data=data, user=username, userId=userId)
+    return render_template('queryhistory.html', title='Query History', data=data, user=username, userId=userId, QuickLinks = QuickLinks)
 
 @app.route('/personalInfo', methods=('GET', 'POST'))
 @login_required
@@ -795,7 +796,7 @@ def viewpersonalInfo():
     
     userId = int(session['userid'])
     data = list(db.student.find({"studentId" : userId}))
-    return render_template('view-personalinfo.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId)
+    return render_template('personalinfo-view.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
 @login_required
@@ -806,15 +807,21 @@ def personalinfopage():
     global username
     menu_type = 1
     username = session['username']
+    filename = ""
 
     form = PersonalInfoForm()
     userId = int(session['userid'])
     studentData = db.student.find_one({"studentId" : userId})
-    
-    if request.method=='POST':
 
+    if request.method=='POST':
+        file = request.files["studentPhoto"]
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            path = os.path.join(os.path.abspath('app/static/userphotos'))
+            file.save(os.path.join(path, secure_filename(filename)))
+	
         # Update the student based on their logged in ID
-        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"],"dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"] }})
+        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename }})
         
         # Record User Activity
         loguseractvity("Edit", "/personalInfo/update/" + str(userId))

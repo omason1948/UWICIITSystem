@@ -7,24 +7,28 @@
         
         <div class="col-sm-6">
     
-            <form action="" method="POST" novalidate>
+            <form action="" method="POST" enctype="multipart/form-data" novalidate>
                     
                 {{ form.hidden_tag() }}
                 <h4 class="card-title"> Update Infomation </h4>
 
                 <div class="card"><div class="card-body">
 
-                    <h5 class="card-title"> Personal Details </h5>
-                    
+                    <h5 class="card-title"> Personal Details </h5>  
+          
                     <div class="form-group">
                         <h5 class="card-title">{{user}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">ID #{{ userId }}</h6>
                     
                     </div>
-
+                    <div class="form-group">
+                    {{form.studentPhoto.label}}<br/>
+                    {{form.studentPhoto(value=studentData.studentPhoto)}}
+                    </div>
+                 
                     <div class="form-group">
                         <label>{{ form.dob.label }}</label><br/>
-                        {{ form.dob(value=studentData.dob, class = "form-control") }}
+                        {{ form.dob() }}
                     </div>
 
                     <div class="form-group">
@@ -70,8 +74,6 @@
                         <label for="ecNumber">{{ form.ecNumber.label }} </label> <br/>
                         {{ form.ecNumber(value=studentData.ecNumber, class = "form-control") }}
                     </div>
-
-                    <!-- <button type="button" class="btn btn-outline-success">{{ form.submit }}</button> -->
 
                     <p>{{ form.submit( class="btn btn-success" ) }}</p>
                     <p><a type="button" class="btn btn-dark" href="/personalInfo/view" >Cancel</a></p>

@@ -56,9 +56,9 @@
     <nav class="nav system-main-menu-nav">
 
       {% if menu_type == 1 %} 
-        <a class="nav-link active" href="/">Student Information</a>
+        <a class="nav-link active" href="/personalInfo">Student Information</a>
       {% else %}
-        <a class="nav-link" href="/">Student Information</a>
+        <a class="nav-link" href="/personalInfo">Student Information</a>
       {% endif %}
 
       {% if menu_type == 2 %} 
@@ -77,7 +77,7 @@
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
       </ol>
     </nav>    

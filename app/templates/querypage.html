@@ -34,8 +34,36 @@
                 <div class="form-group">
                     <h6 class="card-title">{{ form.queryDesc.label }}</h6><br>
                     {{ form.queryDesc(size=300) }}
-                </div>        
-                <p>{{ form.submit( class="btn btn-success" ) }}</p>    
+                </div> 
+                <p> <button type = "button" class="btn btn-success" data-toggle="modal" data-target="#myModal"> Submit </button> </p>
+                    
+                            <!-- The Modal -->
+                              <div class="modal fade" id="myModal">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Query Submitted</h4>
+                                      <button type="button" class="close" data-dismiss="modal">×</button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                      <h5>Thank you patience as the UWICIIT strives to serve you better.<h4><br>
+                                          Please wait 3-5 business days for a update.
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                      <a type="button" class="btn btn-success" data-dismiss="modal" href="/queryhistory">Close</a>
+                                      {{ form.submit( class="btn btn-success" ) }}
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+      
                 </div></div>
             </form>
         </div>
