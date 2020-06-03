@@ -1,0 +1,69 @@
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+    <div class = "row">
+    <div class = "col-sm-4">
+        <form action="" method="post" validate>
+            {{ form.hidden_tag() }}
+            <h5 class="card-title"> Update Grade Details</h5> 
+            <div class="card"><div class="card-body">
+            
+            <h5 class="card-title"> Query Details</h5>
+            <div class="form-group">
+                <h6 class="card-title">{{ form.course.label }}</h6>
+                {{form.course}}
+            </div>
+
+            <div class="form-group">
+                <h6 class="card-title">{{ form.exam.label }}</h6>
+                {{form.exam}}
+            </div>
+
+            <p>
+                {{ form.term.label }}<br>
+                {{ form.term (class="form-control") }}<br>
+                {% for error in form.term.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+
+            {% if collection %}
+                <p> Grade Already Submitted, Please Approve </p>
+            {% else %}
+                <div class="form-group">
+                    {{ form.submit( class="btn btn-success" ) }} <br/><br/>
+                    <small> The first initial submission is marked as pending approval </small>
+                </div>
+            {% endif %}
+        
+            </div></div>
+        </form>
+    </div>
+
+    <div class = "col-sm-6">
+
+        {% if collection %}
+
+            {% for grade in collection %}
+                Course Grade: {{ grade.CourseGrades.course }} <br/>
+                Exam Grade: {{ grade.CourseGrades.exam }} <br/>
+                {% if grade.ApprovalStatus == 0 %}
+                    Grade Not Approved <br/>
+                    <small> Initial Grade Submitted by {{ grade.Admin }}  </small>
+                {% else %}
+                    {{ grade.ApprovalStatus }} <br/>
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+
+            <p>No Grades Available for this Student </p>
+
+        {% endif %}
+        
+
+    </div>
+</div>
+
+{% endblock %}

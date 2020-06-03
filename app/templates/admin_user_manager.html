@@ -1,0 +1,100 @@
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+    <div class = "row">
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+   
+            <style>
+
+                .user-row {
+                    margin-bottom: 14px;
+                }
+
+                .user-row:last-child {
+                    margin-bottom: 0;
+                }
+
+                .dropdown-user {
+                    margin: 13px 0;
+                    padding: 5px;
+                    height: 100%;
+                }
+
+                .dropdown-user:hover {
+                    cursor: pointer;
+                }
+
+                .table-user-information > tbody > tr {
+                    border-top: 1px solid rgb(221, 221, 221);
+                }
+
+                .table-user-information > tbody > tr:first-child {
+                    border-top: 0;
+                }
+
+
+                .table-user-information > tbody > tr > td {
+                    border-top: 0;
+                }
+                .toppad
+                {margin-top:20px;
+                }
+
+
+            </style>
+   
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{user}} </h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="/static/images/user-avatar.png" class="img-circle img-responsive"> </div>
+                  
+                  <div class=" col-md-9 col-lg-9 "> 
+                    <table class="table table-user-information">
+                      <tbody>
+                        <tr>
+                          <td>Department:</td>
+                          <td> {{collection.department}}</td>
+                        </tr>
+                        
+                           <tr>
+                               <tr>
+                          <td>Gender</td>
+                          <td>{{collection.gender}}</td>
+                        </tr>
+                          <tr>
+                          <td>Home Address</td>
+                          <td>{{collection.address}}</td>
+                        </tr>
+                        <tr>
+                          <td>Email</td>
+                          <td><a href="mailto:{{collection.email}}">{{collection.email}}</a></td>
+                        </tr>
+                          <td>Phone Number</td>
+                          <td> {{collection.phone_number}}
+                          </td>
+                             
+                        </tr>
+                       
+                      </tbody>
+                    </table>
+                  
+                  </div>
+                </div>
+              </div>
+
+    </div>
+
+    <h5> User Management </h5>
+    <div class = "row">
+
+        <div class="col-sm-6"> <a href = "/admin/add/user"> <div class="card"> <div class="card-body">Add New User</div></div> </a></div>
+        <div class="col-sm-6"> <a href = "/admin/view/users"><div class="card"><div class="card-body">View Users</div></div> </a></div>
+
+    </div>
+
+{% endblock %}

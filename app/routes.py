@@ -22,7 +22,7 @@ from flask_pymongo import PyMongo, MongoClient, BSONObjectIdConverter
 from wtforms import Form, validators
 
 # Form Classes
-from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts, SearchFormInsurance
+from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts, SearchFormInsurance, AddCourseGradeForm
 from app.forms import QueryForm, PersonalInfoForm, InsuranceForm, ForgotForm
 from app.forms import EventForm, LoginForm
 
@@ -288,6 +288,7 @@ def setSessionInformation(userID, name, email, userType):
     session['userid'] = userID
     session['email'] = email
     session['logged_in'] = True
+    session['userType'] = userType
 
     if userType == 2:
         session['admin_logged_in'] = True
@@ -1027,7 +1028,15 @@ def admin_dashboard():
     collection = list(db.systemlog.find( sort=[( 'timestamp', -1 )] ).limit(6))
     queries = list(db.query.find().limit(4))
 
-    return render_template('admin_index.html', title = 'Admin Dashboard', user = username, queries = queries, userLogs = collection)
+    transcripts_data = db.student_transcript.find({})
+    events_data = db.events.find({})
+    query_data = db.query.find({})
+
+    transcripts_count = transcripts_data.count()
+    events_count = events_data.count()
+    queries_count = query_data.count()
+
+    return render_template('admin_index.html', title = 'Admin Dashboard', queries_count = queries_count, events_count = events_count, transcripts_count = transcripts_count, user = username, queries = queries, userLogs = collection)
 
 
 @app.route('/admin/students', methods = ['GET', 'POST'])
@@ -1107,8 +1116,9 @@ def admin_students_view(studentid):
         system_text = db.system_text.find_one({'title': "registration_not_allowed"})
         registration_status_message = system_text['message']
 
+    registered_courses = db.registration.find({"studentID":student_data["UserID"]})
     
-    return render_template('admin_student_view.html', title = 'Admin Student Information', student_data = student_data, hold_status_message = hold_status_message, academic_standing_message = academic_standing_message, registration_status_message = registration_status_message, UserProfile = UserProfile)
+    return render_template('admin_student_view.html', title = 'Admin Student Information', student_data = student_data, hold_status_message = hold_status_message, academic_standing_message = academic_standing_message, registration_status_message = registration_status_message, UserProfile = UserProfile, registered_courses = registered_courses, user = username)
 
 @app.route('/admin/events', methods = ['GET', 'POST'])
 @admin_login_required
@@ -1196,6 +1206,9 @@ def admin_reports():
 @admin_login_required
 def admin_settings():
 
+    global username
+    username = session['username']
+
     # Record User Activity
     loguseractvity("View", "/admin/settings/")
 
@@ -1205,6 +1218,9 @@ def admin_settings():
 @app.route('/admin/grades', methods = ['GET', 'POST'])
 @admin_login_required
 def admin_grades():
+
+    global username
+    username = session['username']
 
     # Record User Activity
     loguseractvity("View", "/admin/grades/")
@@ -1218,11 +1234,115 @@ def admin_grades():
 @admin_login_required
 def admin_grades_course(courseid):
 
+    global username
+    username = session['username']
+
     # Record User Activity
     loguseractvity("View", "/admin/grades/" + courseid)
     collection = db.registration.find({'courseID': courseid})
+    adminType = session['userType']
+    
+    student_registered = db.registration.aggregate([
+    {
+        '$match': {
+            'courseID': courseid
+        }
+    }, {
+        '$lookup': {
+            'from': 'user', 
+            'localField': 'studentID', 
+            'foreignField': 'UserID', 
+            'as': 'info'
+        }
+    }, {
+        '$unwind': {
+            'path': '$info'
+        }
+    }
+])
 
-    return render_template('admin_grades_course.html', title = 'Course Grade Details', collection = collection)
+    """student_registered = db.registration.aggregate([
+        {
+            '$match': {
+                'courseID': courseid
+            }
+        }, {
+            '$lookup': {
+                'from': 'user', 
+                'localField': 'studentID', 
+                'foreignField': 'UserID', 
+                'as': 'info'
+            }
+        }, {
+            '$unwind': {
+                'path': '$info'
+            }
+        }, {
+            '$lookup': {
+                'from': 'student_course_grade', 
+                'localField': 'StudentID', 
+                'foreignField': 'UserID', 
+                'as': 'graded'
+            }
+        }, {
+            '$unwind': {
+                'path': '$graded'
+            }
+        }
+    ])"""
+
+    """ event_for_student = db.event_student.aggregate([
+        {
+            '$match': {
+                'studentid': '123456'
+            }
+        }, {
+            '$limit': 2
+        }, {
+            '$lookup': {
+                'from': 'events', 
+                'localField': 'eventid', 
+                'foreignField': '_id', 
+                'as': 'info'
+            }
+        }, {
+            '$unwind': {
+                'path': '$info'
+            }
+        }
+    ]) """
+
+    return render_template('admin_grades_course.html', title = 'Course Grade Details', collection = collection, student_registered= student_registered, user = username, courseid = courseid, adminType = adminType)
+
+@app.route('/admin/grades/<courseid>/<studentid>', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_grades_course_update(courseid, studentid):
+
+    # Record User Activity
+    loguseractvity("View", "/admin/grades/" + courseid + "/" + studentid)
+    form = AddCourseGradeForm()
+    username = session['username']
+    collection = db.student_course_grade.find()
+
+    if request.method == 'POST':
+
+        db.student_course_grade.insert_one({"StudentID": studentid, "CourseID": courseid, "CourseGrades": {"course": form.data["course"], "exam": form.data["exam"]}, "ApprovalStatus": 0, "TermType": form.data["term"],"Admin": username })
+        flash("Grade updated for " + studentid)
+        return redirect("/admin/grades/" + courseid + "/" + studentid)
+
+    return render_template('admin_grades_course_update.html', form=form, title = 'Add Course Grade', courseid = courseid, user = username, collection = collection)
+
+@app.route('/admin/grades/approve/<id>/<courseid>/<studentid>', methods = ['GET'])
+@admin_login_required
+def admin_grades_course_approve(id, courseid, studentid):
+
+    flash("Grade Approved Successfully")
+
+    # Update the student based on their logged in ID
+    db.student_course_grade.update_one({"StudentID": studentid},{"$set":{"ApprovalStatus": 1 }})
+        
+    return redirect("/admin/grades/" + courseid)
+
 
 @app.route('/admin/queries', methods = ['GET', 'POST'])
 @admin_login_required
@@ -1301,3 +1421,99 @@ def admin_insurance():
 
     return render_template('admin_insurance.html', title = 'Insurance', search_count = search_count, searchId = searched_id, form = form, user = username, collection = collection)
 
+@app.route('/admin/usermanager', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_user_manager():
+
+    global username
+    menu_type = 1
+    username = session['username']
+    userid = session['userid']
+
+    loguseractvity("View", "/admin/usermanager")
+
+    collection = db.user.find_one({'UserID': userid})
+
+    return render_template('admin_user_manager.html', title = 'User Manager', collection = collection, user = username, userid = userid)
+
+
+
+@app.route('/admin/view/users', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_user_view():
+
+    global username
+    menu_type = 1
+    username = session['username']
+    userid = session['userid']
+
+    form = SearchFormQueries()
+    searched_name = ""
+    search_count = ""
+
+    # Record User Activity
+    loguseractvity("View", "/admin/view/users")
+
+    if form.validate_on_submit():
+
+        searched_name = form.data["name"]
+        collection = db.query.find({"studentName":{"$regex": searched_name}})
+        search_count = collection.count()
+
+    else:
+
+        collection = db.user.find({'userType': "2"})
+        search_count = collection.count()
+
+    return render_template('admin_user_view.html', title = 'View Users', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
+
+@app.route('/admin/view/users/<userid>', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_user_view_by_id(userid):
+
+    global username
+    username = session['username']
+
+    loguseractvity("View", "/admin/view/users/" + str(userid))
+
+    collection = db.user.find_one({ "_id": ObjectId(userid) })
+
+    return render_template('admin_user_view_id.html', title = 'View User', user = username, collection = collection)
+
+
+@app.route('/admin/add/user', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_user_add():
+
+    global username
+    menu_type = 1
+    username = session['username']
+    userid = session['userid']
+
+    return render_template('admin_user_add.html', title = 'Add New User', user = username, userid = userid)
+
+
+@app.route('/admin/deregister/<courseID>/<studentID>', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_deregister_student(courseID, studentID):
+
+    global username
+    menu_type = 1
+    username = session['username']
+    userid = session['userid']
+
+    loguseractvity("View", "/admin/deregister/" + str(courseID) + "/" + str(studentID)  )
+
+    collection = db.student_course_grade.find_one({ "StudentID": studentID, "CourseID":courseID })
+
+    return render_template('admin_student_deregister.html', title = 'Deregister Student', collection = collection, user = username, userid = userid, courseID = courseID, studentID = studentID)
+
+@app.route('/admin/deregister/<studentID>/<courseID>/confirmed', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_deregister_student_confirm(studentID, courseID):
+
+    StudentIDIDArr = db.user.find_one({ "UserID": studentID })
+    db.registration.remove({ "studentID": studentID, "courseID":courseID })
+
+    loguseractvity("View", "/admin/deregister/" + str(courseID) + "/" + str(studentID) + "/confirm"  )
+    return redirect("/admin/student/" + str(StudentIDIDArr["_id"]) )

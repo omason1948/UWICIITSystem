@@ -8,6 +8,18 @@
     height: 100vh;
     margin-top: 36px;
     padding-top: 65px;
+    position:fixed;
+    padding-left:0px;
+    padding-right:0px;
+} 
+
+.nav-item{
+    transition: all 0.5s ease-in-out;;
+}
+
+.nav-item:hover{
+    background:rgba(0,0,0,0.3);
+    transition: all 0.5s ease-in-out;;
 }
 
 .btn-search-correction{
@@ -16,6 +28,7 @@
 
 #footer{
     margin:0px;
+    position: relative;
 }
 
 .main-container{

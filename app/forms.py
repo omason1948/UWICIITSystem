@@ -184,3 +184,9 @@ class SearchFormInsurance(FlaskForm):
     name = StringField('Student ID', validators=[DataRequired()])
     submit = SubmitField('Search')
     
+class AddCourseGradeForm(FlaskForm):
+    course = StringField('Course Grade', validators=[DataRequired()])
+    exam = StringField('Exam Grade', validators=[DataRequired()])
+
+    term = SelectField(u'Mid-Term or Final', choices=[('1', 'MidTerm'), ('2', 'Final')])
+    submit = SubmitField('Submit Grade')

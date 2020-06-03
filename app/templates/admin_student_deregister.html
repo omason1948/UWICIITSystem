@@ -1,0 +1,6 @@
+{% if collection %}
+You are unable to deregister this because they are associated with a grade from this course.
+{% else %}
+You are about to deregisted the student {{studentID}} from a course {{courseID}}.
+<a href = "/admin/deregister/{{studentID}}/{{courseID}}/confirmed"> Confirm Deregistration </a>
+{% endif %} 

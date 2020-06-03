@@ -27,10 +27,29 @@
 
     <body>
 
+        <style>
+
+            .navbar-nav{
+              position: relative;
+            }
+
+            #user_pro_image{
+              left: -40px;
+              width: 40px;
+              position: absolute;
+            }
+
+            #user_pro_image img{
+              width:100%;
+            }
+
+        </style>
+
         <nav class="navbar navbar-dark fixed-top bg-light flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"> <img src="{{ url_for('static', filename='images/UWICIITLogo.PNG') }}" width="233" alt=""> </a>
             
             <ul class="navbar-nav navbar-nav-top px-3">
+                <li id = "user_pro_image"> <img alt="User Pic" src="/static/images/user-avatar.png" class="img-circle img-responsive">  </li>
                 <li class="nav-item text-nowrap"> Good Morning {{user}} </li>
                 <li class="nav-item text-nowrap small">
                     <a class="nav-link" href="/logout">Sign out</a>
@@ -108,15 +127,16 @@
                     </a>
                   </h6>
                   <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
+                    
+                    <!--<li class="nav-item">
                       <a class="nav-link" href="/admin/settings">
                         <span data-feather="file-text"></span>
                         Settings
                       </a>
-                    </li>
+                    </li>-->
                    
                     <li class="nav-item">
-                      <a class="nav-link" href="#">
+                      <a class="nav-link" href="/admin/usermanager">
                         <span data-feather="file-text"></span>
                         User Manager
                       </a>

@@ -1,0 +1,59 @@
+{% extends "baseadmin.html" %}
+
+{% block content %}
+
+<div class = "front_half">
+    
+    <h5> Admin Users </h5>
+    <p> List of users </p>
+
+
+    <form action = "/admin/students" method = "POST">
+        <div class="form-row">
+
+            {{ form.hidden_tag() }}
+
+            <div class="col-sm-10">
+
+                <label>{{ form.name.label }} </label>
+                {{ form.name(size=32, class = "form-control") }}
+
+            </div>
+
+            <div class="col">
+                <label> &nbsp;</label><br/>
+                {{ form.submit( class="btn btn-primary btn-search-correction") }}
+            </div>
+
+        </div>
+    </form>
+
+    {% if searchName != "" %}
+    <br/>
+    <p> You searched for <b>{{searchName}}</b>. Showing {{search_count}} Users. <a href = "/admin/view/users"> View all Users </a> </p>
+    {% else %}
+    <br/>
+    <p> Showing {{search_count}} users.  </p>
+    {% endif %}
+
+</div>
+
+        <table class="table table-light text-left table-hover">
+            <thead>
+                <th> Name </th>
+                <th> Email </th>
+                <th> Phone Number </th>
+            </thead>
+            <tbody>
+                {% for user in collection %}
+                <tr>
+                    <td><a href = "/admin/view/users/{{user._id}}">{{user.name}}</a></td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone_number}} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+            
+{% endblock %}
