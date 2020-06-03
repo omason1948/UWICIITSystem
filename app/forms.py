@@ -103,11 +103,7 @@ class PersonalInfoForm(FlaskForm):
 #         format='%Y-%m-%d',
 #         validators = [Required('please select a valid date of birth')]
 #     )
-    dob = DateTimeLocalField(
-        label='Date of Birth',
-        format='%Y-%m-%dT%H:%M',
-        validators = [Required('Please select a valid date of birth')]
-    )
+    dob = DateField('Date of Birth: ', validators=[DataRequired()], format="%d-%m-%y")
     
     maritalStatus = SelectField(u'Marital Status: ', 
     choices=[('Single','Single'), ('Married', 'Married'), 
