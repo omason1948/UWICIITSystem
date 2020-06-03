@@ -795,7 +795,7 @@ def viewpersonalInfo():
     username = session['username']
     
     userId = int(session['userid'])
-    data = list(db.user.find({"studentId" : userId}))
+    data = list(db.student.find({"studentId" : userId}))
     return render_template('personalinfo-view.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
@@ -821,7 +821,7 @@ def personalinfopage():
             file.save(os.path.join(path, secure_filename(filename)))
 	
         # Update the student based on their logged in ID
-        db.user.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename }})
+        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename }})
         
         # Record User Activity
         loguseractvity("Edit", "/personalInfo/update/" + str(userId))
