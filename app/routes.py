@@ -574,7 +574,6 @@ def coursesAdd():
 
     form = CourseSelectTermForm()
     if form.validate_on_submit():
-        flash('Term selection requested for user')
 
         # Record User Activity
         loguseractvity("Register", "/courses/add/")
