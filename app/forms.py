@@ -20,8 +20,12 @@ class LoginForm(FlaskForm):
 class ForgotForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     userid = StringField('Userid', validators=[DataRequired()])
-    submit = SubmitField('Sign In')
+    submit = SubmitField('Reset Password')
 
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirmpassword = PasswordField('Confirm Password', validators=[DataRequired()])
+    submit = SubmitField('Reset My Password')
 
 ############################################################
 ##################### COURSES Form Classes #################

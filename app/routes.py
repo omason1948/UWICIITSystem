@@ -24,10 +24,13 @@ from wtforms import Form, validators
 # Form Classes
 from app.forms import CourseSelectTermForm, NewTranscriptForm, CourseFinderForm, SearchForm, SearchFormStudents, SearchFormEvents, SearchFormQueries, SearchFormTranscripts, SearchFormInsurance, AddCourseGradeForm
 from app.forms import QueryForm, PersonalInfoForm, InsuranceForm, ForgotForm
-from app.forms import EventForm, LoginForm
+from app.forms import EventForm, LoginForm, ResetPasswordForm
 
 from bson import Binary, Code, ObjectId
 from bson.json_util import dumps
+
+#For key generation
+import binascii
 
 #Mail
 #from flask_mail import Mail, Message 
@@ -231,42 +234,75 @@ def forgotPassword():
     if form.validate_on_submit():
         useremail = form.email.data
         userid = form.userid.data
-        sendEmail(useremail)
 
-        flash('We sent an email to your inbox.')
-        return render_template('forgot_success.html', title='UWICIIT Forgot Password', form=form)
-    else:
-        flash('An error occured trying to reset your password. Try again later.')
+        check_for_user = db.user.find_one({'UserID': userid, 'email': useremail})
+        if check_for_user:
+            sendEmail(useremail, userid)
+
+            flash('We sent an email to your inbox.')
+            return render_template('forgot_success.html', title='UWICIIT Forgot Password', form=form)
+        else:
+            flash('An error occured trying to reset your password. Try again later.')
 
     # Send user an email regarding the forgotten email
 
     return render_template('forgot.html', title='UWICIIT Forgot Password', form=form)
 
-@app.route("/sendEmail")
-def sendEmail(useremail):
-    #mail_content = "Hello, This is a simple mail. There is only text, no attachments are there The mail is sent using Python SMTP library. Thank You"
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
+
+@app.route("/sendEmail/")
+def sendEmail(useremail, userid):
+    
+    key = binascii.hexlify(os.urandom(24))
+    link = "http://uwiciitonline.azurewebsites.net/reset-password/" + key
+
+    mail_content = "Good Day Student, \n There has been a password request on your account, please ignore this email if you have not made this request. If this was you, please click on the link below to reset your password. \n " + link
 
     #The mail addresses and password
-    ##sender_address = 'theuwiciit@gmail.com'
-    #sender_pass = 'dehgyd-wuXkas-4mezty'
-    #receiver_address = useremail
+    sender_address = 'theuwiciit@gmail.com'
+    sender_pass = 'dehgyd-wuXkas-4mezty'
+    receiver_address = useremail
     #Setup the MIME
-    #message = MIMEMultipart()
-    #message['From'] = sender_address
-    #message['To'] = receiver_address
-    #message['Subject'] = 'A test mail sent by Python. It has an attachment.'   #The subject line
+    message = MIMEMultipart()
+    message['From'] = sender_address
+    message['To'] = receiver_address
+    message['Subject'] = 'UWICIIT Password Reset'   #The subject line
     #The body and the attachments for the mail
-    #message.attach(MIMEText(mail_content, 'plain'))
+    message.attach(MIMEText(mail_content, 'plain'))
     #Create SMTP session for sending the mail
-    #session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
-    #session.starttls() #enable security
-    #session.login(sender_address, sender_pass) #login with mail_id and password
-    #text = message.as_string()
-    #session.sendmail(sender_address, receiver_address, text)
-    #session.quit()
-    #print('Mail Sent')
+    session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+    session.starttls() #enable security
+    session.login(sender_address, sender_pass) #login with mail_id and password
+    text = message.as_string()
+    session.sendmail(sender_address, receiver_address, text)
+    session.quit()
+    
+    db.password_resets.insert_one({"useremail": useremail,"key": key,"userid": userid})
+    
+    return render_template('forgot_email.html', title='UWICIIT Forgot Password Step 1')
 
-    return "mail"
+@app.route("/reset-password/<key>", methods=['GET', 'POST'])
+def resetPassword(key):
+
+    key_available = db.password_resets.find_one({'key': key})
+    if key_available:
+
+        form = ResetPasswordForm()
+        user_information = db.user.find_one({'UserID': key_available["userid"], 'email': key_available["useremail"]})
+        
+        if request.method == 'POST':
+            password = form.data['password']
+            confirmpassword = form.data['confirmpassword']
+
+            db.user.update_one({"UserID": key_available["userid"]},{"$set":{"password": password }})
+            flash('Term selection requested for user')
+            return redirect('/login')
+        
+        return render_template('forgot_set_password.html', title='UWICIIT Forgot Password Step 2', form=form)
+    else:
+        return redirect('/forgot')
 
 def setUserRoles(userRoles):
 
