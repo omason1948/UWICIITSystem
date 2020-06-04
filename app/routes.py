@@ -815,10 +815,16 @@ def queryhistory():
 @login_required
 def personalinfoOptions():
 
+    QuickLinks = getUserQuickLinks()
+    global menu_type
+    global username
+    menu_type = 1
+    username = session['username']
+
     # Record User Activity
     loguseractvity("View", "/personalInfo/")
     
-    return render_template('personalinfo.html', title='Personal Info')
+    return render_template('personalinfo.html', title='Personal Info', user=username)
 
 @app.route('/personalInfo/view')
 @login_required
