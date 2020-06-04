@@ -857,7 +857,7 @@ def personalinfopage():
             file.save(os.path.join(path, secure_filename(filename)))
 	
         # Update the student based on their logged in ID
-        db.user.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "dob":form.data["dob"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename }})
+        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename }})
         
         # Record User Activity
         loguseractvity("Edit", "/personalInfo/update/" + str(userId))
@@ -866,7 +866,7 @@ def personalinfopage():
     else:
 
         # Pull the users current information from the database
-        studentData = db.student.find_one({"studentId" : userId})
+        studentData = db.user.find_one({"studentId" : userId})
         # return redirect('/personalInfo/view')
 
     return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user=username, studentData=studentData, QuickLinks = QuickLinks)
@@ -1009,6 +1009,99 @@ def eventsdelete(id):
     loguseractvity("Delete", "/events/delete/" + ObjectId(id))
 
     return render_template('event-delete.html', title='Delete Events', user = username)
+
+@app.route('/events/register/<id>')
+@login_required
+def eventsregister(id):
+   
+    global menu_type
+    global username
+    menu_type = 3
+    username = session['username']
+    userid= session["userid"]
+    
+    check = db.event_student.find({"eventid": ObjectId(id)}).count()
+    
+    if  check == 0:
+        events_id = db.event_student.insert_one({"eventid": ObjectId(id),"studentid":userid})
+
+    event_for_student = db.event_student.aggregate([
+        {
+            '$match': {
+                'studentid': userid
+            }
+        }, {
+            '$lookup': {
+                'from': 'events', 
+                'localField': 'eventid', 
+                'foreignField': '_id', 
+                'as': 'info'
+            }
+        }, {
+            '$unwind': {
+                'path': '$info'
+            }
+        }
+    ])
+    
+    # Record User Activity
+    loguseractvity("Register", "/events/register/" + str(ObjectId(id)))
+
+    return render_template('event-list.html', title='Event Register', event_for_student = event_for_student, user = username)
+
+@app.route('/events/register/view')
+@login_required
+def eventsregisterview():
+   
+    global menu_type
+    global username
+    menu_type = 3
+    username = session['username']
+    userid= session["userid"]
+    
+
+    event_for_student = db.event_student.aggregate([
+        {
+            '$match': {
+                'studentid': userid
+            }
+        }, {
+            '$limit': 2
+        }, {
+            '$lookup': {
+                'from': 'events', 
+                'localField': 'eventid', 
+                'foreignField': '_id', 
+                'as': 'info'
+            }
+        }, {
+            '$unwind': {
+                'path': '$info'
+            }
+        }
+    ])
+    
+    # Record User Activity
+    loguseractvity("View", "/events/register/")
+
+    return render_template('event-list.html', title='Event Register', event_for_student = event_for_student, user = username)
+
+@app.route('/events/deregister/<id>')
+@login_required
+def eventsderegister(id):
+   
+    global menu_type
+    global username
+    menu_type = 3
+    username = session['username']
+    events_id = db.event_student.remove({"_id": ObjectId(id)})
+    
+
+    # Record User Activity
+    loguseractvity("Deregister", "/events/deregister/" + str(ObjectId(id)))
+
+    return render_template('event-deregister.html', title = 'Event Deregister', user= username)
+
 
 
 # Displays the students grades information
