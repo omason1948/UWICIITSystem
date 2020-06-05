@@ -6,6 +6,7 @@ from wtforms.fields.html5 import EmailField, DateField
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 from wtforms.widgets import TextArea
+from wtforms.fields.html5 import TelField
 
 ############################################################
 ##################### GENERAL Form Classes #################
@@ -106,13 +107,13 @@ class PersonalInfoForm(FlaskForm):
         default='single', validators=[DataRequired()])
     
     studentAddress = StringField('Address: ', validators=[DataRequired()])
-    mobilenum = IntegerField('Mobile Number: ', validators=[DataRequired()])
+    mobilenum = TelField('Mobile Number: ', validators=[DataRequired()])
     passport = FileField('Passport Copy: ', validators=[FileRequired()])
     emergencyCon = StringField('Emergency Contact: ', validators=[DataRequired()])
     relationship = SelectField(u'Relationship: ', 
     choices=[('Relative','Relative'), ('Spouse', 'Spouse'), 
     ('Friend', 'Friend')])
-    ecNumber = IntegerField('Telephone Number: ', validators=[DataRequired()])
+    ecNumber = TelField('Telephone Number: ', validators=[DataRequired()])
 
     submit = SubmitField('Submit')
 
