@@ -843,40 +843,64 @@ def personalinfopage():
     global username
     menu_type = 1
     username = session['username']
-    filename = ""
-    filename2 = ""
+    filename = ''
+    filename2 = ''
 
     form = PersonalInfoForm()
     userId = int(session['userid'])
-    studentData = db.student.find_one({"studentId" : userId})
+    studentData = db.student.find_one({'studentId': userId})
 
-    if request.method=='POST':
-        file = request.files["studentPhoto"]
-	passportfile = request.files["passport"]
+    if request.method == 'POST':
+        file = request.files['studentPhoto']
+        passportfile = request.files['passport']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            path = os.path.join(os.path.abspath('app/static/userphotos'))
+            path = os.path.join(os.path.abspath('app/static/userphotos'
+                                ))
             file.save(os.path.join(path, secure_filename(filename)))
-	
-	if passportfile and allowed_file(passportfile.filename2):
-            filename2 = secure_filename(passportfile.filename2)
-            path = os.path.join(os.path.abspath('app/static/userphotos'))
-            passportfile.save(os.path.join(path, secure_filename(filename2)))		
-	
-        # Update the student based on their logged in ID
-        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename, "passport": filename2 }})
-        
-        # Record User Activity
-        loguseractvity("Edit", "/personalInfo/update/" + str(userId))
-        return redirect('/personalInfo/view')
 
+        if passportfile and allowed_file(passportfile.filename2):
+            filename2 = secure_filename(passportfile.filename2)
+            path = os.path.join(os.path.abspath('app/static/userphotos'
+                                ))
+            passportfile.save(os.path.join(path,
+                              secure_filename(filename2)))
+
+        # Update the student based on their logged in ID
+
+        db.student.update_one({'studentId': userId}, {'$set': {
+            'gender': form.data['gender'],
+            'maritalStatus': form.data['maritalStatus'],
+            'studentAddress': form.data['studentAddress'],
+            'mobilenum': form.data['mobilenum'],
+            'emergencyCon': form.data['emergencyCon'],
+            'relationship': form.data['relationship'],
+            'ecNumber': form.data['ecNumber'],
+            'studentPhoto': filename,
+            'passport': filename2,
+            }})
+
+        # Record User Activity
+
+        loguseractvity('Edit', '/personalInfo/update/' + str(userId))
+        return redirect('/personalInfo/view')
     else:
 
         # Pull the users current information from the database
-        studentData = db.user.find_one({"studentId" : userId})
+
+        studentData = db.user.find_one({'studentId': userId})
+
         # return redirect('/personalInfo/view')
 
-    return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user=username, studentData=studentData, QuickLinks = QuickLinks)
+    return render_template(
+        'personalinfopage.html',
+        title='Update Info',
+        form=form,
+        userId=userId,
+        user=username,
+        studentData=studentData,
+        QuickLinks=QuickLinks,
+        )
 
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
 @login_required
