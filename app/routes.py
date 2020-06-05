@@ -1208,7 +1208,7 @@ def admin_dashboard():
 
 @app.route('/admin/students', methods = ['GET', 'POST'])
 @admin_login_required
-def admin_students(studentid):
+def admin_students():
 
     global username
     username = session['username']
