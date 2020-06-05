@@ -1229,7 +1229,7 @@ def admin_students():
     else:
 
 #         collection = db.user.find({'userType': "1"})
-	collection = db.users.aggregate([
+		collection = db.users.aggregate([
 		{$lookup:
 		 {
 			 from:'student',
