@@ -1240,7 +1240,6 @@ def admin_students():
         search_count = collection.count()
 
     return render_template('admin_students.html', title = 'Admin Student', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
-
 @app.route('/admin/student/<studentid>', methods = ['GET', 'POST'])
 @admin_login_required
 def admin_students_view(studentid):
