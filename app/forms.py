@@ -167,7 +167,7 @@ class SearchForm(FlaskForm):
     submit = SubmitField('Search')
 
 class SearchFormStudents(FlaskForm):
-    name = StringField('Student Name or Number', validators=[DataRequired()])
+    name = StringField('Student Identification Number', validators=[DataRequired()])
     submit = SubmitField('Search')
 
 class SearchFormQueries(FlaskForm):
