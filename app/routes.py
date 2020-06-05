@@ -1224,14 +1224,14 @@ def admin_students(studentid):
     if form.validate_on_submit():
 
         searched_name = form.data['name']
-        collection = db.user.find({'name': {'$regex': searched_name},
+        collection = db.student.find({'name': {'$regex': searched_name},
                                   'userType': '1'})
         search_count = collection.count()
     else:
 
 # ....collection = db.user.find({'userType': "1"})
 
-        collection = db.student.find({})
+        collection = db.student.find({"studentId" : searched_name})
         search_count = collection.count()
 
     return render_template(
