@@ -1227,15 +1227,17 @@ def admin_students():
         search_count = collection.count()
 
     else:
-	collection = db.users.aggregate([
-		{$lookup:
-		 {
-			 from:'student',
-			 localField: 'UserID',
-			 foreignField: 'studentId',
-			 as: 'student_user'
-		 }
-		}])
+	collection = db.user.aggregate([
+   {
+     $lookup:
+       {
+         from: "student",
+         localField: "UserID",
+         foreignField: "studentId",
+         as: "student_user"
+       }
+  }
+])
 #         collection = db.user.find({'userType': "1"})
         search_count = collection.count()
 
