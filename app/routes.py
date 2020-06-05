@@ -1214,25 +1214,35 @@ def admin_students(studentid):
     username = session['username']
 
     form = SearchFormStudents()
-    searched_name = ""
-    search_count = ""
+    searched_name = ''
+    search_count = ''
 
     # Record User Activity
-    loguseractvity("View", "/admin/students")
+
+    loguseractvity('View', '/admin/students')
 
     if form.validate_on_submit():
 
-        searched_name = form.data["name"]
-        collection = db.user.find({"name":{"$regex": searched_name},'userType': "1"})
+        searched_name = form.data['name']
+        collection = db.user.find({'name': {'$regex': searched_name},
+                                  'userType': '1'})
+        search_count = collection.count()
+    else:
+
+# ....collection = db.user.find({'userType': "1"})
+
+        collection = db.student.find({})
         search_count = collection.count()
 
-    else:
-# 	collection = db.user.find({'userType': "1"})
-	collection = db.student.find()
-	search_count = collection.count()
-
-    return render_template('admin_students.html', title = 'Admin Student', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
-
+    return render_template(
+        'admin_students.html',
+        title='Admin Student',
+        search_count=search_count,
+        searchName=searched_name,
+        form=form,
+        user=username,
+        collection=collection,
+        )
 @app.route('/admin/student/<studentid>', methods = ['GET', 'POST'])
 @admin_login_required
 def admin_students_view(studentid):
