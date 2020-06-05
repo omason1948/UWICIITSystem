@@ -1227,9 +1227,9 @@ def admin_students(studentid):
         search_count = collection.count()
 
     else:
-	
-	collection = db.user.find({'userType': "1"})
-        search_count = collection.count()
+# 	collection = db.user.find({'userType': "1"})
+	collection = db.student.find()
+	search_count = collection.count()
 
     return render_template('admin_students.html', title = 'Admin Student', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
 
