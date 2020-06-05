@@ -1208,7 +1208,7 @@ def admin_dashboard():
 
 @app.route('/admin/students', methods = ['GET', 'POST'])
 @admin_login_required
-def admin_students():
+def admin_students(studentid):
 
     global username
     username = session['username']
@@ -1227,21 +1227,12 @@ def admin_students():
         search_count = collection.count()
 
     else:
-	collection = db.user.aggregate([
-   {
-     $lookup:
-       {
-         from: "student",
-         localField: "UserID",
-         foreignField: "studentId",
-         as: "student_user"
-       }
-  }
-])
-#         collection = db.user.find({'userType': "1"})
+	
+	collection = db.user.find({'userType': "1"})
         search_count = collection.count()
 
     return render_template('admin_students.html', title = 'Admin Student', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
+
 @app.route('/admin/student/<studentid>', methods = ['GET', 'POST'])
 @admin_login_required
 def admin_students_view(studentid):
