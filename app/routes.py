@@ -1227,9 +1227,7 @@ def admin_students():
         search_count = collection.count()
 
     else:
-
-#         collection = db.user.find({'userType': "1"})
-		collection = db.users.aggregate([
+	collection = db.users.aggregate([
 		{$lookup:
 		 {
 			 from:'student',
@@ -1238,6 +1236,7 @@ def admin_students():
 			 as: 'student_user'
 		 }
 		}])
+#         collection = db.user.find({'userType': "1"})
         search_count = collection.count()
 
     return render_template('admin_students.html', title = 'Admin Student', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
