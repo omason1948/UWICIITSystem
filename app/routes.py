@@ -859,8 +859,8 @@ def personalinfopage():
                                 ))
             file.save(os.path.join(path, secure_filename(filename)))
 
-        if passportfile and allowed_file(passportfile.filename2):
-            filename2 = secure_filename(passportfile.filename2)
+        if passportfile and allowed_file(passportfile.filename):
+            filename2 = secure_filename(passportfile.filename)
             path = os.path.join(os.path.abspath('app/static/userphotos'
                                 ))
             passportfile.save(os.path.join(path,
