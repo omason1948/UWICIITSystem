@@ -1237,7 +1237,7 @@ def admin_students():
 
 # ....collection = db.user.find({'userType': "1"})
 
-        collection = db.user.find({'userType': "1"})
+        collection = db.student.find({'userType': "1"})
         search_count = collection.count()
 
     return render_template(
