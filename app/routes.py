@@ -848,33 +848,64 @@ def personalinfopage():
     global username
     menu_type = 1
     username = session['username']
-    filename = ""
+    filename = ''
+    filename2 = ''
 
     form = PersonalInfoForm()
     userId = int(session['userid'])
-    studentData = db.student.find_one({"studentId" : userId})
+    studentData = db.student.find_one({'studentId': userId})
 
-    if request.method=='POST':
-        file = request.files["studentPhoto"]
+    if request.method == 'POST':
+        file = request.files['studentPhoto']
+        passportfile = request.files['passport']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            path = os.path.join(os.path.abspath('app/static/userphotos'))
+            path = os.path.join(os.path.abspath('app/static/userphotos'
+                                ))
             file.save(os.path.join(path, secure_filename(filename)))
-	
-        # Update the student based on their logged in ID
-        db.student.update_one({"studentId": userId},{"$set":{"gender": form.data["gender"], "maritalStatus":form.data["maritalStatus"], "studentAddress":form.data["studentAddress"], "mobilenum":form.data["mobilenum"], "emergencyCon": form.data["emergencyCon"], "relationship": form.data["relationship"], "ecNumber": form.data["ecNumber"], "studentPhoto": filename }})
-        
-        # Record User Activity
-        loguseractvity("Edit", "/personalInfo/update/" + str(userId))
-        return redirect('/personalInfo/view')
 
+        if passportfile and allowed_file(passportfile.filename):
+            filename2 = secure_filename(passportfile.filename)
+            path = os.path.join(os.path.abspath('app/static/userphotos'
+                                ))
+            passportfile.save(os.path.join(path,
+                              secure_filename(filename2)))
+
+        # Update the student based on their logged in ID
+
+        db.student.update_one({'studentId': userId}, {'$set': {
+            'gender': form.data['gender'],
+            'maritalStatus': form.data['maritalStatus'],
+            'studentAddress': form.data['studentAddress'],
+            'mobilenum': form.data['mobilenum'],
+            'emergencyCon': form.data['emergencyCon'],
+            'relationship': form.data['relationship'],
+            'ecNumber': form.data['ecNumber'],
+            'studentPhoto': filename,
+            'passport': filename2,
+            }})
+
+        # Record User Activity
+
+        loguseractvity('Edit', '/personalInfo/update/' + str(userId))
+        return redirect('/personalInfo/view')
     else:
 
         # Pull the users current information from the database
-        studentData = db.user.find_one({"studentId" : userId})
+
+        studentData = db.user.find_one({'studentId': userId})
+
         # return redirect('/personalInfo/view')
 
-    return render_template('personalinfopage.html', title='Update Info', form=form, userId=userId, user=username, studentData=studentData, QuickLinks = QuickLinks)
+    return render_template(
+        'personalinfopage.html',
+        title='Update Info',
+        form=form,
+        userId=userId,
+        user=username,
+        studentData=studentData,
+        QuickLinks=QuickLinks,
+        )
 
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
 @login_required
@@ -1188,25 +1219,36 @@ def admin_students():
     username = session['username']
 
     form = SearchFormStudents()
-    searched_name = ""
-    search_count = ""
+	
+    searched_name = ''
+    search_count = ''
 
     # Record User Activity
-    loguseractvity("View", "/admin/students")
+
+    loguseractvity('View', '/admin/students')
 
     if form.validate_on_submit():
 
-        searched_name = form.data["name"]
-        collection = db.user.find({"name":{"$regex": searched_name},'userType': "1"})
+        searched_name = form.data['name']
+        collection = db.student.find({'name': {'$regex': searched_name},
+                                  'userType': '1'})
         search_count = collection.count()
-
     else:
+
+# ....collection = db.user.find({'userType': "1"})
 
         collection = db.user.find({'userType': "1"})
         search_count = collection.count()
 
-    return render_template('admin_students.html', title = 'Admin Student', search_count = search_count, searchName = searched_name, form = form, user = username, collection = collection)
-
+    return render_template(
+        'admin_students.html',
+        title='Admin Student',
+        search_count=search_count,
+        searchName=searched_name,
+        form=form,
+        user=username,
+        collection=collection,
+        )
 @app.route('/admin/student/<studentid>', methods = ['GET', 'POST'])
 @admin_login_required
 def admin_students_view(studentid):
