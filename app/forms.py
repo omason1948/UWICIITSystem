@@ -47,6 +47,8 @@ class CourseFinderForm(FlaskForm):
 ############################################################
 
 class NewTranscriptForm(FlaskForm):
+
+    studentId = StringField('Student ID: ', validators=[DataRequired()])
     fullname = StringField('Full Name', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     #startyear = DateTimeField('Start Year', id='datepick')

@@ -715,11 +715,12 @@ def transcriptsViewAll():
     global username
     menu_type = 2
     username = session['username']
+    userId = session['userid']
 
     # Record User Activity
     loguseractvity("View All", "/transcripts/view")
     
-    data = list(db.student_transcript.find({}))
+    data = list(db.student_transcript.find({"studentId" : str(userId) }))
     return render_template('transcripts-view.html', data = data,title='View Transcripts', num = 1, user = username)
 
 @app.route('/transcripts/request', methods=['GET', 'POST'])
@@ -730,10 +731,12 @@ def transcriptsRequest():
     global username
     menu_type = 2
     username = session['username']
+    userId = int(session['userid'])
 
     form = NewTranscriptForm()
 
     if request.method == 'POST':
+
         db.student_transcript.insert_one(form.data)
 
         # Record User Activity
@@ -741,7 +744,7 @@ def transcriptsRequest():
         
         return redirect('/transcripts/view')
 
-    return render_template('transcripts-request.html', title='Request a Transcript', form=form, user = username)
+    return render_template('transcripts-request.html', title= userId, form=form, userId= userId, user = username)
 
 @app.context_processor
 def inject_user():

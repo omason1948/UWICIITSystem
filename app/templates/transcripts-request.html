@@ -19,6 +19,7 @@
       <form action="" method="post" validate>
         {{ form.hidden_tag() }}
         <p>
+            <div style = "display:none;">{{ form.studentId(value = userId) }}</div>
             {{ form.fullname.label }}<br>
             {{ form.fullname(size=32, class="form-control", value = user) }}<br>
             {% for error in form.fullname.errors %}
