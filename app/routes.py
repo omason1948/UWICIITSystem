@@ -1230,14 +1230,14 @@ def admin_students():
     if form.validate_on_submit():
 
         searched_name = form.data['name']
-        collection = db.student.find({'name': {'$regex': searched_name},
+        collection = db.user.find({'name': {'$regex': searched_name},
                                   'userType': '1'})
         search_count = collection.count()
     else:
 
 # ....collection = db.user.find({'userType': "1"})
 
-        collection = db.student.find({'userType': "1"})
+        collection = db.user.find({'userType': "1"})
         search_count = collection.count()
 
     return render_template(
