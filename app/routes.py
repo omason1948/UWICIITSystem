@@ -1213,7 +1213,7 @@ def admin_students():
     global username
     username = session['username']
 
-    form = SearchFormStudents()
+    form = PersonalInfoForm()
     searched_name = ''
     search_count = ''
 
@@ -1223,13 +1223,13 @@ def admin_students():
 
     if form.validate_on_submit():
 
-        searched_name = form.data['name']
-        collection = db.student.find({'name': {'$regex': searched_name},
-                                  'userType': '1'})
-        search_count = collection.count()
-    else:
+#         searched_name = form.data['name']
+#         collection = db.student.find({'name': {'$regex': searched_name},
+#                                   'userType': '1'})
+#         search_count = collection.count()
+#     else:
 
-# ....collection = db.user.find({'userType': "1"})
+# # ....collection = db.user.find({'userType': "1"})
 
         collection = db.student.find({"studentId" : searched_name})
         search_count = collection.count()
