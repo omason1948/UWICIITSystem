@@ -47,8 +47,6 @@
                 <th> Student Name </th>
                 <th> Email </th>
                 <th> Phone Number </th>
-                <th> Passport Copy </th>
-                <th> Emergency Contact </th>
             </thead>
             <tbody>
                 {% for user in collection %}
@@ -56,15 +54,6 @@
                     <td><a href = "/admin/student/{{user._id}}">{{user.name}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.phone_number}} </td>
-                    <td>{{user.passport}}</td>
-                    <td>
-                        <ul>
-                            <li>{{user.emergencyCon}}</li>
-                            <li>{{user.relationship}}</li>
-                            <li>{{user.ecNumber}}</li>
-                        </ul>
-                    </td>
-                    
                 </tr>
                 {% endfor %}
             </tbody>
