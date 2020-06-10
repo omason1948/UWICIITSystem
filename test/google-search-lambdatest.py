@@ -12,8 +12,8 @@ Execute Python Automation Tests on LambdaTest Distributed Selenium Grid
 import unittest
 import time
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
- 
+from selenium.webdriver.common.keys import Keys 
+from selenium.webdriver.support.ui import WebDriverWait
 class LTAutomate(unittest.TestCase):
  
     """
@@ -29,14 +29,14 @@ class LTAutomate(unittest.TestCase):
     """
     def setUp(self):
         # username: Username can be found at automation dashboard
-        username="{username}" 
+        username="romario.renee" 
         # accessToken:  AccessToken can be generated from automation dashboard or profile section
-        accessToken="{accessToken}"
+        accessToken="nvIQPyTpIbrtQOFBIG65ErF60mMPn4p7gmrb6mOvSSTyW5Mi8F"
         # gridUrl: gridUrl can be found at automation dashboard
         gridUrl = "hub.lambdatest.com/wd/hub"
          
         desired_cap = {
-            'platform' : "mac",
+            'platform' : "win10",
             'browserName' : "chrome",
             'version' :  "67.0",
             # Resolution of machine
@@ -58,6 +58,9 @@ class LTAutomate(unittest.TestCase):
             command_executor= url
         )
  
+    
+   
+
     """
     Setup remote driver
     Params
@@ -67,21 +70,63 @@ class LTAutomate(unittest.TestCase):
     -------
     print title
     """
-    def test_search_in_google(self):
+    def test_student_login(self):
         driver = self.driver
         print("Driver initiated successfully.  Navigate url")
-        driver.get("https://www.google.com/ncr")
- 
-        print("Searching lambdatest on google.com ")
+        driver.get("https://uwiciitonline.azurewebsites.net")
+    
+        print("loading uwiciit platform with invalid credentials ")
         time.sleep(8)
-        elem = driver.find_element_by_name("q")
-        elem.send_keys("lambdatest.com")
+        elem = driver.find_element_by_id("username")
+        elem.send_keys("413002757")
+        elem = driver.find_element_by_id("password")
+        elem.send_keys("tester2")
+        elem.submit()
+        print("Printing title of current page :"+driver.title)
+        driver.execute_script("lambda-status=failed")
+        print("Requesting to mark test : failed")
+
+        print("loading uwiciit platform with valid credentials ")
+        time.sleep(8)
+        elem = driver.find_element_by_id("username")
+        elem.send_keys("413002757")
+        elem = driver.find_element_by_id("password")
+        elem.send_keys("tester")
         elem.submit()
  
         print("Printing title of current page :"+driver.title)
         driver.execute_script("lambda-status=passed")
         print("Requesting to mark test : pass")
+    
+    
+    def test_admin_login(self):
+        driver = self.driver
+        print("Driver initiated successfully.  Navigate url")
+        driver.get("https://uwiciitonline.azurewebsites.net")
+    
+        print("loading uwiciit admin platform with invalid credentials ")
+        time.sleep(8)
+        elem = driver.find_element_by_id("username")
+        elem.send_keys("412002010")
+        elem = driver.find_element_by_id("password")
+        elem.send_keys("badcredentials")
+        elem.submit()
+        print("Printing title of current page :"+driver.title)
+        driver.execute_script("lambda-status=failed")
+        print("Requesting to mark test : failed")
+
+        print("loading uwiciit platform with valid credentials ")
+        time.sleep(8)
+        elem = driver.find_element_by_id("username")
+        elem.send_keys("412002010")
+        elem = driver.find_element_by_id("password")
+        elem.send_keys("passWord")
+        elem.submit()
  
+        print("Printing title of current page :"+driver.title)
+        driver.execute_script("lambda-status=passed")
+        print("Requesting to mark test : pass")
+
     """
     Quit selenium driver
     """
