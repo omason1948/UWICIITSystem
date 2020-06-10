@@ -1026,7 +1026,15 @@ def eventsedit(id):
     data = db.events.find({"_id" : ObjectId(id)})
 
     if request.method =='POST':
-        db.events.update_one({"_id": ObjectId(id)},{"$set":{"name": form.data["name"],"eventDate":form.data["eventDate"], "description":form.data["description"],"location":form.data["location"]}})
+        file = request.files['photo']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            path = os.path.join(os.path.abspath('app/static/userphotos'
+                                ))
+            file.save(os.path.join(path, secure_filename(filename)))
+
+        db.events.update_one({"_id": ObjectId(id)},{"$set":{"name": form.data["name"],"eventDate":form.data["eventDate"],"description":form.data["description"], "location":form.data["location"], "photo":filename}})
+        return redirect(url_for('eventsview'))
     
     # Record User Activity
     loguseractvity("Edit", "/events/edit/" + str(id))
