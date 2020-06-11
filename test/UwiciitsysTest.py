@@ -8,9 +8,9 @@ class LTAutomate(unittest.TestCase):
     
     def setUp(self):
         # username: Username can be found at automation dashboard
-        username="osharamason" 
+        username=" " 
         # accessToken:  AccessToken can be generated from automation dashboard or profile section
-        accessToken="zMOkKxIFHsOSaQpHjo0EWB6cQnaPkaLLf3VyI5E3zwbqvnriMI"
+        accessToken=" "
         # gridUrl: gridUrl can be found at automation dashboard
         gridUrl = "hub.lambdatest.com/wd/hub"
          
