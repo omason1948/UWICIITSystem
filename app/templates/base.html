@@ -20,7 +20,7 @@
 
     <head>
 <!--         favicon/browser tab icon -->
-        <link rel='icon' href='app/static/images/favicon.ico' type='image/x-icon'/>
+      <link rel='icon' href='app/static/images/favicon.ico' type='image/x-icon'/>
       {% if title %}
       <title>{{ title }} - UWICIIT System</title>
       {% else %}
@@ -59,19 +59,19 @@
     <nav class="nav system-main-menu-nav">
 
       {% if menu_type == 1 %} 
-        <a class="nav-link active" href="/personalInfo">Student Information</a>
+        <a class="nav-link active" href="/personalInfo" id="personalInfoHeader">Student Information</a>
       {% else %}
         <a class="nav-link" href="/personalInfo">Student Information</a>
       {% endif %}
 
       {% if menu_type == 2 %} 
-        <a class="nav-link active" href="/academic-information">Academic Information</a>
+        <a class="nav-link active" href="/academic-information" id="academicInfoHeader">Academic Information</a>
       {% else %}
         <a class="nav-link" href="/academic-information">Academic Information</a>
       {% endif %}
 
       {% if menu_type == 3 %} 
-        <a class="nav-link active" href="/events">Event Information</a>
+        <a class="nav-link active" href="/events" id="eventInfoHeader">Event Information</a>
       {% else %}
         <a class="nav-link" href="/events">Event Information</a>
       {% endif %}
