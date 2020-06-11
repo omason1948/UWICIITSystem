@@ -6,7 +6,7 @@
           </div>
           <div class="col-sm-6">
             
-            <form action="" method="post" novalidate>
+            <form action="" method="post">
                 {{ form.hidden_tag() }}
                <h5 class="card-title"> Identification and Personal Details</h5> 
                 <div class="card"><div class="card-body">
@@ -35,7 +35,7 @@
                     <h6 class="card-title">{{ form.queryDesc.label }}</h6><br>
                     {{ form.queryDesc(size=300) }}
                 </div> 
-                <p> <button type = "button" class="btn btn-success" data-toggle="modal" data-target="#myModal"> Submit </button> </p>
+                <p> <button id="submitbtn" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"> Submit </button> </p>
                     
                             <!-- The Modal -->
                               <div class="modal fade" id="myModal">
