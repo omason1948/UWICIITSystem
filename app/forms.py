@@ -153,7 +153,7 @@ class EventForm(FlaskForm):
     # Ask to send email notification out to all of the student - radiobutton (not functional)
 
     # Perhaps an image - done
-    photo = FileField('Photo', validators=[FileRequired()])
+    photo = FileField('Photo')
 
     location = StringField('Event Location', validators=[DataRequired()])
     submit = SubmitField('Add Event')
