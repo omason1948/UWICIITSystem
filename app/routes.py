@@ -1312,7 +1312,7 @@ def admin_students_view(studentid):
         registration_status_message = system_text['message']
 
     registered_courses = db.registration.find({"studentID":student_data["UserID"]})
-    personal_info = db.student.find({"studentID":student_data["UserID"]})
+    personal_info = db.student.find({"studentId":student_data["UserID"]})
     
     return render_template('admin_student_view.html', title = 'Admin Student Information', student_data = student_data, hold_status_message = hold_status_message, academic_standing_message = academic_standing_message, registration_status_message = registration_status_message, UserProfile = UserProfile, registered_courses = registered_courses, user = username, personal_info=personal_info)
 
