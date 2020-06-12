@@ -46,14 +46,12 @@
             <thead>
                 <th> Student Name </th>
                 <th> Email </th>
-                <th> Phone Number </th>
             </thead>
             <tbody>
                 {% for user in collection %}
                 <tr>
                     <td><a href = "/admin/student/{{user._id}}">{{user.name}}</a></td>
                     <td>{{user.email}}</td>
-                    <td>{{user.phone_number}} </td>
                 </tr>
                 {% endfor %}
             </tbody>
