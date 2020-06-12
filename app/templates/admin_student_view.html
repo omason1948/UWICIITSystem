@@ -13,32 +13,27 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6"> 
-               
-                <p> Displayed below are various items which may affect your registration. Your Time Ticket, Holds, Academic Standing, Student Status, Class, and Curriculum may prevent registration or restrict the courses you will be permitted to select. </p>
+                   <br/>
+            <h5> Personal Information </h5>
+             {% for detail in personal_info %}
+                <ul class="list-group">
+                  <li class="list-group-item">{{detail.studentPhoto}}</li>
+                  <li class="list-group-item">{{detail.gender}}</li>
+                  <li class="list-group-item">{{detail.maritalStatus}}</li>
+                  <li class="list-group-item">{{detail.studentAddress}}</li>
+                  <li class="list-group-item">{{detail.mobilenum}}</li>
+                  <li class="list-group-item">{{detail.passport}}</li>
+                </ul>
+                <h5> Emergency Contact Information </h5>
+                 <ul class="list-group">
+                  <li class="list-group-item">{{detail.emergencyCon}}</li>
+                  <li class="list-group-item">{{detail.relationship}}</li>
+                  <li class="list-group-item">{{detail.ecNumber}}</li>
+                  
+                </ul>
+                
+  
 
-                <div class="col-sm-12 card-slim-icon">
-                    <div class="card">
-                        <div class="card-body">
-                        <p> {{ hold_status_message }} </p>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="col-sm-12 card-slim-icon">
-                    <div class="card">
-                        <div class="card-body">
-                        <p> {{ academic_standing_message }}  </p>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="col-sm-12 card-slim-icon">
-                    <div class="card">
-                        <div class="card-body">
-                        <p> {{ registration_status_message }}  </p>
-                        </div>
-                    </div>
-                </div>
 
                 <h2> Registered Courses </h2>
                  
