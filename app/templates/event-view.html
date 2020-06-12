@@ -11,9 +11,9 @@
         </div>
 
         <div class = "col-sm-6">
-            <a class = "btn btn-primary float-right btnevent" style ="margin-left:10px;" href = "/events/add"> Create a New Event </a>
+            <a class = "btn btn-primary float-right btnevent" id = "add" style ="margin-left:10px;" href = "/events/add"> Create a New Event </a>
             
-            <a class = "btn btn-primary float-right btnevent " href = "/events/register/view"> View Event Register </a>
+            <a class = "btn btn-primary float-right btnevent" id = "registerview" href = "/events/register/view"> View Event Register </a>
             
         </div>
     </div>
@@ -36,11 +36,11 @@
                         </div>
 
                         <div class="col-sm-12">
-                            <a class = "btn btn-sm btn-success btnevent" href = "/events/edit/{{i._id}}"> Edit Event </a>
+                            <a class = "btn btn-sm btn-success btnevent" id = "edit" href = "/events/edit/{{i._id}}"> Edit Event </a>
 
-                            <a class = "btn btn-sm btn-success btnevent" href = "/events/delete/{{i._id}}"> Delete Event </a>
+                            <a class = "btn btn-sm btn-success btnevent" id = "delete" href = "/events/delete/{{i._id}}"> Delete Event </a>
 
-                            <a class = "btn btn-sm btn-success btnevent" href = "/events/register/{{i._id}}"> Register for Event </a>
+                            <a class = "btn btn-sm btn-success btnevent" id = "register" href = "/events/register/{{i._id}}"> Register for Event </a>
                         </div>
                     </div>
                     
