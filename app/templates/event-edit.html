@@ -11,7 +11,7 @@
 
         {%for i in data%} 
        
- <form action="" method="post" enctype="multipart/form-data" novalidate>
+ <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group row col-sm-10">
       {{ form.name.label }} <br>
         {{ form.name(value=i.name) }}
