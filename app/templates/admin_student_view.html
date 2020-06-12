@@ -17,20 +17,6 @@
             <h5> Personal Information </h5>
              {% for detail in personal_info %}
                 <p>{{detail.gender}}</>
-                <ul class="list-group">
-                  <li class="list-group-item">{{detail.studentPhoto}}</li>
-                  <li class="list-group-item">{{detail.gender}}</li>
-                  <li class="list-group-item">{{detail.maritalStatus}}</li>
-                  <li class="list-group-item">{{detail.studentAddress}}</li>
-                  <li class="list-group-item">{{detail.mobilenum}}</li>
-                  <li class="list-group-item">{{detail.passport}}</li>
-                </ul>
-                <h5> Emergency Contact Information </h5>
-                 <ul class="list-group">
-                  <li class="list-group-item">{{detail.emergencyCon}}</li>
-                  <li class="list-group-item">{{detail.relationship}}</li>
-                  <li class="list-group-item">{{detail.ecNumber}}</li>
-                </ul>
                 {% endfor %}
                 <br><br>
   
