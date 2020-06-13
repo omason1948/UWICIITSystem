@@ -1279,38 +1279,6 @@ def admin_students_view(studentid):
             'Major': student_data['program'][0]['major'],
         }
     ]
-
-#     hold_status = student_data["hold_status"]
-#     academic_standing = student_data["academic_status"]
-#     registration_status = student_data["registration_status"]
-
-#     hold_status_message = ""
-
-#     if hold_status == "1":
-#         system_text = db.system_text.find_one({'title': "hold_status_no"})
-#         hold_status_message = system_text['message']
-#     else:
-#         system_text = db.system_text.find_one({'title': "hold_status_yes"})
-#         hold_status_message = system_text['message']
-
-#     academic_standing_message = ""
-
-#     if academic_standing == "1":
-#         system_text = db.system_text.find_one({'title': "academic_standing_good"})
-#         academic_standing_message = system_text['message']
-#     else:
-#         system_text = db.system_text.find_one({'title': "academic_standing_bad"})
-#         academic_standing_message = system_text['message']
-
-#     registration_status_message = ""
-
-#     if registration_status == "1":
-#         system_text = db.system_text.find_one({'title': "registration_allowed"})
-#         registration_status_message = system_text['message']
-#     else:
-#         system_text = db.system_text.find_one({'title': "registration_not_allowed"})
-#         registration_status_message = system_text['message']
-
     registered_courses = db.registration.find({"studentID":student_data["UserID"]})
 #     personal_info = db.student.find({"studentId":student_data["UserID"]})
     personal_info = db.student.find({"studentId":student_data["UserID"]})
