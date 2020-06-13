@@ -16,10 +16,14 @@
                    <br/>
             <h3> Personal Information </h3>
                 <p>Hello World</p>
+                {% for detail in personal_info %}
+                <p>{{detail.studentPhoto}}</p>
+                <p>{{detail.gender}}</p>
+                {% endfor %}
              
-                <ul class="list-group">
-                    {% for detail in personal_info %}
-                  <li class="list-group-item">{{detail.studentPhoto}}</li>
+<!--                 <ul class="list-group">
+                    
+                  <li class="list-group-item"></li>
                   <li class="list-group-item">{{detail.gender}}</li>
                   <li class="list-group-item">{{detail.maritalStatus}}</li>
                   <li class="list-group-item">{{detail.studentAddress}}</li>
@@ -31,10 +35,10 @@
                     <li class="list-group-item">{{detail.emergencyCon}}</li>
                     <li class="list-group-item">{{detail.relationship}}</li>
                     <li class="list-group-item">{{detail.ecNumber}}</li>
-                    {% endfor %}
-                </ul>
+                    
+                </ul> -->
              
-                <br><br>
+                <br/><br/>
 
                 <h3> Registered Courses </h3>
                  
