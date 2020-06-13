@@ -1053,7 +1053,7 @@ def eventsdelete(id):
     db.events.remove({"_id": ObjectId(id)})
 
     # Record User Activity
-    loguseractvity("Delete", "/events/delete/" + ObjectId(id))
+    loguseractvity("Delete", "/events/delete/" + str(ObjectId(id)))
 
     return render_template('event-delete.html', title='Delete Events', user = username)
 
