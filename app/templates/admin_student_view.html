@@ -17,12 +17,21 @@
             <h3> Personal Information </h3>
                 <p>Hello World</p>
              {% for detail in personal_info %}
-                
-                <p>{{detail.gender}}</p>
+                <ul class="list-group">
+                  <li class="list-group-item">{{detail.studentPhoto}}</li>
+                  <li class="list-group-item">{{detail.gender}}</li>
+                  <li class="list-group-item">{{detail.maritalStatus}}</li>
+                  <li class="list-group-item">{{detail.studentAddress}}</li>
+                  <li class="list-group-item">{{detail.mobilenum}}</li>
+                </ul>
+                <h5>Emergency Contact Information</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">{{detail.emergencyCon}}</li>
+                    <li class="list-group-item">{{detail.relationship}}</li>
+                    <li class="list-group-item">{{detail.ecNumber}}</li>
+                </ul>
              {% endfor %}
                 <br><br>
-  
-
 
                 <h3> Registered Courses </h3>
                  
