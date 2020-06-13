@@ -1281,7 +1281,7 @@ def admin_students_view(studentid):
     ]
     registered_courses = db.registration.find({"studentID":student_data["UserID"]})
 #     personal_info = db.student.find({"studentId":student_data["UserID"]})
-    personal_info = db.student.find({"studentId":student_data["UserID"]})
+    personal_info = db.student.find({"studentId":12345})
     
     return render_template('admin_student_view.html', title = 'Admin Student Information', student_data = student_data, UserProfile = UserProfile, registered_courses = registered_courses, user = username, personal_info=personal_info)
 
