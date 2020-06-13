@@ -5,7 +5,7 @@
 <div class = "front_half" style = "text-align:center;margin:-10px -24px 40px">
     
     <h5> {{student_data.name}} </h5>
-    <p> Email {{student_data.email}} </p>
+    <p> {{student_data.email}} </p>
     <small> Last Logged In {{student_data.lastlogin}} </small>
 
 </div>
@@ -14,15 +14,16 @@
         <div class="row">
             <div class="col-sm-6"> 
                    <br/>
-            <h3> Personal Information </h5>
+            <h3> Personal Information </h3>
              {% for detail in personal_info %}
+                <p>Hello World</p>
                 <p>{{detail.gender}}</p>
              {% endfor %}
                 <br><br>
   
 
 
-                <h2> Registered Courses </h2>
+                <h3> Registered Courses </h3>
                  
                 {% for course in registered_courses %}
 
@@ -38,7 +39,7 @@
             <div class="col-sm-6">
 
                 <br/>
-            <h5> Curriculum Information </h5>
+            <h3> Curriculum Information </h3>
             <br/>
             <strong>Current Program</strong>
             <p>Bachelor of Science</p>
