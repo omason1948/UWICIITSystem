@@ -140,8 +140,8 @@ class EventForm(FlaskForm):
     
     eventDate = DateTimeLocalField(
         label='Date',
-        format='%Y-%m-%dT%H:%M',
-        validators = [Required('please select startdate')]
+        format='%Y-%m-%d %H:%M',
+        validators = [Required('please select a date')]
     )
 
     description = StringField('Description', widget = TextArea())
