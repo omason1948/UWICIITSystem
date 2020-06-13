@@ -56,14 +56,14 @@ class NewTranscriptForm(FlaskForm):
 
     startyear = DateTimeLocalField(
         label='Start Date',
-        format='%Y-%m-%dT%H:%M',
+        format='%Y-%m-%d %H:%M',
         validators = [Required('please select startdate')]
     )
 
     #endyear = StringField('End Year', validators=[DataRequired()])
     endyear = DateTimeLocalField(
         label='End Date',
-        format='%Y-%m-%dT%H:%M',
+        format='%Y-%m-%d %H:%M',
         validators = [Required('please select end date')]
     )
 
