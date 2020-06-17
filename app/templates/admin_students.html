@@ -44,13 +44,15 @@
                   data-height="460"
                   data-pagination="true">
             <thead>
+                <th> Student ID </th>
                 <th> Student Name </th>
                 <th> Email </th>
             </thead>
             <tbody>
                 {% for user in collection %}
                 <tr>
-                    <td><a href = "/admin/student/{{user._id}}">{{user.name}}</a></td>
+                    <td><a href = "/admin/student/{{user._id}}">{{user.UserID}}</a></td>
+                    <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                 </tr>
                 {% endfor %}
