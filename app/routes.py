@@ -877,9 +877,9 @@ def personalinfopage():
         # Update the student based on their logged in ID
 
         db.student.update_one({'studentId': userId}, {'$set': {
-            'gender': form.data['gender'],
             'maritalStatus': form.data['maritalStatus'],
             'studentAddress': form.data['studentAddress'],
+	    'country': form.data['country'],
             'mobilenum': form.data['mobilenum'],
             'emergencyCon': form.data['emergencyCon'],
             'relationship': form.data['relationship'],
