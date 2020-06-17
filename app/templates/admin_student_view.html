@@ -16,16 +16,21 @@
             <div class="col-sm-6"> 
                    <br/>
             <h3> Personal Information </h3>
+                     <ul class="list-group">
+                        <li class="list-group-item">Marital Status: {{personal_info.maritalStatus}}</li>
+                        <li class="list-group-item">Student Address{{personal_info.studentAddress}}, {{personal_info.country}}</li>
+                        <li class="list-group-item">Contact Number: {{personal_info.mobilenum}}</li>
+                    </ul>
                 
                 <p></p>
-                <p>Gender: {{personal_info.gender}}</p>
+                <p>Marital Status: {{personal_info.maritalStatus}}</p>
              
 
                 <h5>Emergency Contact Information</h5>
                     <ul class="list-group">
-                        <li class="list-group-item">{{personal_info.emergencyCon}}</li>
-                        <li class="list-group-item">{{personal_info.relationship}}</li>
-                        <li class="list-group-item">{{personal_info.ecNumber}}</li>
+                        <li class="list-group-item">Emergency Contact: {{personal_info.emergencyCon}}</li>
+                        <li class="list-group-item">Relationship: {{personal_info.relationship}}</li>
+                        <li class="list-group-item">Contact Number: {{personal_info.ecNumber}}</li>
                     </ul>
              
                 <br/><br/>
