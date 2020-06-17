@@ -73,7 +73,7 @@ class LTAutomate(unittest.TestCase):
     print title
     """
 
-    def test_academic_info(self):
+    def test_logout_student(self):
         driver = self.driver
         
         print("Driver initiated successfully.  Navigate url")
@@ -91,16 +91,12 @@ class LTAutomate(unittest.TestCase):
         time.sleep(8)
         print("Printing title of current page : " + driver.title)
 
-        elem = driver.find_element_by_id("menuItem-academicInfo")
+        elem = driver.find_element_by_link_text("Sign Out")
         elem.click()
-        print('View Academic Information ' + driver.title)
+        print('Sign out of system')
         time.sleep(8)
-
-        elem = driver.find_element_by_xpath("//h5[text()='View/Request Transcripts']")
-        elem[0].click()
-        time.sleep(8)
-        print("Printing title of current page : " + driver.title)
  
+        print("Printing title of current page : " + driver.title)
         driver.execute_script("lambda-status=passed")
         print("Requesting to mark test : pass")
     
