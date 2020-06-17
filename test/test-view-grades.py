@@ -73,7 +73,7 @@ class LTAutomate(unittest.TestCase):
     print title
     """
 
-    def test_registration(self):
+    def test_grades(self):
         driver = self.driver
         
         print("Driver initiated successfully.  Navigate url")
@@ -96,7 +96,7 @@ class LTAutomate(unittest.TestCase):
         print('View Academic Information ' + driver.title)
         time.sleep(8)
 
-        elem = driver.find_element_by_xpath("//h5[text()='Add/ Drop Courses']")
+        elem = driver.find_element_by_xpath("//h5[text()='Grades']")
         elem.click()
         time.sleep(8)
         print("Printing title of current page : " + driver.title)
