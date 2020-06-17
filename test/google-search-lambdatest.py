@@ -104,6 +104,13 @@ class LTAutomate(unittest.TestCase):
         elem = driver.find_element_by_id("submit")
         print('Select Term and Year')
         elem.submit()
+        time.sleep(15)
+
+        elem = driver.find_element_by_id("11754_course")
+        elem.click()
+        time.sleep(8)
+        print('Registered for course 11754')
+        
  
         driver.execute_script("lambda-status=passed")
         print("Requesting to mark test : pass")
