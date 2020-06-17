@@ -100,6 +100,10 @@ class LTAutomate(unittest.TestCase):
         elem.click()
         time.sleep(8)
         print("Printing title of current page : " + driver.title)
+        
+        elem = driver.find_element_by_id("submit")
+        print('Select Term and Year')
+        elem.submit()
  
         driver.execute_script("lambda-status=passed")
         print("Requesting to mark test : pass")
