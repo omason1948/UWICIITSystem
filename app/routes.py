@@ -1067,7 +1067,7 @@ def eventsregister(id):
     username = session['username']
     userid= session["userid"]
     
-    check = db.event_student.find({"eventid": ObjectId(id)}).count()
+    check = db.event_student.find({"eventid": ObjectId(id),"studentid":userid}).count()
     
     if  check == 0:
         events_id = db.event_student.insert_one({"eventid": ObjectId(id),"studentid":userid})
