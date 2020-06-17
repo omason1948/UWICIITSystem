@@ -27,11 +27,6 @@
                     </div>
 
                     <div class="form-group">
-                    {{ form.gender.label }}<br>
-                    {{form.gender(value=studentData.gender) }}
-                    </div>
-
-                    <div class="form-group">
                     {{ form.maritalStatus.label }}<br>
                     {{ form.maritalStatus(default=studentData.maritalStatus) }}
                     </div>
@@ -46,6 +41,11 @@
                     <div class="form-group">
                         <label>{{ form.studentAddress.label }}</label> <br/>
                         {{ form.studentAddress(value=studentData.studentAddress, class = "form-control") }}
+                    </div>
+                 
+                    <div class="form-group">
+                    {{ form.country.label }}<br>
+                    {{form.country(value=studentData.country) }}
                     </div>
 
                     <div class="form-group">
