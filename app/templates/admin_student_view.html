@@ -4,6 +4,7 @@
 
 <div class = "front_half" style = "text-align:center;margin:-10px -24px 40px">
     
+    <img src = "/static/userphotos/{{personal_info.studentPhoto}}" style = "border-radius:50%;margin:10px 20px;">
     <h5> {{student_data.name}} </h5>
     <p> {{student_data.email}} </p>
     <small> Last Logged In {{student_data.lastlogin}} </small>
@@ -15,11 +16,9 @@
             <div class="col-sm-6"> 
                    <br/>
             <h3> Personal Information </h3>
-                <p>Hello World</p>
-                {% for i in personal_info %}
-                <p>{{i.studentPhoto}}</p>
-                <p>{{i.gender}}</p>
-                {% endfor %}
+                
+                <p></p>
+                <p>Gender: {{personal_info.gender}}</p>
              
 
                 <h5>Emergency Contact Information</h5>
