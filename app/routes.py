@@ -93,7 +93,7 @@ def login_required(f):
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
-            flash("You need to login first")
+            #flash("You need to login first")
             return redirect(url_for('login'))
 
     return wrap
@@ -105,7 +105,7 @@ def admin_login_required(f):
         if 'admin_logged_in' in session:
             return f(*args, **kwargs)
         else:
-            flash("You need to login first")
+            #flash("You need to login first")
             return redirect(url_for('login'))
 
     return wrap
@@ -337,9 +337,8 @@ def logout():
 
     session['logged_in'] = False
     session.clear()
-    return home()
-
-
+    return redirect('/login')
+    
 # Registration Functions Section
 @app.route('/academic-information')
 @login_required
