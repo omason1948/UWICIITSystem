@@ -93,7 +93,7 @@ def login_required(f):
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
-            #flash("You need to login first")
+            flash("You need to login first")
             return redirect(url_for('login'))
 
     return wrap
@@ -105,7 +105,7 @@ def admin_login_required(f):
         if 'admin_logged_in' in session:
             return f(*args, **kwargs)
         else:
-            #flash("You need to login first")
+            flash("You need to login first")
             return redirect(url_for('login'))
 
     return wrap
@@ -337,8 +337,9 @@ def logout():
 
     session['logged_in'] = False
     session.clear()
-    return redirect('/login')
-    
+    return home()
+
+
 # Registration Functions Section
 @app.route('/academic-information')
 @login_required
@@ -877,7 +878,6 @@ def personalinfopage():
 
         db.student.update_one({'studentId': userId}, {'$set': {
             'maritalStatus': form.data['maritalStatus'],
-            'studentAddress': form.data['studentAddress'],
 	    'country': form.data['country'],
             'mobilenum': form.data['mobilenum'],
             'emergencyCon': form.data['emergencyCon'],
@@ -886,6 +886,7 @@ def personalinfopage():
             'studentPhoto': filename,
             'passport': filename2,
             }})
+	db.student.update_one({'studentId':userId}, {'$set':{'studentAddress': form.data['studentAddress']}})
 
         # Record User Activity
 
