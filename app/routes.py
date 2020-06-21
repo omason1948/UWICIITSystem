@@ -1597,8 +1597,8 @@ def admin_insurance():
 @admin_login_required
 def admin_insurance_status_update(studentId):
     insuranceform = InsuranceForm()
-    student_data = db.user.find_one({'_id': ObjectId(studentId)})
-    insurance_details = db.insurance.find_one({'studentId': student_data['UserID']})
+    insurance_details = db.insurance.find_one({'_id': ObjectId(studentId)})
+    #insurance_details = db.insurance.find_one({'studentId': student_data['studentId']})
     if request.method == 'POST':
         db.insurance.insert_one({'studentId': userId,
                                 'insuranceStatus': insuranceform.insurancedata['insuranceStatus'
