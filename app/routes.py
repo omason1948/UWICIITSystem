@@ -1568,11 +1568,14 @@ def admin_insurance():
     global username
     username = session['username']
     form = SearchFormInsurance()
+    insuranceform = InsuranceForm()
     searched_id = ""
     search_count = ""
 
     # Record User Activity
     loguseractvity("View", "/admin/insurance")
+    if request.method=='POST':
+	db.insurance.insert_one({"studentId": userId, "insuranceStatus": insuranceform.data['insuranceStatus']})
 
     if form.validate_on_submit():
 
@@ -1585,7 +1588,7 @@ def admin_insurance():
         collection = db.insurance.find()
         search_count = collection.count()
 
-    return render_template('admin_insurance.html', title = 'Insurance', search_count = search_count, searchId = searched_id, form = form, user = username, collection = collection)
+    return render_template('admin_insurance.html', title = 'Insurance', search_count = search_count, searchId = searched_id, form = form, user = username, collection = collection, insuranceform=insuranceform)
 
 @app.route('/admin/usermanager', methods = ['GET', 'POST'])
 @admin_login_required
