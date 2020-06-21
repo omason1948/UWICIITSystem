@@ -16,7 +16,7 @@
             <li class="list-group-item"><b>Payment Receipt</b> {{insurance_details.payment}} style = "margin:10px 20px;width:250px"</li>
             <li class="list-group-item">
                    <form action="" method="POST" enctype="multipart/form-data" novalidate>
-                    {{ form.hidden_tag() }}
+                    {{ insuranceform.hidden_tag() }}
                               <div class="form-group">
                                 <b>{{ insuranceform.insuranceStatus.label }} </b
                                 {{ insuranceform.insuranceStatus(value=insurancedata.insuranceStatus) }}
