@@ -1593,11 +1593,11 @@ def admin_insurance():
         collection=collection,
         )
 
-@app.route('/admin/insurance/<studentid>', methods = ['GET', 'POST'])
+@app.route('/admin/insurance/<studentId>', methods = ['GET', 'POST'])
 @admin_login_required
-def admin_insurance_status_update(studentid):
+def admin_insurance_status_update(studentId):
     insuranceform = InsuranceForm()
-    student_data = db.user.find_one({'_id': ObjectId(studentid)})
+    student_data = db.user.find_one({'_id': ObjectId(studentId)})
     insurance_details = \
         db.insurance.find_one({'studentId': int(student_data['UserID'
                               ])})
