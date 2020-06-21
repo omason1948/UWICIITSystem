@@ -1576,7 +1576,7 @@ def admin_insurance():
     loguseractvity('View', '/admin/insurance')
     if request.method == 'POST':
         db.insurance.insert_one({'studentId': userId,
-                                'insuranceStatus': insuranceform.data['insuranceStatus'
+                                'insuranceStatus': insuranceform.insurancedata['insuranceStatus'
                                 ]})
     if form.validate_on_submit():
 
