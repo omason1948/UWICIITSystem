@@ -2,13 +2,25 @@
 {% block content %}
     <div class="container">
         <div class="row"> 
-            <div class="col-sm-3"> </div>
+            <div class="col-sm-3"> 
+            <h5 class="card-title"> Insurance Status </h5>
+                <p><important>Please take notice of your insurance status and update your information accordingly</important></p>
+                {%for i in data%} 
+                            <div>
+                             <p>Your insurance status is currently listed as: {{ i.insuranceStatus }}
+                             </p>
+                                <p>If there are any discrepancies relating to your insurance please fill out a <a class="btn btn-primary" href="/querypage" role="button">query.</a></p>
+                            </div>                
+                
+                {%endfor%}
+                
+            </div>
             <div class="col-sm-6">
                 <form action="" method="POST" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
                     <div class="card">
                         <div class="card-body"> 
-                            <h5 class="card-title"> Insurance Details </h5>
+                            <h5 class="card-title"> Update Insurance Details </h5>
                            
                             <div class="form-group">
                                 <h5 class="card-title">{{user}}</h5>
