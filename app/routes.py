@@ -1567,22 +1567,16 @@ def admin_insurance():
     global username
     username = session['username']
     form = SearchFormInsurance()
-    insuranceform = InsuranceForm()
     searched_id = ''
     search_count = ''
 
     # Record User Activity
 
     loguseractvity('View', '/admin/insurance')
-    if request.method == 'POST':
-        db.insurance.insert_one({'studentId': userId,
-                                'insuranceStatus': insuranceform.insurancedata['insuranceStatus'
-                                ]})
     if form.validate_on_submit():
 
         searched_id = form.data['name']
-        collection = \
-            db.insurance.find({'studentId': {'$regex': searched_id}})
+        collection = db.insurance.find({'studentId': {'$regex': searched_id}})
         search_count = collection.count()
     else:
 
@@ -1597,8 +1591,30 @@ def admin_insurance():
         form=form,
         user=username,
         collection=collection,
+        )
+
+@app.route('/admin/insurance_status', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_insurance_status_update():
+    insuranceform = InsuranceForm()
+    student_data = db.user.find_one({'_id': ObjectId(studentid)})
+    insurance_details = \
+        db.insurance.find_one({'studentId': int(student_data['UserID'
+                              ])})
+    if request.method == 'POST':
+        db.insurance.insert_one({'studentId': userId,
+                                'insuranceStatus': insuranceform.insurancedata['insuranceStatus'
+                                ]})
+
+    return render_template(
+        'admin_insurance_status_update.html',
+        title='Insurance Details',
+        student_data=student_data,
+        user=username,
+        insurance_details=insurance_details,
         insuranceform=insuranceform,
         )
+	
 @app.route('/admin/usermanager', methods = ['GET', 'POST'])
 @admin_login_required
 def admin_user_manager():
