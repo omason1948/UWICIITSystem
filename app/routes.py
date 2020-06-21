@@ -875,11 +875,10 @@ def personalinfopage():
                               secure_filename(filename2)))
 
         # Update the student based on their logged in ID
-	if 'studentAddress' = "":
-		db.student.update_one({'studentId': userId},{'$set': {'studentAddress': form.data['studentAddress']})
 
         db.student.update_one({'studentId': userId}, {'$set': {
             'maritalStatus': form.data['maritalStatus'],
+	    'studentAddress': form.data['studentAddress'],
 	    'studentAddress': form.data['studentAddress'],
 	    'country': form.data['country'],
             'mobilenum': form.data['mobilenum'],
