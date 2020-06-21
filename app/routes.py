@@ -908,7 +908,7 @@ def personalinfopage():
         userId=userId,
         user=username,
         studentData=studentData,
-        QuickLinks=QuickLinks,
+        QuickLinks=QuickLinks
         )
 
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
@@ -921,7 +921,8 @@ def insurance():
     username = session['username']
     email = session['email']
     filename = ""
-    
+    QuickLinks = getUserQuickLinks()
+	
     form = InsuranceForm()
     userId = int(session['userid'])
     insurancedata = db.insurance.find_one({'studentId' : userId})
@@ -941,7 +942,7 @@ def insurance():
         db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
         return redirect("/personalInfo/view")
 
-    return render_template('insurance.html', title='Insurance', form=form, userId=userId, insurancedata=insurancedata, user=username, email=email)
+    return render_template('insurance.html', title='Insurance', QuickLinks=QuickLinks, form=form, userId=userId, insurancedata=insurancedata, user=username, email=email)
 
 
 import cgi, os
