@@ -924,7 +924,7 @@ def insurance():
     
     form = InsuranceForm()
     userId = int(session['userid'])
-    data = db.insurance.find_one({'studentId' : userId})
+    insurancedata = db.insurance.find_one({'studentId' : userId})
     
     # Record User Activity
     loguseractvity('Update', '/personalInfo/insurance')
