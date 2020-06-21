@@ -941,7 +941,7 @@ def insurance():
         db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
         return redirect("/personalInfo/view")
 
-    return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
+    return render_template('insurance.html', title='Insurance', form=form, userId=userId, insurancedata=insurancedata, user=username, email=email)
 
 
 import cgi, os
