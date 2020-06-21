@@ -42,7 +42,6 @@
     <thead>
         <th> Student ID </th>
         <th> Payment Receipt </th>
-        <th>{{ insuranceform.insuranceStatus .label }} </th>
     </thead>
     <tbody>
         {% for insurance in collection %}
@@ -50,17 +49,6 @@
         <tr>
             <td><a href = "/admin/insurance/{{insurance._id}}">{{insurance.studentId}}</td>
             <td><img src = "/static/userphotos/{{insurance.payment}}" width = "100"></td>
-            <td>
-                    <form action="" method="POST" enctype="multipart/form-data" novalidate>
-                    {{ form.hidden_tag() }}
-                              <div class="form-group">
-                                
-                                {{ insuranceform.insuranceStatus(value=insurancedata.insuranceStatus) }}
-                            </div>
-                        
-                    </form>
-            
-            </td>
         </tr>
 
         {% endfor %}
