@@ -1599,11 +1599,10 @@ def admin_insurance():
 def admin_insurance_status_update(studentId):
     insuranceform = InsuranceForm()
     insurance_details = db.insurance.find_one({'_id': ObjectId(studentId)})
-    #insurance_details = db.insurance.find_one({'studentId': student_data['studentId']})
     if request.method == 'POST':
-        db.insurance.insert_one({'studentId': userId,
-                                'insuranceStatus': insuranceform.insurancedata['insuranceStatus'
-                                ]})
+        db.insurance.update_one({'studentId': userId,
+                                'insuranceStatus': {"$set":insuranceform.insurancedata['insuranceStatus'
+                                ]}})
 
     return render_template(
         'admin_insurance_status_update.html',
