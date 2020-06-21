@@ -1598,7 +1598,7 @@ def admin_insurance():
 def admin_insurance_status_update(studentId):
     insuranceform = InsuranceForm()
     student_data = db.user.find_one({'_id': ObjectId(studentId)})
-    insurance_details = db.insurance.find_one({'studentId': student_data['UserID'])})
+    insurance_details = db.insurance.find_one({'studentId': student_data['UserID']})
     if request.method == 'POST':
         db.insurance.insert_one({'studentId': userId,
                                 'insuranceStatus': insuranceform.insurancedata['insuranceStatus'
