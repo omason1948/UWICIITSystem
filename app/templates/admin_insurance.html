@@ -41,6 +41,7 @@
 
     <thead>
         <th> Student ID </th>
+        <th> Insurance Status </th>
         <th> Payment Receipt </th>
     </thead>
     <tbody>
@@ -48,6 +49,7 @@
         
         <tr>
             <td><a href = "/admin/insurance/{{insurance._id}}">{{insurance.studentId}}</td>
+            <td> {{insurance.insuraceStatus}}</td>
             <td><img src = "/static/userphotos/{{insurance.payment}}" width = "100"></td>
         </tr>
 
