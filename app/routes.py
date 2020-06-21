@@ -1593,9 +1593,9 @@ def admin_insurance():
         collection=collection,
         )
 
-@app.route('/admin/insurance_status', methods = ['GET', 'POST'])
+@app.route('"/admin/insurance/<studentid>', methods = ['GET', 'POST'])
 @admin_login_required
-def admin_insurance_status_update():
+def admin_insurance_status_update(studentid):
     insuranceform = InsuranceForm()
     student_data = db.user.find_one({'_id': ObjectId(studentid)})
     insurance_details = \
