@@ -1607,7 +1607,6 @@ def admin_insurance_status_update(studentId):
     return render_template(
         'admin_insurance_status_update.html',
         title='Insurance Details',
-        student_data=student_data,
         user=username,
         insurance_details=insurance_details,
         insuranceform=insuranceform,
