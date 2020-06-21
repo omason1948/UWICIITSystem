@@ -1563,7 +1563,7 @@ def admin_transcripts():
 
 @app.route('/admin/insurance', methods = ['GET', 'POST'])
 @admin_login_required
-
+def admin_insurance():
     global username
     username = session['username']
     form = SearchFormInsurance()
