@@ -94,7 +94,7 @@ class QueryForm(FlaskForm):
     studentIssues = SelectField(u'Issue: ', 
     choices=[('Grades','Grades'), ('Finance', 'Finance'), 
     ('Transcript', 'Transcript'), ('Course', 'Course'), ('Other', 'Other')])
-    queryDesc = TextAreaField('Please state your query: ', validators=[DataRequired()])
+    queryDesc = TextAreaField('Please state your query: ', validators=[DataRequired()], render_kw={"rows": 70, "cols": 11} )
     submit = SubmitField('Submit')
 
 
