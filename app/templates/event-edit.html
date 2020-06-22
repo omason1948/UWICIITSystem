@@ -9,7 +9,16 @@
       </div>
       <div class="col-sm-6">
           
-  {% with messages = get_flashed_messages() %}
+  <div class = "row">
+        <div class = "col-sm-12">
+            <h1>Edit an Event</h1>
+            <h6 class="font-weight-light">Make changes to an event by modifying the information below. </h6>
+        </div>
+    </div>
+    
+    <br/>
+          
+          {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
         <div class="alert alert-danger alert-dismissible" role="alert">
