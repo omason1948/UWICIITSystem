@@ -101,7 +101,7 @@ def login_required(f):
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
-            #flash("You need to login first")
+            flash("You need to login first")
             return redirect(url_for('login'))
 
     return wrap
@@ -113,7 +113,7 @@ def admin_login_required(f):
         if 'admin_logged_in' in session:
             return f(*args, **kwargs)
         else:
-            #flash("You need to login first")
+            flash("You need to login first")
             return redirect(url_for('login'))
 
     return wrap
@@ -345,8 +345,9 @@ def logout():
 
     session['logged_in'] = False
     session.clear()
-    return redirect('/login')
-    
+    return home()
+
+
 # Registration Functions Section
 @app.route('/academic-information')
 @login_required
@@ -885,7 +886,8 @@ def personalinfopage():
 
         db.student.update_one({'studentId': userId}, {'$set': {
             'maritalStatus': form.data['maritalStatus'],
-            'studentAddress': form.data['studentAddress'],
+	    'studentAddress': form.data['studentAddress'],
+	    'studentAddress': form.data['studentAddress'],
 	    'country': form.data['country'],
             'mobilenum': form.data['mobilenum'],
             'emergencyCon': form.data['emergencyCon'],
@@ -914,7 +916,7 @@ def personalinfopage():
         userId=userId,
         user=username,
         studentData=studentData,
-        QuickLinks=QuickLinks,
+        QuickLinks=QuickLinks
         )
 
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
@@ -927,10 +929,11 @@ def insurance():
     username = session['username']
     email = session['email']
     filename = ""
-    
+    QuickLinks = getUserQuickLinks()
+	
     form = InsuranceForm()
     userId = int(session['userid'])
-    data = db.insurance.find_one({'studentId' : userId})
+    insurancedata = db.insurance.find_one({'studentId' : userId})
     
     # Record User Activity
     loguseractvity('Update', '/personalInfo/insurance')
@@ -947,7 +950,7 @@ def insurance():
         db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
         return redirect("/personalInfo/view")
 
-    return render_template('insurance.html', title='Insurance', form=form, userId=userId, data=data, user=username, email=email)
+    return render_template('insurance.html', title='Insurance', QuickLinks=QuickLinks, form=form, userId=userId, insurancedata=insurancedata, user=username, email=email)
 
 
 import cgi, os
@@ -998,8 +1001,12 @@ def eventsadd():
     menu_type = 3
     username = session['username']
     filename = ""
-
     if request.method == 'POST':
+        eventDate=form.data["eventDate"]
+        if eventDate.date() < date.today() or eventDate.time() < now.time():
+            flash("The date or time entered is in the past!")
+            return render_template('event-add.html', title='Add Events', form = form, user = username)
+    
 
         file = request.files["photo"]
 
@@ -1570,29 +1577,53 @@ def admin_transcripts():
 @app.route('/admin/insurance', methods = ['GET', 'POST'])
 @admin_login_required
 def admin_insurance():
-
     global username
     username = session['username']
     form = SearchFormInsurance()
-    searched_id = ""
-    search_count = ""
+    searched_id = ''
+    search_count = ''
 
     # Record User Activity
-    loguseractvity("View", "/admin/insurance")
 
+    loguseractvity('View', '/admin/insurance')
     if form.validate_on_submit():
 
-        searched_id = form.data["name"]
-        collection = db.insurance.find({"studentId":{"$regex": searched_id}})
+        searched_id = form.data['name']
+        collection = db.insurance.find({'studentId': {'$regex': searched_id}})
         search_count = collection.count()
-
     else:
 
         collection = db.insurance.find()
         search_count = collection.count()
 
-    return render_template('admin_insurance.html', title = 'Insurance', search_count = search_count, searchId = searched_id, form = form, user = username, collection = collection)
+    return render_template(
+        'admin_insurance.html',
+        title='Insurance',
+        search_count=search_count,
+        searchId=searched_id,
+        form=form,
+        user=username,
+        collection=collection,
+        )
 
+@app.route('/admin/insurance/<studentId>', methods = ['GET', 'POST'])
+@admin_login_required
+def admin_insurance_status_update(studentId):
+    insuranceform = InsuranceForm()
+    insurance_details = db.insurance.find_one({'_id': ObjectId(studentId)})
+    if request.method == 'POST':
+        db.insurance.update_one({'studentId': userId,
+                                'insuranceStatus': {"$set":insuranceform.insurance_details['insuranceStatus'
+                                ]}})
+
+    return render_template(
+        'admin_insurance_status_update.html',
+        title='Insurance Details',
+        user=username,
+        insurance_details=insurance_details,
+        insuranceform=insuranceform,
+        )
+	
 @app.route('/admin/usermanager', methods = ['GET', 'POST'])
 @admin_login_required
 def admin_user_manager():

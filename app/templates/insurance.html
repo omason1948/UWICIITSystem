@@ -2,22 +2,33 @@
 {% block content %}
     <div class="container">
         <div class="row"> 
-            <div class="col-sm-3"> </div>
-            <div class="col-sm-6">
-                <form action="" method="POST" enctype="multipart/form-data" novalidate>
+<!--             <div class="col-sm-3">  
+            </div> -->
+            <div class="col-8">
+               
+                <form action="" method="POST" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
-                    <div class="card">
-                        <div class="card-body"> 
-                            <h5 class="card-title"> Insurance Details </h5>
-                           
-                            <div class="form-group">
+                                <div class="form-group">
                                 <h5 class="card-title">{{user}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">ID #{{ userId }}</h6>
                                 {{ form.studentEmail(value=email) }}
                             </div>
+                      <div class="alert alert-info" role="alert">
+                 <h5 class="card-title"> Insurance Status </h5>
+                <p><important>Please take notice of your insurance status and update your information accordingly.</important></p>
+                            <div>
+                             <p>Your insurance status is currently listed as: <b>{{ insurancedata.insuranceStatus }}</b></p>             
+                            <p>If there are any discrepancies relating to your insurance please submit a<a class="btn btn-link" href="/querypage" role="button">query.</a></p>
+                    </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body"> 
+                            <h5 class="card-title"> Update Insurance Details </h5>
+                           
+
                             <div class="form-group">
                                 {{ form.insurancePeriod.label }}<br>
-                                {{form.insurancePeriod(value=data.insurancePeriod)}}
+                                {{form.insurancePeriod(value=insurancedata.insurancePeriod)}}
                             </div>
                             <div class="form-group">
                                 {{ form.payment.label }} <br>
@@ -50,16 +61,20 @@
                                   </div>
                                 </div>
                               </div>
-  
-                            
-
-                            
-                            
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-sm-3"></div>
+            <div class="col-4">
+            <h5> Quick Links </h5>
+            
+            <ul class = "quicklinks">
+                {% for links in QuickLinks %}
+                    <li><a href = "{{links.location}}">{{links.location}} {{links.activty}}</a></li>
+                {% endfor %}
+            </ul>               
+            </div>
+         
         </div>
     </div>
    
