@@ -26,7 +26,7 @@
                    <form action="" method="POST" enctype="multipart/form-data" novalidate>
                     {{ insuranceform.hidden_tag() }}
                               <div class="form-group">
-                                  <b> Update Student's {{ insuranceform.insuranceStatus.label }} </b>
+                                  <h2><b> Update Student's {{ insuranceform.insuranceStatus.label }} </b></h2>
                                 {{ insuranceform.insuranceStatus(value=insurance_details.insuranceStatus) }}
                             </div> 
                              <p>{{ insuranceform.submit( class="btn btn-success" ) }}</p>                                    
