@@ -181,7 +181,7 @@ def getUserQuickLinks():
 
     #collection = list(db.systemlog.aggregate(pipeline))
 
-    return Link_Activity
+    return Link_Activity 
 
 @app.route('/testQuickLinks')
 def quickLinksTest():
