@@ -1690,7 +1690,7 @@ def admin_insurance_status_update(studentId):
         db.insurance.update_one({'_id': ObjectId(studentId)},
                                 {'$set': {'insuranceStatus': insuranceform.data['insuranceStatus'
                                 ]}})
-        return redirect('/admin/insurance/<studentId>')
+        return redirect('/admin/insurance')
 
     return render_template('admin_insurance_status_update.html',
                            title='Insurance Details', user=username,
