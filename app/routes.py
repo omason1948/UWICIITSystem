@@ -951,7 +951,7 @@ def insurance():
             path = os.path.join(os.path.abspath('app/static/userphotos'))
             file.save(os.path.join(path, secure_filename(filename)))
 
-        db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
+        db.insurance.update_one({"studentId": userId}, {'$set': {"insurancePeriod": form.data['insurancePeriod'], "payment": filename}})
         return redirect("/personalInfo/view")
 
     return render_template('insurance.html', title='Insurance', QuickLinks=QuickLinks, form=form, userId=userId, insurancedata=insurancedata, user=username, email=email)
