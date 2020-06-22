@@ -89,8 +89,8 @@ class QueryForm(FlaskForm):
     choices=[('Year1','Year 1'), ('Year2', 'Year 2'), 
     ('Year3', 'Year 3'), ('Year4', 'Year 4')])
     semester = SelectField(u'Semester: ', 
-    choices=[('Semester1','Semester 1'), ('Semester2', 'Semester 2'), 
-    ('Summer', 'Summer')])
+    choices=[('Semester I','Semester I'), ('Semester II', 'Semester II'), 
+    ('Semester III/Summer', 'Semester III/Summer')])
     studentIssues = SelectField(u'Issue: ', 
     choices=[('Grades','Grades'), ('Finance', 'Finance'), 
     ('Transcript', 'Transcript'), ('Course', 'Course'), ('Other', 'Other')])
