@@ -139,7 +139,7 @@ def getUserQuickLinks():
     
     userid = session['userid']
 
-    collection = db.systemlog.find().limit(5)
+    #collection = db.systemlog.find().limit(5)
 
     pipeline = [
         {"$unwind": "$tags"},
@@ -147,9 +147,79 @@ def getUserQuickLinks():
         {"$sort": SON([("count", -1), ("_id", -1)])}
     ]
 
+    collection = db.systemlog.find({"user":userid}).limit(15)
+    Link_Activity = []
+    Passed_Links = []
+
+    for i in collection:
+
+        location = i["location"]
+        activty = i["activty"]
+
+        if i["location"] != '/login':
+
+            Passed_Links.append(location)
+
+            if location == "/events":
+                activty = "View Events"
+
+            if location == "/querypage/":
+                activty = "View Query Page"
+            
+            if location == "/academic-information":
+                activty = "View Academic Information"
+
+            if location == "/personalInfo/":
+                activty = "View Personal Info"
+
+            if location == "/grades/view/":
+                activty = "View Grade"
+
+            Link_Activity.append([ location, activty ])
+    
+    #return str(Link_Activity)
+
     #collection = list(db.systemlog.aggregate(pipeline))
 
-    return collection
+    return i["location"]
+
+@app.route('/testQuickLinks')
+def quickLinksTest():
+
+    userid = "12345"
+    collection = db.systemlog.find({"user":userid}).limit(5)
+    Link_Activity = []
+    Passed_Links = []
+
+    count = 0
+    for i in collection:
+
+        location = i["location"]
+        activty = i["activty"]
+
+        if activty not in Passed_Links:
+
+            if location == "/events":
+                activty = "View Events"
+
+            if location == "/querypage/":
+                activty = "View Query Page"
+            
+            if location == "/academic-information":
+                activty = "View Academic Information"
+
+            if location == "/courses/find":
+                activty = "Find Courses"
+
+            if location == "/personalInfo/":
+                activty = "View Personal Info"
+
+            Link_Activity.append([ location, activty ])
+            Passed_Links.append(activty)
+
+        count = count + 1
+        
+    return str(Link_Activity)
 
 @app.route('/')
 @login_required
@@ -1617,7 +1687,8 @@ def admin_insurance_status_update(studentId):
     insurance_details = db.insurance.find_one({'_id': ObjectId(studentId)})
     if request.method == 'POST':
         db.insurance.update_one({'studentId': studentId,
-                                'insuranceStatus': {"$set":{'insuranceStatus': insuranceform.insurance_details['insuranceStatus']}}})
+                                'insuranceStatus': {"$set":insuranceform.insurance_details['insuranceStatus'
+                                ]}})
 
     return render_template(
         'admin_insurance_status_update.html',

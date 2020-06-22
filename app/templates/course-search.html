@@ -43,8 +43,8 @@
             <h5> Quick Links </h5>
             
             <ul class = "quicklinks">
-                {% for links in QuickLinks %}
-                    <li><a href = "{{links.location}}">{{links.activty}} {{links.location}}</a></li>
+                {% for i in range(0,4): %}
+                    <li><a href = "{{ QuickLinks[i][0] }}">{{ QuickLinks[i][1] }}</a></li>
                 {% endfor %}
             </ul>
 
