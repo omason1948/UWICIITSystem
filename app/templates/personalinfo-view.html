@@ -61,14 +61,14 @@
             
             <ul class = "quicklinks">
                 {% for i in range(0,4): %}
-                    <li><a href = "{{ QuickLinks[i][0] }}">{{ QuickLinks[i][1] }}</a></li> 
+                    <li><a href = "{{ QuickLinks[i][0] }}">{{ QuickLinks[i][1] }}</a></li>
                 {% endfor %}
             </ul>
          
          
          <!-- Button trigger modal -->
 <h6> International Student Insurance </h6>
- <p> You are {{ insurance_data.insuranceStatus }}
+         <p><b>{{ insurance_data.insuranceStatus }}<b></p>
 <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
  Update Insurance Details
 </button>
