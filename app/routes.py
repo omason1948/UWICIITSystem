@@ -922,6 +922,7 @@ def viewpersonalInfo():
     
     userId = int(session['userid'])
     data = list(db.student.find({"studentId" : userId}))
+    insurance_data = db.insurance.find({"studentId" : userId})
     return render_template('personalinfo-view.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
@@ -1021,7 +1022,7 @@ def insurance():
             path = os.path.join(os.path.abspath('app/static/userphotos'))
             file.save(os.path.join(path, secure_filename(filename)))
 
-        db.insurance.insert_one({"studentId": userId, "insurancePeriod": form.data['insurancePeriod'], "payment": filename})
+        db.insurance.update_one({"studentId": userId}, {'$set': {"insurancePeriod": form.data['insurancePeriod'], "payment": filename}})
         return redirect("/personalInfo/view")
 
     return render_template('insurance.html', title='Insurance', QuickLinks=QuickLinks, form=form, userId=userId, insurancedata=insurancedata, user=username, email=email)
@@ -1077,8 +1078,8 @@ def eventsadd():
     filename = ""
     if request.method == 'POST':
         eventDate=form.data["eventDate"]
-        if eventDate.date() < date.today() or eventDate.time() < now.time():
-            flash("The date or time entered is in the past!")
+        if eventDate.date() < date.today():
+            flash("The date entered is in the past!")
             return render_template('event-add.html', title='Add Events', form = form, user = username)
     
 
@@ -1110,7 +1111,7 @@ def eventsedit(id):
     global username
     menu_type = 3
     username = session['username']
-
+    filename = ""
     data = db.events.find({"_id" : ObjectId(id)})
 
     if request.method =='POST':
@@ -1686,9 +1687,7 @@ def admin_insurance_status_update(studentId):
     insuranceform = InsuranceForm()
     insurance_details = db.insurance.find_one({'_id': ObjectId(studentId)})
     if request.method == 'POST':
-        db.insurance.update_one({'studentId': studentId,
-                                'insuranceStatus': {"$set":insuranceform.insurance_details['insuranceStatus'
-                                ]}})
+        db.insurance.update_one({'_id': ObjectId(studentId)}, {"$set":{'insuranceStatus': insuranceform.data['insuranceStatus']}})
 
     return render_template(
         'admin_insurance_status_update.html',
