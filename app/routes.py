@@ -852,6 +852,7 @@ def viewpersonalInfo():
     
     userId = int(session['userid'])
     data = list(db.student.find({"studentId" : userId}))
+    insurance_data = db.insurance.find({"studentId" : userId}
     return render_template('personalinfo-view.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
@@ -1043,11 +1044,7 @@ def eventsedit(id):
 
     data = db.events.find({"_id" : ObjectId(id)})
 
-    if request.method == 'POST':
-        eventDate=form.data["eventDate"]
-        if eventDate.date() < date.today():
-            flash("The date entered is in the past!")
-            return render_template('event-edit.html', title='Edit Events', form = form, user = username)
+    if request.method =='POST':
         file = request.files['photo']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
