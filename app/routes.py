@@ -923,7 +923,7 @@ def viewpersonalInfo():
     userId = int(session['userid'])
     data = list(db.student.find({"studentId" : userId}))
     insurancedata = db.insurance.find_one({'studentId' : userId})
-    return render_template('personalinfo-view.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId, insurance_data=insurance_data)
+    return render_template('personalinfo-view.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId, insurancedata=insurancedata)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
 @login_required
