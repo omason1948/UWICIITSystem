@@ -4,6 +4,7 @@
 
 
 <div class = "front_half">
+    <h2><b>Insurance Status: </b> {{insurance_details.studentId}}</h2>
 
 </div>
 
@@ -12,25 +13,25 @@
             <div class="col-sm-6">
             <h3> Insurance Details </h3>
             <ul class="list-group">
+            <li class="list-group-item"><b>Insurance Status: </b> {{insurance_details.insuranceStatus}}</li>
             <li class="list-group-item"><b>Insurance Period: </b> {{insurance_details.insurancePeriod}}</li>
-             
-            <li class="list-group-item"><b>Payment Receipt: </b> 
-                <img src = "/static/userphotos/{{insurance_details.payment}}" style = "width="260" height="250""></li>
-            <li class="list-group-item">
+            <li class="list-group-item"><b>Payment Receipt: </b> <br>
+                <img src = "/static/userphotos/{{insurance_details.payment}}" style = "width="400" height="300""></li>
+             <ul>
+            
+            </div>
+        </div>
+                <div class="col-sm-6">
+                    <h3> Update Insurance Status </h3>
                    <form action="" method="POST" enctype="multipart/form-data" novalidate>
                     {{ insuranceform.hidden_tag() }}
                               <div class="form-group">
                                 <b>{{ insuranceform.insuranceStatus.label }} </b
                                 {{ insuranceform.insuranceStatus(value=insurance_details.insuranceStatus) }}
                             </div> 
-                             <p>{{ insuranceform.submit( class="btn btn-success" ) }}</p>
+                             <p>{{ insuranceform.submit( class="btn btn-success" ) }}</p>                                    
                     </form>
-              </li>
-             <ul>
-            
-            </div>
         </div>
-                <div class="col-sm-6"></div>
     </div>
             
 {% endblock %}
