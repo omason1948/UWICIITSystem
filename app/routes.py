@@ -1680,22 +1680,22 @@ def admin_insurance():
         collection=collection,
         )
 
-@app.route('/admin/insurance/<studentId>', methods = ['GET', 'POST'])
+@app.route('/admin/insurance/<studentId>', methods=['GET', 'POST'])
 @admin_login_required
 def admin_insurance_status_update(studentId):
     insuranceform = InsuranceForm()
-    insurance_details = db.insurance.find_one({'_id': ObjectId(studentId)})
+    insurance_details = \
+        db.insurance.find_one({'_id': ObjectId(studentId)})
     if request.method == 'POST':
-        db.insurance.update_one({'_id': ObjectId(studentId)}, {"$set":{'insuranceStatus': insuranceform.data['insuranceStatus']}})
-	return redirect('/admin/insurance/<studentId>')
+        db.insurance.update_one({'_id': ObjectId(studentId)},
+                                {'$set': {'insuranceStatus': insuranceform.data['insuranceStatus'
+                                ]}})
+        return redirect('/admin/insurance/<studentId>')
 
-    return render_template(
-        'admin_insurance_status_update.html',
-        title='Insurance Details',
-        user=username,
-        insurance_details=insurance_details,
-        insuranceform=insuranceform,
-        )
+    return render_template('admin_insurance_status_update.html',
+                           title='Insurance Details', user=username,
+                           insurance_details=insurance_details,
+                           insuranceform=insuranceform)
 	
 @app.route('/admin/usermanager', methods = ['GET', 'POST'])
 @admin_login_required
