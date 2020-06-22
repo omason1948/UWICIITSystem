@@ -158,7 +158,7 @@ def getUserQuickLinks():
 
         if i["location"] != '/login':
 
-            Passed_Links.append(location)
+            Passed_Links.append(location) 
 
             if location == "/events":
                 activty = "View Events"
