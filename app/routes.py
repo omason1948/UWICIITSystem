@@ -181,7 +181,7 @@ def getUserQuickLinks():
 
     #collection = list(db.systemlog.aggregate(pipeline))
 
-    return Link_Activity
+    return i["location"]
 
 @app.route('/testQuickLinks')
 def quickLinksTest():
@@ -1113,8 +1113,8 @@ def eventsedit(id):
     username = session['username']
     filename = ""
     data = db.events.find({"_id" : ObjectId(id)})
-
-   if request.method == 'POST':
+	
+    if request.method == 'POST':
         eventDate=form.data["eventDate"]
         if eventDate.date() < date.today():
             flash("The date entered is in the past!")
