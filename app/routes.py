@@ -1041,7 +1041,7 @@ def eventsedit(id):
     global username
     menu_type = 3
     username = session['username']
-
+    filename = ""
     data = db.events.find({"_id" : ObjectId(id)})
 
     if request.method =='POST':
