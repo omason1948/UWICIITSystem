@@ -1687,6 +1687,7 @@ def admin_insurance_status_update(studentId):
     insurance_details = db.insurance.find_one({'_id': ObjectId(studentId)})
     if request.method == 'POST':
         db.insurance.update_one({'_id': ObjectId(studentId)}, {"$set":{'insuranceStatus': insuranceform.data['insuranceStatus']}})
+	return redirect('/admin/insurance/<studentId>')
 
     return render_template(
         'admin_insurance_status_update.html',
