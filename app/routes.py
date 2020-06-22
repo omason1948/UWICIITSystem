@@ -1044,6 +1044,10 @@ def eventsedit(id):
     data = db.events.find({"_id" : ObjectId(id)})
 
     if request.method =='POST':
+	eventDate=form.data["eventDate"]
+        if eventDate.date() < date.today():
+            flash("The date entered is in the past!")
+            return render_template('event-edit.html', title='Edit Events', form = form, user = username)
         file = request.files['photo']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
