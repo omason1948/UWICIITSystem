@@ -635,7 +635,7 @@ def api_register_student(studentid, courseid, term, year):
 
         registration_id = db.registration.insert_one({"studentID": studentid,"courseID": courseid,"courseName": courseInformation["Name"], "Term": term, "Semester": year, "registered": timestamp})
     
-    return coursesLookup(term, year)
+    return redirect('/courses/add/lookup')
 
 @app.route('/courses/detail/<course>')
 @login_required
@@ -1612,7 +1612,7 @@ def admin_insurance_status_update(studentId):
     insuranceform = InsuranceForm()
     insurance_details = db.insurance.find_one({'_id': ObjectId(studentId)})
     if request.method == 'POST':
-        db.insurance.update_one({'studentId': userId,
+        db.insurance.update_one({'studentId': studentId,
                                 'insuranceStatus': {"$set":insuranceform.insurance_details['insuranceStatus'
                                 ]}})
 
