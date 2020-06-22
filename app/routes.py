@@ -602,6 +602,9 @@ def coursesLookup(term, year):
     menu_type = 2
     studentid = session['userid']
 
+    global username
+    username = session['username']
+
     semester = 1
 
     course_list = list(db.course.find({'Year':year, 'Term': term}))
@@ -610,7 +613,7 @@ def coursesLookup(term, year):
     # Record User Activity
     loguseractvity("Lookup", "/courses/add/lookup")
     
-    return render_template('course-lookup.html', term = term, year = year, studentID = studentid, title='Add a Course / Lookup a Course', course_list=course_list, registered_list = registered_list)
+    return render_template('course-lookup.html', user = username, term = term, year = year, studentID = studentid, title='Add a Course / Lookup a Course', course_list=course_list, registered_list = registered_list)
 
 @app.route('/api/register/<studentid>/<courseid>/<term>/<year>')
 @login_required 
@@ -635,6 +638,7 @@ def api_register_student(studentid, courseid, term, year):
 
         registration_id = db.registration.insert_one({"studentID": studentid,"courseID": courseid,"courseName": courseInformation["Name"], "Term": term, "Semester": year, "registered": timestamp})
     
+    flash("You have successfully signed up for this course")
     return coursesLookup(term, year)
 
 @app.route('/courses/detail/<course>')
