@@ -996,8 +996,8 @@ def eventsadd():
 
     if request.method == 'POST':
 	eventDate=form.data["eventDate"]
-        if eventDate.date() < date.today() or eventDate.time() < now.time():
-            flash("The date or time entered is in the past!")
+        if eventDate.date() < date.today():
+            flash("The date entered is in the past!")
             return render_template('event-add.html', title='Add Events', form = form, user = username)
 
         file = request.files["photo"]
