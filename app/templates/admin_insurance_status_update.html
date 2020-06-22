@@ -22,11 +22,11 @@
             </div>
         
                 <div class="col-sm-6">
-                    <h3> Update Insurance Status </h3>
+         
                    <form action="" method="POST" enctype="multipart/form-data" novalidate>
                     {{ insuranceform.hidden_tag() }}
                               <div class="form-group">
-                                <b>{{ insuranceform.insuranceStatus.label }} </b
+                                  <b> Update Student's {{ insuranceform.insuranceStatus.label }} </b>
                                 {{ insuranceform.insuranceStatus(value=insurance_details.insuranceStatus) }}
                             </div> 
                              <p>{{ insuranceform.submit( class="btn btn-success" ) }}</p>                                    
