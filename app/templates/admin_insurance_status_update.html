@@ -12,8 +12,10 @@
             <div class="col-sm-6">
             <h3> Insurance Details </h3>
             <ul class="list-group">
-            <li class="list-group-item"><b>Insurance Period</b> {{insurance_details.insurancePeriod}}</li>
-            <li class="list-group-item"><b>Payment Receipt</b> {{insurance_details.payment}} style = "margin:10px 20px;width:250px"</li>
+            <li class="list-group-item"><b>Insurance Period: </b> {{insurance_details.insurancePeriod}}</li>
+             
+            <li class="list-group-item"><b>Payment Receipt: </b> 
+                <img src = "/static/userphotos/{{insurance_details.payment}}" style = ""margin:10px 20px;width:250px"></li>
             <li class="list-group-item">
                    <form action="" method="POST" enctype="multipart/form-data" novalidate>
                     {{ insuranceform.hidden_tag() }}
