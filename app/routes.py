@@ -3,12 +3,11 @@ from flask import jsonify
 import json, os, signal
 import requests
 from flask import Flask, render_template, Markup, request, redirect, session, abort, url_for, flash, escape
-from datetime import datetime
+from datetime import datetime, date, timedelta 
 
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
-from datetime import date
 
 # generate random integer values
 from random import randint
@@ -28,6 +27,9 @@ from app.forms import EventForm, LoginForm, ResetPasswordForm
 
 from bson import Binary, Code, ObjectId
 from bson.json_util import dumps
+
+# Define Flask-login configuration 
+
 
 #For key generation
 import binascii
@@ -68,6 +70,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Setup Session to keep user logged in
 app.config['SESSION_TYPE'] = 'memcached' 
 app.config['SECRET_KEY'] = SECRET_KEY 
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(seconds=10)
 
 SESSION_TYPE = 'redis'
 #Session(app)
@@ -85,6 +88,11 @@ role_users = ""
 role_events = ""
 role_queries = ""
 roles_grades = ""
+
+@app.before_request
+def before_request():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=1)
 
 # Wrapper function to prevent users from requesting unauthorized pages
 def login_required(f):
@@ -581,7 +589,7 @@ def coursesAdd():
             term = form.data['terms']
             year = form.data['years']
 
-            return coursesLookup(term, year)
+            return coursesLookup(term, year) 
         
     return render_template('course-add.html', title='Add a Course / Select a Term', form=form)
 
