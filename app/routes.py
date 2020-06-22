@@ -635,7 +635,7 @@ def api_register_student(studentid, courseid, term, year):
 
         registration_id = db.registration.insert_one({"studentID": studentid,"courseID": courseid,"courseName": courseInformation["Name"], "Term": term, "Semester": year, "registered": timestamp})
     
-    return redirect('/courses/add/lookup')
+    return coursesLookup(term, year)
 
 @app.route('/courses/detail/<course>')
 @login_required
