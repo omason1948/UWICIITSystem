@@ -374,6 +374,11 @@ class InsuranceForm(FlaskForm):
                                   choices=[('6 months','6 Months'), ('1 Year', '1 Year')])
     payment = FileField('Payement Reciept: ', validators=[FileRequired()])
     insuranceStatus = RadioField('Insurance Status', choices=[('Insured','Insured'),('Uninsured','Uninsured'),('Renewal Due','Renewal Due')])
+    submitdate = HiddenField(
+        label='Date',
+        format='%Y-%m-%dT%H:%M',
+        validators = [DataRequired()]
+    )
     submit = SubmitField('Submit')
 
 
