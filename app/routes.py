@@ -1023,13 +1023,9 @@ def insurance():
             path = os.path.join(os.path.abspath('app/static/userphotos'
                                 ))
             file.save(os.path.join(path, secure_filename(filename)))
-
-        now = datetime.now()
-        timestamp = now.strftime('%m/%d/%Y, %H:%M:%S')
         db.insurance.update_one({'studentId': userId},
                                 {'$set': {'insurancePeriod': form.data['insurancePeriod'
-                                ], 'payment': filename,
-                                'updateDate': timestamp}})
+                                ], 'payment': filename}})
         return redirect('/personalInfo/view')
 
     return render_template(
