@@ -1005,6 +1005,7 @@ def insurance():
     email = session['email']
     filename = ""
     QuickLinks = getUserQuickLinks()
+
 	
     form = InsuranceForm()
     userId = int(session['userid'])
@@ -1022,7 +1023,9 @@ def insurance():
             path = os.path.join(os.path.abspath('app/static/userphotos'))
             file.save(os.path.join(path, secure_filename(filename)))
 
-        db.insurance.update_one({"studentId": userId}, {'$set': {"insurancePeriod": form.data['insurancePeriod'], "payment": filename}})
+        now = datetime.now()
+        timestamp  = now.strftime("%m/%d/%Y, %H:%M:%S")
+	db.insurance.update_one({"studentId": userId}, {'$set': {"insurancePeriod": form.data['insurancePeriod'], "payment": filename, "updateDate": timestamp}})
         return redirect("/personalInfo/view")
 
     return render_template('insurance.html', title='Insurance', QuickLinks=QuickLinks, form=form, userId=userId, insurancedata=insurancedata, user=username, email=email)
