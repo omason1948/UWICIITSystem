@@ -997,39 +997,51 @@ def personalinfopage():
 @app.route('/personalInfo/insurance',  methods=('GET', 'POST'))
 @login_required
 def insurance():
-    
+
     global menu_type
     global username
     menu_type = 1
     username = session['username']
     email = session['email']
-    filename = ""
+    filename = ''
     QuickLinks = getUserQuickLinks()
 
-	
     form = InsuranceForm()
     userId = int(session['userid'])
-    insurancedata = db.insurance.find_one({'studentId' : userId})
-    
+    insurancedata = db.insurance.find_one({'studentId': userId})
+
     # Record User Activity
+
     loguseractvity('Update', '/personalInfo/insurance')
-    
-    if request.method=='POST':
-        
-        file = request.files["payment"]
+
+    if request.method == 'POST':
+
+        file = request.files['payment']
         if file and allowed_file(file.filename):
 
             filename = secure_filename(file.filename)
-            path = os.path.join(os.path.abspath('app/static/userphotos'))
+            path = os.path.join(os.path.abspath('app/static/userphotos'
+                                ))
             file.save(os.path.join(path, secure_filename(filename)))
 
         now = datetime.now()
-        timestamp  = now.strftime("%m/%d/%Y, %H:%M:%S")
-	db.insurance.update_one({"studentId": userId}, {'$set': {"insurancePeriod": form.data['insurancePeriod'], "payment": filename, "updateDate": timestamp}})
-        return redirect("/personalInfo/view")
+        timestamp = now.strftime('%m/%d/%Y, %H:%M:%S')
+        db.insurance.update_one({'studentId': userId},
+                                {'$set': {'insurancePeriod': form.data['insurancePeriod'
+                                ], 'payment': filename,
+                                'updateDate': timestamp}})
+        return redirect('/personalInfo/view')
 
-    return render_template('insurance.html', title='Insurance', QuickLinks=QuickLinks, form=form, userId=userId, insurancedata=insurancedata, user=username, email=email)
-
+    return render_template(
+        'insurance.html',
+        title='Insurance',
+        QuickLinks=QuickLinks,
+        form=form,
+        userId=userId,
+        insurancedata=insurancedata,
+        user=username,
+        email=email
+        )
 
 import cgi, os
 import cgitb; cgitb.enable()
