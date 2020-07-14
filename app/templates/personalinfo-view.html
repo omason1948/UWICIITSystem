@@ -19,22 +19,22 @@
 
                             <div>
                              <div><img src = "/static/userphotos/{{i.studentPhoto}}" width = "100"></div> <br>
-                             Marital Status: {{ i.maritalStatus }}
+                             <b>Marital Status:</> {{ i.maritalStatus }}
                              </p>
                             </div>
 
                             <div>
                              <h5 class="card-title"> Contact Information </h5>
-                             <p> Address: {{ i.studentAddress }} <br>
-                             Country: {{ i.country }} <br>
-                             Phone Number: {{ i.mobilenum }}</p>
+                            <p> <b>Address:</b> {{i.studentAddress }} <br>
+                              <b>Country:</b>  {i.country}} <br>
+                              <b>Phone Number:</b>{{ i.mobilenum }}</p>
                             </div>
 
                             <div>
                              <h5 class="card-title"> Emergency Contact Information</h5>
-                             <p> Emergency Contact: {{ i.emergencyCon }} <br>
-                             Relationship: {{ i.relationship }} <br>
-                             Contact Number: {{ i.ecNumber }}
+                             <p> <b> Emergency Contact:<b> {{i.emergencyCon }} <br>
+                              <b>Relationship:</b> {{i.relationship }} <br>
+                              <b>Contact Number:</b> {{ i.ecNumber }}
                              </p>
                             </div>  
                         {%endfor%}  
