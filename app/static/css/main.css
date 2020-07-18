@@ -15,6 +15,17 @@
     color:rgb(59,130,1);
   }
 
+  .quicklinks{
+	list-style: none;;
+	padding:0px;
+  }
+
+  .quicklinks li{
+	padding:10px;
+	background:#fff;
+	border-bottom:1px solid #eee;
+  }
+
   .programs-card{
     margin-bottom:10px;
   }

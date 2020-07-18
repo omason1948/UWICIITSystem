@@ -49,8 +49,9 @@
         </div>
 
         <div class="col-sm-2">
-          <a href = "/personalInfo"><img src = "{{ url_for('static', filename='images/user-avatar.png') }}" width="42" alt=""></a>
-        </div>
+          <a href = "/personalInfo"><img src = "{{ url_for('static', filename=userPhoto ) }}" width="42" alt=""></a>
+          
+        </div> 
       </div>
       </div>
 
@@ -106,11 +107,17 @@
       $('#datetimepicker').datetimepicker({
         format: 'dd/MM/yyyy hh:mm:ss'
       });
+
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
     </script>
 
-    <div id = "footer" class="row"><div class="container">
-      &copy; Copyright 2020 UWICIIT System
-    </div></div>
+  </div>
+
+  <div id = "footer" class="row"><div class="container">
+    &copy; Copyright 2020 UWICIIT System
+  </div>
 
     </body>
 </html>

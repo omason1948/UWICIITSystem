@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<style> body{background:#fff}  </style>
+{%if event_for_student.count %} 
 <div class = "col-sm-8 offset-sm-2">
         
     <div class = "row">
@@ -47,6 +48,18 @@
 
 
 </div>
-           
+        
+{%else%} 
+    
+<div class = "col-sm-4 offset-sm-4 text-center">
+    <img src="{{ url_for('static', filename='images/events.jpg') }}" width="230" alt="">
+    <h1>No Registered Events Found</h1>
+    <p>You haven't registered for any events as yet</p>
+    <p><a class = "btn btn-success" href="/events"> View Events </a></p>
+</div>
+
+{%endif%} 
+
+
 
 {% endblock %}

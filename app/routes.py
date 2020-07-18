@@ -70,7 +70,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Setup Session to keep user logged in
 app.config['SESSION_TYPE'] = 'memcached' 
 app.config['SECRET_KEY'] = SECRET_KEY 
-app.config['REMEMBER_COOKIE_DURATION'] = timedelta(seconds=10)
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(seconds=1200)
 
 SESSION_TYPE = 'redis'
 #Session(app)
@@ -92,7 +92,7 @@ roles_grades = ""
 @app.before_request
 def before_request():
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=1)
+    app.permanent_session_lifetime = timedelta(minutes=15)
 
 # Wrapper function to prevent users from requesting unauthorized pages
 def login_required(f):
@@ -229,11 +229,14 @@ def home():
     global username
     menu_type = 1
     username = session['username']
+    userId = session['userid']
+    userPhoto = session['userPhoto']
 
     collection = db.student.find_one({'student_id': "27001022"})
 
     #return collection['student_id']
-    return render_template('index.html', title='UWICIIT System', user = username)
+    
+    return render_template('index.html', title='UWICIIT System', userPhoto = userPhoto, user = username)
 
 @app.route('/stopServer', methods=['GET'])
 def stopServer():
@@ -246,8 +249,11 @@ def index():
 
     global menu_type
     global username
+    global datau
+
     menu_type = 1
     username = session['username']
+    userId = session['userid']
 
     posts = [
         {
@@ -259,7 +265,10 @@ def index():
             'body': 'The Avengers movie was so cool!'
         }
     ]
-    return render_template('index.html', title='Home', user=username, posts=posts)
+
+    datau = "dfd"
+
+    return render_template('index.html', title='Home', data = username, user=username, posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -403,6 +412,7 @@ def setSessionInformation(userID, name, email, userType):
     session['email'] = email
     session['logged_in'] = True
     session['userType'] = userType
+    session['userPhoto'] = list(db.student.find({"studentId" : userID}))
 
     if userType == 2:
         session['admin_logged_in'] = True
@@ -878,7 +888,7 @@ def query():
     if request.method=='POST':
         db.query.insert_one({"studentId": userId, "studentName" : username, "studentEmail": email, "yearOfStudy": form.data['yearOfStudy'], "semester": form.data['semester'], "studentIssues": form.data['studentIssues'], "queryDesc": form.data['queryDesc']}  )
         return redirect('/queryhistory')
-    return render_template('querypage.html', title='Student Query', QuickLinks = QuickLinks, form=form, userId=userId, data=data, user=username, email=email)
+    return render_template('querypage.html', title='Student Query', userPhoto = userPhoto, QuickLinks = QuickLinks, form=form, userId=userId, data=data, user=username, email=email)
 
 @app.route('/queryhistory')
 @login_required
@@ -893,7 +903,7 @@ def queryhistory():
 
     userId = int(session['userid'])
     data = list(db.query.find({"studentId" : userId}))
-    return render_template('queryhistory.html', title='Query History', data=data, user=username, userId=userId, QuickLinks = QuickLinks)
+    return render_template('queryhistory.html', title='Query History', data=data, userPhoto = userPhoto, user=username, userId=userId, QuickLinks = QuickLinks)
 
 @app.route('/personalInfo', methods=('GET', 'POST'))
 @login_required
@@ -904,11 +914,12 @@ def personalinfoOptions():
     global username
     menu_type = 1
     username = session['username']
+    userPhoto = session['userPhoto']
 
     # Record User Activity
     loguseractvity("View", "/personalInfo/")
     
-    return render_template('personalinfo.html', title='Personal Info', user=username)
+    return render_template('personalinfo.html', title='Personal Info', userPhoto = userPhoto, user=username)
 
 @app.route('/personalInfo/view')
 @login_required
@@ -919,11 +930,12 @@ def viewpersonalInfo():
     global username
     menu_type = 1
     username = session['username']
+    userPhoto = session['userPhoto']
     
     userId = int(session['userid'])
     data = list(db.student.find({"studentId" : userId}))
     insurancedata = db.insurance.find_one({'studentId' : userId})
-    return render_template('personalinfo-view.html', QuickLinks = QuickLinks, title='View Personal Info', data=data, user=username, userId=userId, insurancedata=insurancedata)
+    return render_template('personalinfo-view.html', QuickLinks = QuickLinks, userPhoto = userPhoto, title='View Personal Info', data=data, user=username, userId=userId, insurancedata=insurancedata)
 
 @app.route('/personalInfo/update', methods=('GET', 'POST'))
 @login_required
@@ -934,6 +946,7 @@ def personalinfopage():
     global username
     menu_type = 1
     username = session['username']
+    userPhoto = session['userPhoto']
     filename = ''
     filename2 = ''
 
@@ -990,6 +1003,7 @@ def personalinfopage():
         form=form,
         userId=userId,
         user=username,
+        userPhoto = userPhoto,
         studentData=studentData,
         QuickLinks=QuickLinks
         )
@@ -1002,6 +1016,7 @@ def insurance():
     global username
     menu_type = 1
     username = session['username']
+    userPhoto = session['userPhoto']
     email = session['email']
     filename = ''
     QuickLinks = getUserQuickLinks()
@@ -1034,6 +1049,7 @@ def insurance():
         QuickLinks=QuickLinks,
         form=form,
         userId=userId,
+        userPhoto = userPhoto,
         insurancedata=insurancedata,
         user=username,
         email=email
@@ -1068,12 +1084,13 @@ def eventsview():
     global username
     menu_type = 3
     username = session['username']
+    userID = session['userid']
 
     # Record User Activity
     loguseractvity("View", "/events")
     
     data = list(db.events.find({}))
-    return render_template('event-view.html', data = data,title='View Events', user = username)
+    return render_template('event-view.html', userID = userID, data = data,title='View Events', user = username)
 
 @app.route('/events/add', methods = ['GET', 'POST'])
 @login_required

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class = "col-sm-8 offset-sm-2">
+<div class = "col-sm-10 offset-sm-1">
         
     <div class = "row">
         <div class = "col-sm-6">
@@ -37,9 +37,11 @@
                         </div>
 
                         <div class="col-sm-12">
-                            <a class = "btn btn-sm btn-success btnevent" id = "edit" href = "/events/edit/{{i._id}}"> Edit Event </a>
+                            {% if i.studentid == userID %}
+                                <a class = "btn btn-sm btn-success btnevent" id = "edit" href = "/events/edit/{{i._id}}" data-toggle="tooltip" data-placement="top" title="Only you can see this & edit this event"> Edit Event </a>
+                            {% endif %}
 
-                            <a class = "btn btn-sm btn-success btnevent" id = "delete" href = "/events/delete/{{i._id}}"> Delete Event </a>
+                            <a class = "btn btn-sm btn-danger btnevent" id = "delete" href = "/events/delete/{{i._id}}"> Delete Event </a>
 
                             <a class = "btn btn-sm btn-success btnevent" id = "register" href = "/events/register/{{i._id}}"> Register for Event </a>
                         </div>

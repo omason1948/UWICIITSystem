@@ -8,44 +8,44 @@
 
     <div class="col-sm-8">
            <div class = "row">
-        <div class = "col-sm-6">
+        <div class = "col-sm-12">
             <h1>Student Information </h1>
-            <h6 class="font-weight-light">Update/view personal information and view/add queries. </h6>
+            <h6 class="font-weight-light">Manage your personal information and view/add queries. </h6>
         </div>
-        <div class="main-card-wrap">
+        <div class="main-card-wrap col-sm-6">
             <div class="card container">
                 <div class="row main-card">
                     
-                    <a href = "/personalInfo/view">
-                    <div class = "col-sm-8">
+                    
+                    <div class = "col-sm-12">
                         <div class="card-body">
                         <img src="{{ url_for('static', filename='images/personal.png') }}" width="30" alt="">
-                        <h5 class="card-title" id="personalDetails">Personal Information </h5>
+                        <a href = "/personalInfo/view"><h5 class="card-title" id="personalDetails">Personal Information </h5></a>
                         </div>
                     </div>
 
                     <div class = "col-sm-12">
-                        <p class="card-text">View or Update Personal Information. View or Update Emergency Contact Information. View or Add Query.</p>
+                        <p class="card-text">View or Update Personal Information. View or Update Emergency Contact Information.</p>
                         <br/>
                     </div>
-                    </a>
+                    
 
                 </div>
             </div>
         </div>
 
-        <div class="main-card-wrap">
-           <a href = "/querypage"> <div class="card container">
+        <div class="main-card-wrap col-sm-6">
+            <div class="card container">
                 <div class="row main-card">
-                    <div class = "col-sm-8">
+                    <div class = "col-sm-12">
                         <div class="card-body">
                            <img src="{{ url_for('static', filename='images/acainfoicon.png') }}" width="30" alt="">
-                        <h5 class="card-title" id="queryDetails">Student Queries </h5>
+                           <a href = "/querypage"><h5 class="card-title" id="queryDetails">Student Queries </h5> </a>
                         </div>
                     </div>
 
                     <div class = "col-sm-12">
-                        <p class="card-text">View and Add Queries.</p>
+                        <p class="card-text">View and track queries of issues you are experiencing to admin.</p>
                         <br/>
                     </div>
                                   

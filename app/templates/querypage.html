@@ -8,27 +8,48 @@
             
             <form action="" method="post">
                 {{ form.hidden_tag() }}
-               <h5 class="card-title"> Identification and Personal Details</h5> 
+               <h5 class="card-title"> Create a Query </h5> 
                 <div class="card"><div class="card-body">
                 
                 {{ form.studentId(value=userId) }}
                 {{ form.studentName(value=user) }}
                 {{ form.studentEmail(value=email) }}
-            
+                
                 <h5 class="card-title"> Query Details</h5>
-                <div class="form-group">
-                    <h6 class="card-title">{{ form.yearOfStudy.label }}</h6>
-                    {{form.yearOfStudy}}
-                </div>
 
-                <div class="form-group">
-                    <h6 class="card-title">{{ form.semester.label }}</h6>
-                    {{form.semester}}
-                </div>
-                <h6 class="card-title"> Please select the option that applies to your query.</h6>
-                <div class="form-group">
-                    <h6 class="card-title">{{ form.studentIssues.label }}</h6>
-                    {{form.studentIssues}}
+                <div class = "row">
+                  <div class = "col-sm-4">
+                    <div class="form-group">
+                        <h6 class="card-title">{{ form.yearOfStudy.label }}</h6>
+                        {{form.yearOfStudy(class = "form-control") }}
+                    </div>
+                  </div>
+
+                  <div class = "col-sm-4">
+                    <div class="form-group">
+                        <h6 class="card-title">{{ form.semester.label }}</h6>
+                        {{form.semester(class = "form-control") }}
+                    </div>
+                  </div>
+
+                  <div class = "col-sm-4">
+                    <div class="form-group">
+                      <h6 class="card-title">{{ form.studentIssues.label }}
+                        
+                        <span data-toggle="tooltip" data-placement="top" title="Please select the option that applies to your query.">
+
+                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                            <circle cx="8" cy="4.5" r="1"/>
+                          </svg>
+                        
+                          </span>
+
+                      </h6>
+                      {{form.studentIssues(class = "form-control") }}
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
@@ -70,7 +91,7 @@
         </div>
         <div class="col-sm-3"> 
             <h5 class="card-title"> Query History</h5> 
-            <button onclick="document.location = '/queryhistory'" type="button" class="btn btn-link btn-lg">View Queries</button>
+            <a href = '/queryhistory'>View Queries</a>
             <br><br>
             <h5> Quick Links </h5>
             
