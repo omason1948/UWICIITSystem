@@ -24,7 +24,17 @@
             {% endwith %}
             
             <small> Showing courses for term {{term}} & year {{year}} </small>
-            <h4> Select course(s) to add </h4>
+
+            <h4> Select course(s) to add</h4>
+
+            {% if yearIssue == 1 %}
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    The following courses are not available for your year, please note that after registering and admin will review your application to this course 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+            {% endif %}
+
+
             <div class="row">
 
                 {%if course_list%}
@@ -61,11 +71,11 @@
                 <h5> My Registered Courses </h5>
                 {% for courses in registered_list %} 
 
-                <div class = "row">
-                    <div class="col-sm-12"> {{courses.courseName}} </div>    
-                    <div class="col-sm-6 note"> Semester {{courses.Semester}} </div>      
-                    <div class="col-sm-6 note"> Term {{courses.Term}} </div>    
-                </div>
+                <div class = "row card">
+                    <div class="card-body">
+                    <div class="col-sm-12"> <b>{{courses.courseName}}</b> </div>    
+                    <div class="col-sm-6 note"> Semester {{courses.Semester}} | Term {{courses.Term}}</div>
+                </div></div>    
 
                 {%endfor%}
 

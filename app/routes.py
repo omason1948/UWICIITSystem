@@ -268,7 +268,7 @@ def index():
 
     datau = "dfd"
 
-    return render_template('index.html', title='Home', data = username, user=username, posts=posts)
+    return render_template('index.html', title="Home", data = username, user=username, posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -284,6 +284,8 @@ def login():
                 # Define if user is an admin or student
                 global userType
                 userType = UserLoggedIn['userType']
+                current_year = UserLoggedIn['program'][0]['term']
+                current_year = current_year.split('/')[0]
                 if( userType == "2"):
                     
                     userRoles = UserLoggedIn['roles']
@@ -291,7 +293,7 @@ def login():
                     setUserRoles(userRoles)
 
                 # Setup Session
-                sessionState = setSessionInformation(form.username.data, UserLoggedIn['name'], UserLoggedIn['email'], userType)
+                sessionState = setSessionInformation(form.username.data, UserLoggedIn['name'], UserLoggedIn['email'], userType, current_year)
 
                 # Record User Activity
                 loguseractvity("Login Success", "/login")
@@ -405,7 +407,12 @@ def setUserRoles(userRoles):
     
     return "OK"
 
-def setSessionInformation(userID, name, email, userType):
+def setSessionInformation(userID, name, email, userType, current_year):
+
+    current_date = date.today() 
+    # extracting the current year, month and day
+    todays_current_year = current_date.year
+    student_year_currently = int(todays_current_year) - int(current_year)
 
     session['username'] = name
     session['userid'] = userID
@@ -413,6 +420,10 @@ def setSessionInformation(userID, name, email, userType):
     session['logged_in'] = True
     session['userType'] = userType
     session['userPhoto'] = db.student.find_one({"studentId" : userID})
+    session['student_start_year'] = current_year
+    session['year_currently'] = todays_current_year
+    session['student_year_currently'] = student_year_currently
+
 
     if userType == 2:
         session['admin_logged_in'] = True
@@ -551,6 +562,7 @@ def schedule():
     menu_type = 2
     username = session['username']
     studentid = session['userid']
+    student_year_currently = session['student_year_currently']
 
     studentid = str(session['userid'])
      
@@ -572,7 +584,7 @@ def schedule():
     # Record User Activity
     loguseractvity("View", "/schedule")
 
-    registered_list = db.course.find({'Year': "1"})
+    registered_list = db.course.find({'Year': str(student_year_currently)})
     
     Monday = ""    
     Monday2 = {"9:00":'',"10:00":"", "11:00":"", "12:00":"", "1:00":"", "2:00":"", "3:00":"", "4:00":"", "5:00":"", "6:00":""}
@@ -593,43 +605,43 @@ def schedule():
 
         if ( i['CourseActivity']["L1"]["times"][1]!= "0" ):
             Monday += i['Name'] + " - L1" + i['CourseActivity']["L1"]["times"][1]
-            Monday2[ i['CourseActivity']["L1"]["times"][1] ] += i['Name'] + " L1"
+            Monday2[ i['CourseActivity']["L1"]["times"][1] ] += i['Name'] + " L1 \n"
         
         if ( i['CourseActivity']["P1"]["times"][1]!= "0" ):
             Monday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][1]
-            Monday2[ i['CourseActivity']["P1"]["times"][1] ] += i['Name'] + " P1"
+            Monday2[ i['CourseActivity']["P1"]["times"][1] ] += i['Name'] + " P1 \n"
         
         if ( i['CourseActivity']["L1"]["times"][2]!= "0" ):
             Tuesday += i['Name'] + " L1" + i['CourseActivity']["L1"]["times"][2]
-            Tuesday2[ i['CourseActivity']["L1"]["times"][2] ] += i['Name'] + " L1"
+            Tuesday2[ i['CourseActivity']["L1"]["times"][2] ] += i['Name'] + " L1 \n"
 
         if ( i['CourseActivity']["P1"]["times"][2]!= "0" ):
             Tuesday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][2]
-            Tuesday2[ i['CourseActivity']["P1"]["times"][2] ] += i['Name'] + " P1"
+            Tuesday2[ i['CourseActivity']["P1"]["times"][2] ] += i['Name'] + " P1 \n"
         
         if ( i['CourseActivity']["L1"]["times"][3]!= "0" ):
             Wednesday += i['Name']+ " L1" + i['CourseActivity']["L1"]["times"][3]
-            Wednesday2[ i['CourseActivity']["P1"]["times"][3] ] += i['Name'] + " P1"
+            Wednesday2[ i['CourseActivity']["P1"]["times"][3] ] += i['Name'] + " P1 \n"
         
         if ( i['CourseActivity']["P1"]["times"][3]!= "0" ):
             Wednesday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][3]
-            Wednesday2[ i['CourseActivity']["P1"]["times"][3] ] += i['Name'] + " P1"
+            Wednesday2[ i['CourseActivity']["P1"]["times"][3] ] += i['Name'] + " P1 \n"
         
         if ( i['CourseActivity']["L1"]["times"][4]!= "0" ):
             Thursday += i['Name'] + " L1" + i['CourseActivity']["L1"]["times"][4]
-            Thursday2[ i['CourseActivity']["L1"]["times"][4] ] += i['Name'] + " L1"
+            Thursday2[ i['CourseActivity']["L1"]["times"][4] ] += i['Name'] + " L1 \n"
 
         if ( i['CourseActivity']["P1"]["times"][4]!= "0" ):
             Thursday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][4]
-            Thursday2[ i['CourseActivity']["P1"]["times"][4] ] += i['Name'] + " P1"
+            Thursday2[ i['CourseActivity']["P1"]["times"][4] ] += i['Name'] + " P1 \n"
         
         if ( i['CourseActivity']["L1"]["times"][5]!= "0" ):
             Friday += i['Name'] + " L1" + i['CourseActivity']["P1"]["times"][5]
-            Friday2[ i['CourseActivity']["L1"]["times"][5] ] += i['Name'] + " L1"
+            Friday2[ i['CourseActivity']["L1"]["times"][5] ] += i['Name'] + " L1  \n"
 
         if ( i['CourseActivity']["P1"]["times"][5]!= "0" ):
             Friday += i['Name'] + " P1" + i['CourseActivity']["P1"]["times"][5]
-            Friday2[ i['CourseActivity']["P1"]["times"][5] ] += i['Name'] + " P1"
+            Friday2[ i['CourseActivity']["P1"]["times"][5] ] += i['Name'] + " P1 \n"
 
     today = date.today()
     # Textual month, day and year	
@@ -659,6 +671,7 @@ def coursesAdd():
 
     global menu_type
     menu_type = 2
+    student_year_currently = session["student_year_currently"]
 
     form = CourseSelectTermForm()
     if form.validate_on_submit():
@@ -681,19 +694,22 @@ def coursesLookup(term, year):
     global menu_type
     menu_type = 2
     studentid = session['userid']
+    student_year_currently = session['student_year_currently']
 
     global username
     username = session['username']
 
-    semester = 1
-
     course_list = list(db.course.find({'Year':year, 'Term': term}))
-    registered_list = list(db.registration.find({'studentID': studentid}))
+    registered_list = list(db.registration.find({'studentID': studentid, 'Semester': str(student_year_currently) }))
 
     # Record User Activity
     loguseractvity("Lookup", "/courses/add/lookup")
+
+    yearIssue = 0
+    if int(student_year_currently) > int(year):
+        yearIssue = 1
     
-    return render_template('course-lookup.html', user = username, term = term, year = year, studentID = studentid, title='Add a Course / Lookup a Course', course_list=course_list, registered_list = registered_list)
+    return render_template('course-lookup.html', yearIssue = yearIssue, user = username, term = term, year = year, studentID = studentid, title='Add a Course / Lookup a Course', course_list=course_list, registered_list = registered_list)
 
 @app.route('/api/register/<studentid>/<courseid>/<term>/<year>')
 @login_required 
@@ -743,7 +759,7 @@ def courseDetail(course):
 @login_required
 def coursesFind():
 
-    course_list = list(db.course.find({}))
+    course_list = list(db.course.find({}).limit(5))
     form = CourseFinderForm()
 
     QuickLinks = getUserQuickLinks()
@@ -1092,6 +1108,11 @@ def eventsview():
     loguseractvity("View", "/events")
     
     data = list(db.events.find({}))
+    for i in data:
+        eventID = i["_id"]
+        registeredstudents = db.event_student.find({"eventid":ObjectId(eventID)}).count()
+        i["eventCount"] = registeredstudents
+
     return render_template('event-view.html', userID = userID, data = data,title='View Events', user = username)
 
 @app.route('/events/add', methods = ['GET', 'POST'])
@@ -1105,6 +1126,8 @@ def eventsadd():
     global username
     menu_type = 3
     username = session['username']
+    userid = session['userid']
+
     filename = ""
     if request.method == 'POST':
         eventDate=form.data["eventDate"]
@@ -1123,7 +1146,7 @@ def eventsadd():
 
             #file.save(os.path.join(app.config['UPLOAD_FOLDER'] + "/" + directory , filename))
 
-        events_id = db.events.insert_one({"name": form.data["name"],"eventDate":form.data["eventDate"], "description":form.data["description"],"location":form.data["location"],"photo": filename})
+        events_id = db.events.insert_one({"name": form.data["name"],"eventDate":form.data["eventDate"], "description":form.data["description"],"location":form.data["location"],"photo": filename, "studentid":userid})
 
         # Record User Activity
         loguseractvity("Add", "/events/add")
@@ -1231,7 +1254,7 @@ def eventsregisterview():
                 'studentid': userid
             }
         }, {
-            '$limit': 2
+            '$limit': 10
         }, {
             '$lookup': {
                 'from': 'events', 

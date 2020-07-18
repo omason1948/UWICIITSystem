@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
 
-        <div class = "col-sm-8">
+        <div class = "col-sm-8 offset-sm-2">
             
             <p> You searched for the course "{{keyword}}" </p> 
             
@@ -31,25 +31,6 @@
             </table>
             
         </div>
-
-        <div class="col-sm-4">
-
-            <h5> Upcoming Course Today </h5>
-
-            <p> Advanced Database <br/>
-                9:00 AM - 11:30 AM <br/>
-                Dr. Mugisa </p>
-
-            <h5> Quick Links </h5>
-            
-            <ul class = "quicklinks">
-                {% for i in range(0,4): %}
-                    <li><a href = "{{ QuickLinks[i][0] }}">{{ QuickLinks[i][1] }}</a></li>
-                {% endfor %}
-            </ul>
-
-        </div>
-
     </div>
 </div>
 
