@@ -412,7 +412,7 @@ def setSessionInformation(userID, name, email, userType):
     session['email'] = email
     session['logged_in'] = True
     session['userType'] = userType
-    session['userPhoto'] = list(db.student.find({"studentId" : userID}))
+    session['userPhoto'] = db.student.find_one({"studentId" : userID})
 
     if userType == 2:
         session['admin_logged_in'] = True
@@ -876,6 +876,7 @@ def query():
     global username
     menu_type = 1
     username = session['username']
+    userPhoto = session['userPhoto']
 
     form = QueryForm()
     userId = int(session['userid'])
@@ -900,6 +901,7 @@ def queryhistory():
     menu_type = 1
     username = session['username']
     email = session['email']
+    userPhoto = session['userPhoto']
 
     userId = int(session['userid'])
     data = list(db.query.find({"studentId" : userId}))
