@@ -284,8 +284,12 @@ def login():
                 # Define if user is an admin or student
                 global userType
                 userType = UserLoggedIn['userType']
-                current_year = UserLoggedIn['program'][0]['term']
-                current_year = current_year.split('/')[0]
+
+                current_year = 2020
+                if( userType == "1"):
+                    current_year = UserLoggedIn['program'][0]['term']
+                    current_year = current_year.split('/')[0]
+
                 if( userType == "2"):
                     
                     userRoles = UserLoggedIn['roles']

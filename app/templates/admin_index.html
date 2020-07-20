@@ -39,7 +39,7 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <h5 class="card-title">Events</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Upcoming Events</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">Total Events</h6>
                                 <a href="/admin/events" class="card-link">View List</a>
                             </div>
                             <div class="col-sm-4">
@@ -59,7 +59,7 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <h5 class="card-title">Transcript Request</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Outstanding Request</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">Student Request</h6>
                                 <a href="/admin/transcripts" class="card-link">View List</a>
                             </div>
                             <div class="col-sm-4">
@@ -83,16 +83,14 @@
             <div class="col-sm-6">
         
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#new">New</a></li>
-                    <li><a data-toggle="tab" href="#progress">In Progress</a></li>
-                    <li><a data-toggle="tab" href="#overdue">Over Due</a></li>
+                    <li class="active"><a data-toggle="tab" href="#new">Latest Queries</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div id="new" class="tab-pane fade in active show">
                         
                         {% for query in queries %}
-                            <li class="list-group-item"> {{query.studentIssues}} <br/> {{query.studentName}} - {{query.queryDesc}} </li>
+                            <li class="list-group-item"> <b>{{query.studentIssues}}</b> <br/> {{query.studentName}} - {{query.queryDesc}} </li>
                         {% endfor %}
 
                     </div>
@@ -114,7 +112,7 @@
                     <div class="card-header">Activity Timeline</div>
                     <ul class="list-group list-group-flush">
                         {% for log in userLogs %}
-                            <li class="list-group-item"> <img src = "{{ url_for('static', filename='images/user-avatar.png') }}" width="22" alt=""> User {{log.user}} accessed {{log.location}} at {{log.timestamp}} </li>
+                            <li class="list-group-item"> <img src = "{{ url_for('static', filename='images/user-avatar.png') }}" width="22" alt=""> User {{log.user}} accessed {{log.location}} <br/> <small>{{log.timestamp}} </small></li>
                         {% endfor %}
                     </ul>
                 </div>
