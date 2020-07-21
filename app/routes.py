@@ -452,7 +452,7 @@ def registration():
         {
             'title': "Registration Status",
             'image': 'Beautiful day in Portland!',
-            'description': 'Find out the status of your UWICIIT Registration and if you have outstanding issues / holds',
+            'description': 'Find out your UWICIIT Registration status and if you have outstanding issues / holds.',
             'link': '/registration/status'
         },
         {
@@ -464,13 +464,13 @@ def registration():
         {
             'title': "Find a Course",
             'image': 'Beautiful day in Portland!',
-            'description': 'Find courses that are related to your field of study for your entire year of study',
+            'description': 'Find courses that are related to your field of study for your entire year of study.',
             'link': '/courses/find'
         },
         {
             'title': "Schedule Details",
             'image': 'Beautiful day in Portland!',
-            'description': 'Get on top of your study schedule with all of the dates you have classes and exams',
+            'description': 'Get on top of your study schedule with all of the dates you have classes and exams.',
             'link': '/schedule'
         },
         {
@@ -482,7 +482,7 @@ def registration():
         {
             'title': "Grades",
             'image': 'Beautiful day in Portland!',
-            'description': 'View a list of your grades for the entire year broken down into exams and course work',
+            'description': 'View a list of your grades for the entire year broken down into exams and course work.',
             'link': '/grades/view'
         }
     ]
